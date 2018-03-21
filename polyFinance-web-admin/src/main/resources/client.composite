@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<composite xmlns="http://www.osoa.org/xmlns/sca/1.0" xmlns:tuscany="http://tuscany.apache.org/xmlns/sca/1.0" xmlns:scallop="http://scallop/xmlns/sca/1.0"
+           targetNamespace="http://sns.sohu.com/home/composite" xmlns:sample="http://sns.sohu.com/home/composite" name="HomeComposite">
+	
+
+
+
+
+    	
+	
+	 <!-- PolyFinanceLgdComponent -->
+	 
+	     <component name = "UserServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.UserSCAClient"/>
+    	   
+    	<reference name = "userService">
+    		<scallop:binding.rmi registryName = "user-polyFinance-lgd-server-rmi" serviceName="UserRMIService"/>
+    	</reference>
+    </component >
+        <component name = "UserBankServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.UserBankSCAClient"/>
+    	   
+    	<reference name = "userBankService">
+    		<scallop:binding.rmi registryName = "userBank-polyFinance-lgd-server-rmi" serviceName="UserBankRMIService"/>
+    	</reference>
+    </component >
+        <component name = "UserMessageServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.UserMessageSCAClient"/>
+    	   
+    	<reference name = "userMessageService">
+    		<scallop:binding.rmi registryName = "userMessage-polyFinance-lgd-server-rmi" serviceName="UserMessageRMIService"/>
+    	</reference>
+    </component >
+        <component name = "SysMessageServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.SysMessageSCAClient"/>
+    	   
+    	<reference name = "sysMessageService">
+    		<scallop:binding.rmi registryName = "sysMessage-polyFinance-lgd-server-rmi" serviceName="SysMessageRMIService"/>
+    	</reference>
+    </component >
+        <component name = "SysMessageReadedServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.SysMessageReadedSCAClient"/>
+    	   
+    	<reference name = "sysMessageReadedService">
+    		<scallop:binding.rmi registryName = "sysMessageReaded-polyFinance-lgd-server-rmi" serviceName="SysMessageReadedRMIService"/>
+    	</reference>
+    </component >
+        <component name = "InvestRecordServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.InvestRecordSCAClient"/>
+    	   
+    	<reference name = "investRecordService">
+    		<scallop:binding.rmi registryName = "investRecord-polyFinance-lgd-server-rmi" serviceName="InvestRecordRMIService"/>
+    	</reference>
+    </component >
+        <component name = "ProductServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.ProductSCAClient"/>
+    	   
+    	<reference name = "productService">
+    		<scallop:binding.rmi registryName = "product-polyFinance-lgd-server-rmi" serviceName="ProductRMIService"/>
+    	</reference>
+    </component >
+        <component name = "RepaymentServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.RepaymentSCAClient"/>
+    	   
+    	<reference name = "repaymentService">
+    		<scallop:binding.rmi registryName = "repayment-polyFinance-lgd-server-rmi" serviceName="RepaymentRMIService"/>
+    	</reference>
+    </component >
+        <component name = "TradingRecordServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.TradingRecordSCAClient"/>
+    	   
+    	<reference name = "tradingRecordService">
+    		<scallop:binding.rmi registryName = "tradingRecord-polyFinance-lgd-server-rmi" serviceName="TradingRecordRMIService"/>
+    	</reference>
+    </component >
+        <component name = "DebtorMatchServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.DebtorMatchSCAClient"/>
+    	   
+    	<reference name = "debtorMatchService">
+    		<scallop:binding.rmi registryName = "debtorMatch-polyFinance-lgd-server-rmi" serviceName="DebtorMatchRMIService"/>
+    	</reference>
+    </component >
+        <component name = "DebtorServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.DebtorSCAClient"/>
+    	   
+    	<reference name = "debtorService">
+    		<scallop:binding.rmi registryName = "debtor-polyFinance-lgd-server-rmi" serviceName="DebtorRMIService"/>
+    	</reference>
+    </component >
+        <component name = "ContentServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.ContentSCAClient"/>
+    	   
+    	<reference name = "contentService">
+    		<scallop:binding.rmi registryName = "content-polyFinance-lgd-server-rmi" serviceName="ContentRMIService"/>
+    	</reference>
+    </component >
+        <component name = "SuggestionServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.SuggestionSCAClient"/>
+    	   
+    	<reference name = "suggestionService">
+    		<scallop:binding.rmi registryName = "suggestion-polyFinance-lgd-server-rmi" serviceName="SuggestionRMIService"/>
+    	</reference>
+    </component >
+        <component name = "BankListServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.BankListSCAClient"/>
+    	   
+    	<reference name = "bankListService">
+    		<scallop:binding.rmi registryName = "bankList-polyFinance-lgd-server-rmi" serviceName="BankListRMIService"/>
+    	</reference>
+    </component >
+        <component name = "AdminServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.AdminSCAClient"/>
+    	   
+    	<reference name = "adminService">
+    		<scallop:binding.rmi registryName = "admin-polyFinance-lgd-server-rmi" serviceName="AdminRMIService"/>
+    	</reference>
+    </component >
+        <component name = "AdminRoleServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.AdminRoleSCAClient"/>
+    	   
+    	<reference name = "adminRoleService">
+    		<scallop:binding.rmi registryName = "adminRole-polyFinance-lgd-server-rmi" serviceName="AdminRoleRMIService"/>
+    	</reference>
+    </component >
+        <component name = "ModuleServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.ModuleSCAClient"/>
+    	   
+    	<reference name = "moduleService">
+    		<scallop:binding.rmi registryName = "module-polyFinance-lgd-server-rmi" serviceName="ModuleRMIService"/>
+    	</reference>
+    </component >
+        <component name = "SettingsServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.SettingsSCAClient"/>
+    	   
+    	<reference name = "settingsService">
+    		<scallop:binding.rmi registryName = "settings-polyFinance-lgd-server-rmi" serviceName="SettingsRMIService"/>
+    	</reference>
+    </component >
+        <component name = "CountServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.CountSCAClient"/>
+    	   
+    	<reference name = "countService">
+    		<scallop:binding.rmi registryName = "count-polyFinance-lgd-server-rmi" serviceName="CountRMIService"/>
+    	</reference>
+    </component >
+        <component name = "AuthorityServiceComponent">
+    	<implementation.java class = "com.ptteng.polyFinance.lgd.client.AuthoritySCAClient"/>
+    	   
+    	<reference name = "authorityService">
+    		<scallop:binding.rmi registryName = "authority-polyFinance-lgd-server-rmi" serviceName="AuthorityRMIService"/>
+    	</reference>
+    </component >
+    	
+	
+</composite>
+

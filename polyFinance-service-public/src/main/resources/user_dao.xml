@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dal>
+    <route>
+        <object name="com.ptteng.polyFinance.lgd.model.User"
+                listenerClass="" strategyProperty="">
+
+
+            <list name="getUserIdsAll" sqlitem="select id from user where 1 = 1 order by create_at desc"
+                  keyProperty="version" valueProperty="id" keyColumn="version"/>
+
+            <map name = "getObjectByPhoneNum" sqlitem = "select id from user where phone_num = ?" keyProperty="phoneNum" valueProperty="id" keyColumn="phone_num" />
+
+            <dbStrategy name="mutiDS"
+                        clasz="com.gemantic.dal.route.strategy.DefaultStrategy">
+                <pattern value="[0-9]$" group="polyFinance_lgd"/>
+            </dbStrategy>
+
+        </object>
+    </route>
+</dal>

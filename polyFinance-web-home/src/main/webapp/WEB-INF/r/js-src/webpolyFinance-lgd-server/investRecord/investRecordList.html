@@ -1,0 +1,241 @@
+<div class="row pd-top-2">
+    <div class=" col-md-12 pd-top-2 pd-bottom-2  panel panel-default">
+        <form class="form-inline form-search" role="form">
+           
+           
+                        <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">自增长ID名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.id">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">关联user表id名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.userId">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">关联product表id名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.productId">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">产品名称名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.productName">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">收益率(无%)名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.productInterestRate">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">还款方式名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.productPaymentMethod">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">起投金额名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.productInterestAmountLine">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">回款银行名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.repaymentBank">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">回款银行卡号名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.repaymentCard">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">回款银行名称名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.repaymentBankName">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">投资金额名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.investAmount">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">出借合同编号名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.comodatoNum">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">债权协议编号名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.intercreditorAgreement">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">投资状态名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.investStatus">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">未分配收益名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.undistributedIncome">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">分配收益名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.distributionIncome">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">起息日名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.valueDay">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">到息日名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.valueEndDay">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">创建时间名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.createAt">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">创建人id名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.createBy">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">更新时间名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.updateAt">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">更新人名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.updateBy">
+            </div>
+                 
+                     
+         
+           
+            <div class="form-group col-md-6 col-md-offset-1">
+         
+                <button class="btn btn-primary pull-right"style="margin-right: 2%;"
+                        ng-click="vm.search()">查询
+                </button>
+                <button class="btn btn-primary pull-right"
+                        ng-if="vm.hasParent" ng-click="vm.research()"
+                        style="margin-right:2%;">重置
+                </button>
+
+            </div>
+        </form>
+    </div>
+
+    <div class="row">
+        <div class=" col-md-12 ">
+            <div class="  panel panel-default">
+                <div class="panel-heading">
+                
+                
+                    管理
+                    <div class="btn-group pull-right" ng-if="vm.params.id">
+                        <div class="btn btn-primary btn-xs" ng-if="globalPermission.created" ui-sref="field.investRecord()">
+                            <i class="fa fa-plus-square fa-fw"></i>
+                            新增
+                        </div>
+                    </div>
+           
+                    
+                    
+                    
+                    
+                </div>
+
+                <div class="panel-body">
+                    <ul class="ul-table-head row">
+                        <li>
+                        
+                            <div class="three1 text-center">序号</div>
+                                                                                           <div class="three1 text-center">自增长ID</div>  
+                                                                                                                           <div class="three1 text-center">关联user表id</div>  
+                                                                                                                           <div class="three1 text-center">关联product表id</div>  
+                                                                                                                           <div class="three1 text-center">产品名称</div>  
+                                                                                                                           <div class="three1 text-center">收益率(无%)</div>  
+                                                                                                                           <div class="three1 text-center">还款方式</div>  
+                                                                                                                           <div class="three1 text-center">起投金额</div>  
+                                                                                                                           <div class="three1 text-center">回款银行</div>  
+                                                                                                                           <div class="three1 text-center">回款银行卡号</div>  
+                                                                                                                           <div class="three1 text-center">回款银行名称</div>  
+                                                                                                                           <div class="three1 text-center">投资金额</div>  
+                                                                                                                           <div class="three1 text-center">出借合同编号</div>  
+                                                                                                                           <div class="three1 text-center">债权协议编号</div>  
+                                                                                                                           <div class="three1 text-center">投资状态</div>  
+                                                                                                                           <div class="three1 text-center">未分配收益</div>  
+                                                                                                                           <div class="three1 text-center">分配收益</div>  
+                                                                                                                           <div class="three1 text-center">起息日</div>  
+                                                                                                                           <div class="three1 text-center">到息日</div>  
+                                                                                                                           <div class="three1 text-center">创建时间</div>  
+                                                                                                                           <div class="three1 text-center">创建人id</div>  
+                                                                                                                           <div class="three1 text-center">更新时间</div>  
+                                                                                                                           <div class="three1 text-center">更新人</div>  
+                                                                                         <div class="three3 text-center">操作</div>
+                          
+                            
+                        </li>
+                    </ul>
+                    <ul class="ul-table" dnd-list="vm.list">
+                        <li ng-repeat="item in vm.list"
+                            dnd-draggable="item"
+                            dnd-moved="vm.list.splice(22, 1)"
+                            dnd-effect-allowed="move"
+                            dnd-selected="vm.list.selected = item"
+                            ng-class="{'selected': vm.list.selected === item}"
+                        >
+                            <div class="three1">{{22*1+1}}</div>
+                                                                                           <div class="three2">{{item.id}}</div>  
+                                                                                                                            <div class="three2">{{item.userId}}</div>  
+                                                                                                                            <div class="three2">{{item.productId}}</div>  
+                                                                                                                            <div class="three2">{{item.productName}}</div>  
+                                                                                                                            <div class="three2">{{item.productInterestRate}}</div>  
+                                                                                                                            <div class="three2">{{item.productPaymentMethod}}</div>  
+                                                                                                                            <div class="three2">{{item.productInterestAmountLine}}</div>  
+                                                                                                                            <div class="three2">{{item.repaymentBank}}</div>  
+                                                                                                                            <div class="three2">{{item.repaymentCard}}</div>  
+                                                                                                                            <div class="three2">{{item.repaymentBankName}}</div>  
+                                                                                                                            <div class="three2">{{item.investAmount}}</div>  
+                                                                                                                            <div class="three2">{{item.comodatoNum}}</div>  
+                                                                                                                            <div class="three2">{{item.intercreditorAgreement}}</div>  
+                                                                                                                            <div class="three2">{{item.investStatus}}</div>  
+                                                                                                                            <div class="three2">{{item.undistributedIncome}}</div>  
+                                                                                                                            <div class="three2">{{item.distributionIncome}}</div>  
+                                                                                                                            <div class="three2">{{item.valueDay}}</div>  
+                                                                                                                            <div class="three2">{{item.valueEndDay}}</div>  
+                                                                                                                            <div class="three2">{{item.createAt}}</div>  
+                                                                                                                            <div class="three2">{{item.createBy}}</div>  
+                                                                                                                            <div class="three2">{{item.updateAt}}</div>  
+                                                                                                                            <div class="three2">{{item.updateBy}}</div>  
+                                                                                         
+                           
+                            
+                            
+                            
+                            <div class="three3">
+                              
+                                <button class="btn btn-default btn-xs"
+                                        ui-sref="field.investRecord({id:item.id})">查看
+                                </button>
+                                <button class="btn btn-default btn-xs"  ng-if="globalPermission.updated"
+                                        ui-sref="field.investRecord({id:item.id})">编辑
+                                </button>
+                                <button class="btn btn-danger btn-xs" ng-if="globalPermission.deleted" data-toggle="modal" data-target="#myModal"
+                                        ng-click="vm.del(item.id, 22)">删除
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<paging ng-if="vm.page" next="{{vm.page}}"></paging>
+

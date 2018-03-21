@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dal>
+	<route>
+		<object name="com.ptteng.polyFinance.lgd.model.Authority"
+			listenerClass="" strategyProperty="">
+			
+			
+			
+					<list name="getAuthorityIdsByAdminRoleId"
+				sqlitem="select id from authority where admin_role_id = ?"
+				keyProperty="adminRoleId" valueProperty="id" keyColumn="admin_role_id" />
+						
+			
+						
+			
+					<list name="getAuthorityIdsAll" sqlitem="select id from authority where 1 = 1 order by create_at desc"
+				keyProperty="version" valueProperty="id" keyColumn="version" />
+			
+			<dbStrategy name="mutiDS"
+                clasz="com.gemantic.dal.route.strategy.DefaultStrategy">  <pattern value="[0-9]$" group="polyFinance_lgd" />
+            </dbStrategy>
+			
+		</object>
+	</route>
+</dal>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<composite xmlns="http://www.osoa.org/xmlns/sca/1.0" xmlns:tuscany="http://tuscany.apache.org/xmlns/sca/1.0"
+           xmlns:scallop="http://scallop/xmlns/sca/1.0"
+           targetNamespace="http://PolyFinanceLgdComponent" xmlns:sample="http://PolyFinanceLgdComponent"
+           name="PolyFinanceLgdComponent">
+
+    <component name="PolyFinanceLgdComponent">
+        <implementation.spring location="applicationContext-server.xml"/>
+    </component>
+
+    <service name="repaymentService" promote="PolyFinanceLgdComponent/repaymentService">
+        <interface.java interface="com.ptteng.polyFinance.lgd.service.RepaymentService"/>
+        <scallop:binding.rmi host="localhost" port="20311" serviceName="RepaymentRMIService"/>
+    </service>
+
+    <service name="countService" promote="PolyFinanceLgdComponent/countService">
+        <interface.java interface="com.ptteng.polyFinance.lgd.service.CountService"/>
+        <scallop:binding.rmi host="localhost" port="20311" serviceName="CountRMIService"/>
+    </service>
+
+
+</composite>
+

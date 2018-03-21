@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<datasources>
+		<ds name="polyFinance_lgd"
+			driverClassName="com.mysql.jdbc.Driver"
+			url="jdbc:mysql://rm-wz9oexky20j20h2w01o.mysql.rds.aliyuncs.com:3306/polyFinance_lgd?defaultBatchValue=1000"
+			username="root"
+			password="Root1234"
+			maxActive="50"
+			maxIdle="50"
+			maxWait="10"
+            check="true"
+		/>
+		 <ds name="idCenterDS"
+			driverClassName="com.mysql.jdbc.Driver"
+			url="jdbc:mysql://gemantic.weibo.db:3306/resources?defaultBatchValue=1000"
+			username="arthur"
+			password="arthur"
+			maxActive=""
+			maxIdle=""
+			maxWait=""
+            check="true"
+		/>  
+	</datasources>
+	<groups>
+		<group name="polyFinance_lgd" master="polyFinance_lgd"  />			
+	</groups>
+</root>
+
+

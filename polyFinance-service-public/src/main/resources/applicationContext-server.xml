@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:sca="http://www.springframework.org/schema/sca"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+            http://www.springframework.org/schema/sca http://www.springframework.org/schema/sca/spring-sca.xsd">
+
+    <context:component-scan base-package="com.ptteng.polyFinance.lgd"/>
+
+
+    <sca:service name="userService"
+                 type="com.ptteng.polyFinance.lgd.service.UserService" target="userService"/>
+
+
+    <sca:service name="userBankService"
+                 type="com.ptteng.polyFinance.lgd.service.UserBankService" target="userBankService"/>
+
+
+    <sca:service name="userMessageService"
+                 type="com.ptteng.polyFinance.lgd.service.UserMessageService" target="userMessageService"/>
+
+
+    <sca:service name="adminService"
+                 type="com.ptteng.polyFinance.lgd.service.AdminService" target="adminService"/>
+
+
+    <sca:service name="adminRoleService"
+                 type="com.ptteng.polyFinance.lgd.service.AdminRoleService" target="adminRoleService"/>
+
+
+    <sca:service name="moduleService"
+                 type="com.ptteng.polyFinance.lgd.service.ModuleService" target="moduleService"/>
+
+
+    <sca:service name="settingsService"
+                 type="com.ptteng.polyFinance.lgd.service.SettingsService" target="settingsService"/>
+
+
+    <sca:service name="authorityService"
+                 type="com.ptteng.polyFinance.lgd.service.AuthorityService" target="authorityService"/>
+
+
+
+    <bean id="userService"
+          class="com.ptteng.polyFinance.lgd.service.impl.UserServiceImpl" parent="baseDaoService">
+
+    </bean>
+
+    <bean id="userBankService"
+          class="com.ptteng.polyFinance.lgd.service.impl.UserBankServiceImpl" parent="baseDaoService">
+
+    </bean>
+
+    <bean id="userMessageService"
+          class="com.ptteng.polyFinance.lgd.service.impl.UserMessageServiceImpl" parent="baseDaoService">
+
+    </bean>
+
+
+    <bean id="adminService"
+          class="com.ptteng.polyFinance.lgd.service.impl.AdminServiceImpl" parent="baseDaoService">
+
+    </bean>
+
+    <bean id="adminRoleService"
+          class="com.ptteng.polyFinance.lgd.service.impl.AdminRoleServiceImpl" parent="baseDaoService">
+
+    </bean>
+
+    <bean id="moduleService"
+          class="com.ptteng.polyFinance.lgd.service.impl.ModuleServiceImpl" parent="baseDaoService">
+
+    </bean>
+
+    <bean id="settingsService"
+          class="com.ptteng.polyFinance.lgd.service.impl.SettingsServiceImpl" parent="baseDaoService">
+
+    </bean>
+
+
+    <bean id="authorityService"
+          class="com.ptteng.polyFinance.lgd.service.impl.AuthorityServiceImpl" parent="baseDaoService">
+
+    </bean>
+
+
+    <bean id="dao" class="com.gemantic.dal.dao.impl.CompositeDaoImpl"/>
+
+    <bean id="baseDaoService"
+          class="com.ptteng.common.dao.BaseDaoServiceImpl">
+        <property name="dao" ref="dao"/>
+    </bean>
+
+
+    <!-- performance -->
+    <aop:aspectj-autoproxy/>
+    <bean id="aroundLoggingTime" class="com.gemantic.common.stat.aop.time.AroundTimeConsume"/>
+    <aop:config>
+        <aop:aspect ref="aroundLoggingTime">
+            <aop:pointcut id="publicServiceMethod"
+                          expression="execution(* com.gemantic..service.*.*(..)) "/>
+            <aop:around method="around" pointcut-ref="publicServiceMethod"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>
+

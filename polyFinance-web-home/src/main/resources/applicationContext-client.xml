@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:sca="http://www.springframework.org/schema/sca"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+            http://www.springframework.org/schema/sca http://www.springframework.org/schema/sca/spring-sca.xsd">
+	
+	<context:annotation-config />
+    <context:component-scan base-package="com.gemantic"/>  
+	
+	
+	<bean id="scaClient"
+		class="com.gemantic.common.sca.service.SCAClientBean">
+		<property name="resource" value="client.composite" />
+	</bean>
+	
+	
+	<!-- ============================================================ -->
+	<!-- ==                    PolyFinanceLgdComponent                       == -->
+	<!-- ============================================================ -->
+	
+	 
+	
+	
+	<!-- UserService  -->
+
+	
+	<bean id="userService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="UserServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.UserService" />
+	</bean>
+
+	
+	
+	
+	
+	<!-- UserBankService  -->
+
+	
+	<bean id="userBankService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="UserBankServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.UserBankService" />
+	</bean>
+
+	
+	
+	
+	
+	<!-- UserMessageService  -->
+
+	
+	<bean id="userMessageService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="UserMessageServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.UserMessageService" />
+	</bean>
+
+	
+	
+	
+	
+	<!-- SysMessageService  -->
+
+	
+	<bean id="sysMessageService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="SysMessageServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.SysMessageService" />
+	</bean>
+
+	
+	
+	
+	
+	<!-- SysMessageReadedService  -->
+
+	
+	<bean id="sysMessageReadedService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="SysMessageReadedServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.SysMessageReadedService" />
+	</bean>
+
+	
+	
+	
+	
+	<!-- InvestRecordService  -->
+
+	
+	<bean id="investRecordService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="InvestRecordServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.InvestRecordService" />
+	</bean>
+
+	
+	
+	
+	
+	<!-- ProductService  -->
+
+	
+	<bean id="productService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="ProductServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.ProductService" />
+	</bean>
+
+	
+	
+	
+	
+	<!-- RepaymentService  -->
+
+	
+	<bean id="repaymentService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="RepaymentServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.RepaymentService" />
+	</bean>
+
+	
+	
+	
+	
+	<!-- TradingRecordService  -->
+
+	
+	<bean id="tradingRecordService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="TradingRecordServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.TradingRecordService" />
+	</bean>
+
+	
+	
+	
+	
+	<!-- DebtorMatchService  -->
+
+	
+	<bean id="debtorMatchService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="DebtorMatchServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.DebtorMatchService" />
+	</bean>
+
+	
+	
+	
+	
+	<!-- DebtorService  -->
+
+	
+	<bean id="debtorService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="DebtorServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.DebtorService" />
+	</bean>
+
+	
+	
+	
+	
+	<!-- ContentService  -->
+
+	
+	<bean id="contentService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="ContentServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.ContentService" />
+	</bean>
+
+	
+	
+	
+	
+	<!-- SuggestionService  -->
+
+	
+	<bean id="suggestionService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="SuggestionServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.SuggestionService" />
+	</bean>
+
+	
+	
+	
+	
+	<!-- BankListService  -->
+
+	
+	<bean id="bankListService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="BankListServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.BankListService" />
+	</bean>
+
+	
+	
+	
+	
+	<!-- AdminService  -->
+
+	
+	<bean id="adminService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="AdminServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.AdminService" />
+	</bean>
+
+	
+	
+	
+	
+	<!-- AdminRoleService  -->
+
+	
+	<bean id="adminRoleService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="AdminRoleServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.AdminRoleService" />
+	</bean>
+
+	
+	
+	
+	
+	<!-- ModuleService  -->
+
+	
+	<bean id="moduleService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="ModuleServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.ModuleService" />
+	</bean>
+
+	
+	
+	
+	
+	<!-- SettingsService  -->
+
+	
+	<bean id="settingsService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="SettingsServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.SettingsService" />
+	</bean>
+
+	
+	
+	
+	
+	<!-- CountService  -->
+
+	
+	<bean id="countService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="CountServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.CountService" />
+	</bean>
+
+	
+	
+	
+	
+	<!-- AuthorityService  -->
+
+	
+	<bean id="authorityService"
+		class="com.gemantic.common.sca.service.SCAClientServiceFactory">
+		<property name="client" ref="scaClient" />
+		<property name="component" value="AuthorityServiceComponent" />
+		<property name="className"
+			value="com.ptteng.polyFinance.lgd.service.AuthorityService" />
+	</bean>
+
+	
+		
+	
+	
+	
+	<!-- performance -->
+	
+	 <aop:aspectj-autoproxy />
+        <bean id="aroundLoggingTime" class="com.gemantic.common.stat.aop.time.AroundTimeConsume"/>
+        <aop:config>
+            <aop:aspect ref="aroundLoggingTime">
+                <aop:pointcut id="publicServiceMethod" expression="execution(* com.gemantic..service.*.*(..)) &amp;&amp; (!execution(* com.gemantic.common.sca.service.*.*(..)))" />
+                <aop:around method="around" pointcut-ref="publicServiceMethod"/>
+            </aop:aspect>
+        </aop:config>
+</beans>
+

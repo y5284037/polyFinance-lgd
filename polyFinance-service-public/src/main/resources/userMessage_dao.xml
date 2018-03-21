@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dal>
+	<route>
+		<object name="com.ptteng.polyFinance.lgd.model.UserMessage"
+			listenerClass="" strategyProperty="">
+			
+			
+			
+					<list name="getUserMessageIdsByUserIdAndMessageReadStatus"
+				sqlitem="select id from user_message where user_id =? and message_read_status = ?"
+				keyProperty="userId,messageReadStatus" valueProperty="id" keyColumn="user_id,message_read_status" />
+					<list name="getUserMessageIdsByUserId"
+				sqlitem="select id from user_message where user_id =?"
+				keyProperty="userId" valueProperty="id" keyColumn="user_id" />
+						
+			
+						
+			
+					<list name="getUserMessageIdsAll" sqlitem="select id from user_message where 1 = 1 order by create_at desc"
+				keyProperty="version" valueProperty="id" keyColumn="version" />
+			
+			<dbStrategy name="mutiDS"
+                clasz="com.gemantic.dal.route.strategy.DefaultStrategy">  <pattern value="[0-9]$" group="polyFinance_lgd" />
+            </dbStrategy>
+			
+		</object>
+	</route>
+</dal>

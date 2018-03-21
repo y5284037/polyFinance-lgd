@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dal>
+	<route>
+		<object name="com.ptteng.polyFinance.lgd.model.AdminRole"
+			listenerClass="" strategyProperty="">
+			
+			
+			
+						
+			
+						
+			
+					<list name="getAdminRoleIdsAll" sqlitem="select id from admin_role where 1 = 1 order by create_at desc"
+				keyProperty="version" valueProperty="id" keyColumn="version" />
+			
+			<dbStrategy name="mutiDS"
+                clasz="com.gemantic.dal.route.strategy.DefaultStrategy">  <pattern value="[0-9]$" group="polyFinance_lgd" />
+            </dbStrategy>
+			
+		</object>
+	</route>
+</dal>

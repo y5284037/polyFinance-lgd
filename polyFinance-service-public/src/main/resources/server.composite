@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<composite xmlns="http://www.osoa.org/xmlns/sca/1.0" xmlns:tuscany="http://tuscany.apache.org/xmlns/sca/1.0"
+           xmlns:scallop="http://scallop/xmlns/sca/1.0"
+           targetNamespace="http://PolyFinanceLgdComponent" xmlns:sample="http://PolyFinanceLgdComponent"
+           name="PolyFinanceLgdComponent">
+
+
+    <component name="PolyFinanceLgdComponent">
+        <implementation.spring location="applicationContext-server.xml"/>
+    </component>
+
+    <service name="userService" promote="PolyFinanceLgdComponent/userService">
+        <interface.java interface="com.ptteng.polyFinance.lgd.service.UserService"/>
+        <scallop:binding.rmi host="localhost" port="20309" serviceName="UserRMIService"/>
+    </service>
+    <service name="userBankService" promote="PolyFinanceLgdComponent/userBankService">
+        <interface.java interface="com.ptteng.polyFinance.lgd.service.UserBankService"/>
+        <scallop:binding.rmi host="localhost" port="20309" serviceName="UserBankRMIService"/>
+    </service>
+    <service name="userMessageService" promote="PolyFinanceLgdComponent/userMessageService">
+        <interface.java interface="com.ptteng.polyFinance.lgd.service.UserMessageService"/>
+        <scallop:binding.rmi host="localhost" port="20309" serviceName="UserMessageRMIService"/>
+    </service>
+
+
+    <service name="adminService" promote="PolyFinanceLgdComponent/adminService">
+        <interface.java interface="com.ptteng.polyFinance.lgd.service.AdminService"/>
+        <scallop:binding.rmi host="localhost" port="20309" serviceName="AdminRMIService"/>
+    </service>
+    <service name="adminRoleService" promote="PolyFinanceLgdComponent/adminRoleService">
+        <interface.java interface="com.ptteng.polyFinance.lgd.service.AdminRoleService"/>
+        <scallop:binding.rmi host="localhost" port="20309" serviceName="AdminRoleRMIService"/>
+    </service>
+    <service name="moduleService" promote="PolyFinanceLgdComponent/moduleService">
+        <interface.java interface="com.ptteng.polyFinance.lgd.service.ModuleService"/>
+        <scallop:binding.rmi host="localhost" port="20309" serviceName="ModuleRMIService"/>
+    </service>
+    <service name="settingsService" promote="PolyFinanceLgdComponent/settingsService">
+        <interface.java interface="com.ptteng.polyFinance.lgd.service.SettingsService"/>
+        <scallop:binding.rmi host="localhost" port="20309" serviceName="SettingsRMIService"/>
+    </service>
+
+    <service name="authorityService" promote="PolyFinanceLgdComponent/authorityService">
+        <interface.java interface="com.ptteng.polyFinance.lgd.service.AuthorityService"/>
+        <scallop:binding.rmi host="localhost" port="20309" serviceName="AuthorityRMIService"/>
+    </service>
+
+
+</composite>
+

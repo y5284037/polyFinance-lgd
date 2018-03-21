@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dal>
+	<route>
+		<object name="com.ptteng.polyFinance.lgd.model.InvestRecord"
+			listenerClass="" strategyProperty="">
+			
+			
+			
+					<list name="getInvestRecordIdsByUserIdAndInvestStatusOrderByCreateAt"
+				sqlitem="select id from invest_record where user_id = ? and invest_status = ? order by create_at desc"
+				keyProperty="userId,investStatus" valueProperty="id" keyColumn="user_id,invest_status" />
+					<list name="getInvestRecordIdsByProductId"
+				sqlitem="select id from invest_record where product_id = ?"
+				keyProperty="productId" valueProperty="id" keyColumn="product_id" />
+					<list name="getInvestRecordIdsByUserIdOrderByCreateAt"
+				sqlitem="select id from invest_record where user_id = ? order by create_at desc"
+				keyProperty="userId" valueProperty="id" keyColumn="user_id" />
+						
+			
+						
+			
+					<list name="getInvestRecordIdsAll" sqlitem="select id from invest_record where 1 = 1 order by create_at desc"
+				keyProperty="version" valueProperty="id" keyColumn="version" />
+			
+			<dbStrategy name="mutiDS"
+                clasz="com.gemantic.dal.route.strategy.DefaultStrategy">  <pattern value="[0-9]$" group="polyFinance_lgd" />
+            </dbStrategy>
+			
+		</object>
+	</route>
+</dal>

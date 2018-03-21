@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dal>
+	<route>
+		<object name="com.ptteng.polyFinance.lgd.model.Product"
+			listenerClass="" strategyProperty="">
+			
+			
+			
+					<list name="getProductIdsByRecommended"
+				sqlitem="select id from product where recommended = ?"
+				keyProperty="recommended" valueProperty="id" keyColumn="recommended" />
+					<list name="getProductIdsByRecommendedAndProductStatus"
+				sqlitem="select id from product where recommended = ? and product_status = ?"
+				keyProperty="recommended,productStatus" valueProperty="id" keyColumn="recommended,product_status" />
+						
+			
+						
+			
+					<list name="getProductIdsAll" sqlitem="select id from product where 1 = 1 order by create_at desc"
+				keyProperty="version" valueProperty="id" keyColumn="version" />
+			
+			<dbStrategy name="mutiDS"
+                clasz="com.gemantic.dal.route.strategy.DefaultStrategy">  <pattern value="[0-9]$" group="polyFinance_lgd" />
+            </dbStrategy>
+			
+		</object>
+	</route>
+</dal>

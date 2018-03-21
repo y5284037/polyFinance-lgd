@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<composite xmlns="http://www.osoa.org/xmlns/sca/1.0" xmlns:tuscany="http://tuscany.apache.org/xmlns/sca/1.0"
+           xmlns:scallop="http://scallop/xmlns/sca/1.0"
+           targetNamespace="http://PolyFinanceLgdComponent" xmlns:sample="http://PolyFinanceLgdComponent"
+           name="PolyFinanceLgdComponent">
+
+
+    <component name="PolyFinanceLgdComponent">
+        <implementation.spring location="applicationContext-server.xml"/>
+    </component>
+
+
+    <service name="sysMessageService" promote="PolyFinanceLgdComponent/sysMessageService">
+        <interface.java interface="com.ptteng.polyFinance.lgd.service.SysMessageService"/>
+        <scallop:binding.rmi host="localhost" port="20310" serviceName="SysMessageRMIService"/>
+    </service>
+    <service name="sysMessageReadedService" promote="PolyFinanceLgdComponent/sysMessageReadedService">
+        <interface.java interface="com.ptteng.polyFinance.lgd.service.SysMessageReadedService"/>
+        <scallop:binding.rmi host="localhost" port="20310" serviceName="SysMessageReadedRMIService"/>
+    </service>
+    <service name="investRecordService" promote="PolyFinanceLgdComponent/investRecordService">
+        <interface.java interface="com.ptteng.polyFinance.lgd.service.InvestRecordService"/>
+        <scallop:binding.rmi host="localhost" port="20310" serviceName="InvestRecordRMIService"/>
+    </service>
+    <service name="productService" promote="PolyFinanceLgdComponent/productService">
+        <interface.java interface="com.ptteng.polyFinance.lgd.service.ProductService"/>
+        <scallop:binding.rmi host="localhost" port="20310" serviceName="ProductRMIService"/>
+    </service>
+
+    <service name="tradingRecordService" promote="PolyFinanceLgdComponent/tradingRecordService">
+        <interface.java interface="com.ptteng.polyFinance.lgd.service.TradingRecordService"/>
+        <scallop:binding.rmi host="localhost" port="20310" serviceName="TradingRecordRMIService"/>
+    </service>
+    <service name="debtorMatchService" promote="PolyFinanceLgdComponent/debtorMatchService">
+        <interface.java interface="com.ptteng.polyFinance.lgd.service.DebtorMatchService"/>
+        <scallop:binding.rmi host="localhost" port="20310" serviceName="DebtorMatchRMIService"/>
+    </service>
+    <service name="debtorService" promote="PolyFinanceLgdComponent/debtorService">
+        <interface.java interface="com.ptteng.polyFinance.lgd.service.DebtorService"/>
+        <scallop:binding.rmi host="localhost" port="20310" serviceName="DebtorRMIService"/>
+    </service>
+
+
+    <service name="bankListService" promote="PolyFinanceLgdComponent/bankListService">
+        <interface.java interface="com.ptteng.polyFinance.lgd.service.BankListService"/>
+        <scallop:binding.rmi host="localhost" port="20310" serviceName="BankListRMIService"/>
+    </service>
+
+
+</composite>
+

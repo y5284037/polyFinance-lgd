@@ -1,0 +1,227 @@
+<div class="row pd-top-2">
+    <div class=" col-md-12 pd-top-2 pd-bottom-2  panel panel-default">
+        <form class="form-inline form-search" role="form">
+           
+           
+                        <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">自增长ID名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.id">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">产品代号名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.productMark">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">产品名称名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.name">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">收益率(无%)名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.interestRate">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">投资期限(天)名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.financialPeriodDay">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">投资期限(月)名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.financialPeriodMonth">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">还款方式名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.paymentMethod">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">起息日期(延后多少天算利息)名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.interestDelayed">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">产品状态名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.productStatus">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">起投金额名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.interestAmountLine">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">备注名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.remark">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">更多详情名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.detailsPic">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">热门产品名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.hotCornerMark">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">新近产品名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.newCornerMark">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">精品推荐名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.recommended">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">限购名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.limited">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">注册时间名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.createAt">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">更新时间名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.updateAt">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">创建人名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.createBy">
+            </div>
+                 
+                      <div class="form-group col-md-4 col-md-offset-1">
+                <label class="control-label">更新人名称：</label>
+                <input type="text" class="form-control" ng-model="vm.params.updateBy">
+            </div>
+                 
+                     
+         
+           
+            <div class="form-group col-md-6 col-md-offset-1">
+         
+                <button class="btn btn-primary pull-right"style="margin-right: 2%;"
+                        ng-click="vm.search()">查询
+                </button>
+                <button class="btn btn-primary pull-right"
+                        ng-if="vm.hasParent" ng-click="vm.research()"
+                        style="margin-right:2%;">重置
+                </button>
+
+            </div>
+        </form>
+    </div>
+
+    <div class="row">
+        <div class=" col-md-12 ">
+            <div class="  panel panel-default">
+                <div class="panel-heading">
+                
+                
+                    管理
+                    <div class="btn-group pull-right" ng-if="vm.params.id">
+                        <div class="btn btn-primary btn-xs" ng-if="globalPermission.created" ui-sref="field.product()">
+                            <i class="fa fa-plus-square fa-fw"></i>
+                            新增
+                        </div>
+                    </div>
+           
+                    
+                    
+                    
+                    
+                </div>
+
+                <div class="panel-body">
+                    <ul class="ul-table-head row">
+                        <li>
+                        
+                            <div class="three1 text-center">序号</div>
+                                                                                           <div class="three1 text-center">自增长ID</div>  
+                                                                                                                           <div class="three1 text-center">产品代号</div>  
+                                                                                                                           <div class="three1 text-center">产品名称</div>  
+                                                                                                                           <div class="three1 text-center">收益率(无%)</div>  
+                                                                                                                           <div class="three1 text-center">投资期限(天)</div>  
+                                                                                                                           <div class="three1 text-center">投资期限(月)</div>  
+                                                                                                                           <div class="three1 text-center">还款方式</div>  
+                                                                                                                           <div class="three1 text-center">起息日期(延后多少天算利息)</div>  
+                                                                                                                           <div class="three1 text-center">产品状态</div>  
+                                                                                                                           <div class="three1 text-center">起投金额</div>  
+                                                                                                                           <div class="three1 text-center">备注</div>  
+                                                                                                                           <div class="three1 text-center">更多详情</div>  
+                                                                                                                           <div class="three1 text-center">热门产品</div>  
+                                                                                                                           <div class="three1 text-center">新近产品</div>  
+                                                                                                                           <div class="three1 text-center">精品推荐</div>  
+                                                                                                                           <div class="three1 text-center">限购</div>  
+                                                                                                                           <div class="three1 text-center">注册时间</div>  
+                                                                                                                           <div class="three1 text-center">更新时间</div>  
+                                                                                                                           <div class="three1 text-center">创建人</div>  
+                                                                                                                           <div class="three1 text-center">更新人</div>  
+                                                                                         <div class="three3 text-center">操作</div>
+                          
+                            
+                        </li>
+                    </ul>
+                    <ul class="ul-table" dnd-list="vm.list">
+                        <li ng-repeat="item in vm.list"
+                            dnd-draggable="item"
+                            dnd-moved="vm.list.splice(20, 1)"
+                            dnd-effect-allowed="move"
+                            dnd-selected="vm.list.selected = item"
+                            ng-class="{'selected': vm.list.selected === item}"
+                        >
+                            <div class="three1">{{20*1+1}}</div>
+                                                                                           <div class="three2">{{item.id}}</div>  
+                                                                                                                            <div class="three2">{{item.productMark}}</div>  
+                                                                                                                            <div class="three2">{{item.name}}</div>  
+                                                                                                                            <div class="three2">{{item.interestRate}}</div>  
+                                                                                                                            <div class="three2">{{item.financialPeriodDay}}</div>  
+                                                                                                                            <div class="three2">{{item.financialPeriodMonth}}</div>  
+                                                                                                                            <div class="three2">{{item.paymentMethod}}</div>  
+                                                                                                                            <div class="three2">{{item.interestDelayed}}</div>  
+                                                                                                                            <div class="three2">{{item.productStatus}}</div>  
+                                                                                                                            <div class="three2">{{item.interestAmountLine}}</div>  
+                                                                                                                            <div class="three2">{{item.remark}}</div>  
+                                                                                                                            <div class="three2">{{item.detailsPic}}</div>  
+                                                                                                                            <div class="three2">{{item.hotCornerMark}}</div>  
+                                                                                                                            <div class="three2">{{item.newCornerMark}}</div>  
+                                                                                                                            <div class="three2">{{item.recommended}}</div>  
+                                                                                                                            <div class="three2">{{item.limited}}</div>  
+                                                                                                                            <div class="three2">{{item.createAt}}</div>  
+                                                                                                                            <div class="three2">{{item.updateAt}}</div>  
+                                                                                                                            <div class="three2">{{item.createBy}}</div>  
+                                                                                                                            <div class="three2">{{item.updateBy}}</div>  
+                                                                                         
+                           
+                            
+                            
+                            
+                            <div class="three3">
+                              
+                                <button class="btn btn-default btn-xs"
+                                        ui-sref="field.product({id:item.id})">查看
+                                </button>
+                                <button class="btn btn-default btn-xs"  ng-if="globalPermission.updated"
+                                        ui-sref="field.product({id:item.id})">编辑
+                                </button>
+                                <button class="btn btn-danger btn-xs" ng-if="globalPermission.deleted" data-toggle="modal" data-target="#myModal"
+                                        ng-click="vm.del(item.id, 20)">删除
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<paging ng-if="vm.page" next="{{vm.page}}"></paging>
+
