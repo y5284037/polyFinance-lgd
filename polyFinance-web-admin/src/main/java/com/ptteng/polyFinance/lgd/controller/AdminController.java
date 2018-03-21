@@ -35,7 +35,13 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
     
-    
+    /**
+     * 后台登陆
+     * @param modelMap 回显参数
+     * @param loginName 登陆名称
+     * @param pswd  登陆密码
+     * @return  返回json-taglib页面.
+     */
     @RequestMapping(value = "/a/l/admin/login", method = RequestMethod.PUT)
     public String adminLogin(ModelMap modelMap, String loginName, String pswd) {
         Admin admin;
@@ -65,7 +71,7 @@ public class AdminController {
     }
     
     /**
-     *
+     * 新增管理员
      * @param admin 需要创建的admin对象
      * @param modelMap 回显数据
      * @return  json-taglib页面

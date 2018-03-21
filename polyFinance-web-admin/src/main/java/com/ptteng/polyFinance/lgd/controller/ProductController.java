@@ -12,12 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,21 +40,22 @@ public class ProductController {
     private ProductService productService;
     
     /**
+     * 查询产品列表
      *
-     * @param name 产品名称
-     * @param interestAmountLine 起投金额
-     * @param productMark 产品代号
-     * @param interestDelayed 起息日期
-     * @param productStatus 产品状态
-     * @param interestRateStart 年化收益下限
-     * @param interestRateEnd 年化收益上限
-     * @param financialPeriodDayStart 期限下限(日)
-     * @param financialPeriodDayEnd 期限上限(日)
+     * @param name                      产品名称
+     * @param interestAmountLine        起投金额
+     * @param productMark               产品代号
+     * @param interestDelayed           起息日期
+     * @param productStatus             产品状态
+     * @param interestRateStart         年化收益下限
+     * @param interestRateEnd           年化收益上限
+     * @param financialPeriodDayStart   期限下限(日)
+     * @param financialPeriodDayEnd     期限上限(日)
      * @param financialPeriodMonthStart 期限下限(月)
-     * @param financialPeriodMonthEnd 期限上限(月)
-     * @param page 当前显示第几页
-     * @param size 每页显示数量
-     * @param modelMap  用于给前端返回数据.
+     * @param financialPeriodMonthEnd   期限上限(月)
+     * @param page                      当前显示第几页
+     * @param size                      每页显示数量
+     * @param modelMap                  用于给前端返回数据.
      * @return 返回json-taglib页面.
      */
     @RequestMapping(value = "/a/u/productList", method = RequestMethod.GET)
@@ -89,20 +92,19 @@ public class ProductController {
     }
     
     /**
-     *
-     * @param id 需要更新上下架的产品id
+     * @param id       需要更新上下架的产品id
      * @param modelMap
      * @return
      */
-    @RequestMapping(value = "/a/u/product/id",method = RequestMethod.PUT)
-    public  String changeStatus( Long id, ModelMap modelMap){
+    @RequestMapping(value = "/a/u/product/{id}", method = RequestMethod.PUT)
+    public String changeStatus(@PathVariable Long id, ModelMap modelMap) {
         try {
             Product product = productService.getObjectById(id);
-            if(product.getProductStatus()==0){
+            if (product.getProductStatus() == 0) {
                 product.setProductStatus(1);
             } else {
                 product.setProductStatus(0);
-             }
+            }
             productService.update(product);
             modelMap.addAttribute("code", 0);
         } catch (ServiceException | ServiceDaoException e) {
@@ -112,6 +114,23 @@ public class ProductController {
         return "polyFinance-lgd-server/product/json/productChangeStatus";
     }
     
+    
+    @RequestMapping(value = "/a/u/product",method = RequestMethod.POST)
+    public String insertProduct(Product product, MultipartFile detailsPic,ModelMap modelMap){
+        product.setCreateAt(System.currentTimeMillis());
+        product.setUpdateAt(System.currentTimeMillis());
+        product.setCreateBy(007L);
+        product.setUpdateBy(007L);
+        try {
+            InputStream is = detailsPic.getInputStream();
+            String [] strs = detailsPic.getOriginalFilename().split("\\.");
+            String suffix = strs[strs.length - 1];
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    
+    }
     /**
      * @param
      * @return
