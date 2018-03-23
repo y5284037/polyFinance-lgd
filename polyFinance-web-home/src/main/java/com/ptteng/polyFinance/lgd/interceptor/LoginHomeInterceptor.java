@@ -23,17 +23,17 @@ public class LoginHomeInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         
-        String url = request.getRequestURI();
-        String contextpath = request.getContextPath();
-        
-        log.info("请求的url：" + url + "..." + contextpath);
-        
-        Cookie cookie = WebUtils.getCookie(request, "tendk");
-        if (cookie == null) {
-            response.sendRedirect(request.getContextPath() + "/interceptor.html");
-            return false;
-            
-        }
+//        String url = request.getRequestURI();
+//        String contextpath = request.getContextPath();
+//
+//        log.info("请求的url：" + url + "..." + contextpath);
+//
+//        Cookie cookie = WebUtils.getCookie(request, "tendk");
+//        if (cookie == null) {
+//            response.sendRedirect(request.getContextPath() + "/interceptor.html");
+//            return true;
+//
+//        }
        
         return true;
         

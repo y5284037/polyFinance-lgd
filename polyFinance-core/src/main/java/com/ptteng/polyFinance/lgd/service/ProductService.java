@@ -78,7 +78,7 @@ public interface ProductService extends BaseDaoService {
 	 * @throws ServiceException
 	 * @throws ServiceDaoException
 	 */
-	public List<Long>  getProductIdsByRecommended(Integer recommended,Integer start,Integer limit)throws ServiceException, ServiceDaoException;
+	public List<Long>  getProductIdsByProductStatus(Integer productStatus,Integer start,Integer limit)throws ServiceException, ServiceDaoException;
 			
 			
 	/**

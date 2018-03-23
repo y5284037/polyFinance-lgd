@@ -251,10 +251,10 @@ return result;
 	 * @throws ServiceDaoException
 	 */
 	 @Override
-	public List<Long>  getProductIdsByRecommended(Integer recommended,Integer start,Integer limit)throws ServiceException, ServiceDaoException{
+	public List<Long>  getProductIdsByProductStatus(Integer productStatus,Integer start,Integer limit)throws ServiceException, ServiceDaoException{
 		
 		       if(log.isInfoEnabled()){
-      log.info(" get ids by recommended,start,limit  : " + recommended+" , "+start+" , "+limit );
+      log.info(" get ids by productStatus,start,limit  : " + productStatus+" , "+start+" , "+limit );
 	  }
 	 	List<Long> idList = null;
         
@@ -269,11 +269,11 @@ return result;
         }
 
 	try {
-		idList = dao.getIdList("getProductIdsByRecommended", new Object[] { recommended},start,limit, false);
+		idList = dao.getIdList("getProductIdsByProductStatus", new Object[] { productStatus},start,limit, false);
 
    
    } catch (DaoException e) {
-			log.error(" get ids  wrong by recommended,start,limit)  : " + recommended+" , "+start+" , "+limit );
+			log.error(" get ids  wrong by productStatus,start,limit)  : " + productStatus+" , "+start+" , "+limit );
 			log.error(e);
 			e.printStackTrace();
 			throw new ServiceDaoException(e);

@@ -62,7 +62,7 @@ public class Product implements Serializable{
     private  String remark;
 	
   	 
-    private  Integer detailsPic;
+    private  String detailsPic;
 	
   	 
     private  Integer hotCornerMark;
@@ -193,12 +193,12 @@ public class Product implements Serializable{
 		this.remark = remark;
 	}
 		 	@Column(name = "details_pic")
-	public Integer getDetailsPic() {
+	public String getDetailsPic() {
 		return detailsPic;
 	}
 	
 	
-	public void setDetailsPic(Integer detailsPic) {
+	public void setDetailsPic(String detailsPic) {
 		this.detailsPic = detailsPic;
 	}
 		 	@Column(name = "hot_corner_mark")

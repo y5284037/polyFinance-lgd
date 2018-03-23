@@ -20,6 +20,13 @@
 
         <!-- 阿里云短信功能包 -->
 
+        <dependency>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos_api</artifactId>
+            <version>5.2.4</version>
+            <exclusions>
+            </exclusions>
+        </dependency>
 
         <dependency>
             <groupId>com.google.code.gson</groupId>

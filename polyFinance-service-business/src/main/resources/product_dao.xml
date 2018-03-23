@@ -6,9 +6,10 @@
 			
 			
 			
-					<list name="getProductIdsByRecommended"
-				sqlitem="select id from product where recommended = ?"
-				keyProperty="recommended" valueProperty="id" keyColumn="recommended" />
+					<list name="getProductIdsByProductStatus"
+				sqlitem="select id from product where product_status = ?"
+				keyProperty="productStatus" valueProperty="id" keyColumn="product_status" />
+
 					<list name="getProductIdsByRecommendedAndProductStatus"
 				sqlitem="select id from product where recommended = ? and product_status = ?"
 				keyProperty="recommended,productStatus" valueProperty="id" keyColumn="recommended,product_status" />

@@ -103,9 +103,9 @@ public class ProductSCAClient implements ProductService {
 	 * @throws ServiceDaoException
 	 */
 	 @Override
-	public List<Long>  getProductIdsByRecommended(Integer recommended,Integer start,Integer limit)throws ServiceException, ServiceDaoException{
+	public List<Long>  getProductIdsByProductStatus(Integer productStatus,Integer start,Integer limit)throws ServiceException, ServiceDaoException{
 		
-		return productService.getProductIdsByRecommended(recommended,start,limit);
+		return productService.getProductIdsByProductStatus(productStatus,start,limit);
 	
 	
 	}
