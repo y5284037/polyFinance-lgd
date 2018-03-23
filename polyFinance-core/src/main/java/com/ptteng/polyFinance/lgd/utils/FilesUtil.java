@@ -105,6 +105,9 @@ public class FilesUtil {
     public static void deleteObject(String FilePath) throws CosServiceException {
 //        //处理字符串,去掉  rootPATH
 //        String cosPath = oldFilePath.replace(rootPATH, "");
+        if (CommonUtil.isEmpty(FilePath)) {
+            return;
+        }
         cosClient.deleteObject(bucketName, FilePath);
         cosClient.shutdown();
         return;
@@ -114,7 +117,9 @@ public class FilesUtil {
     public static String getUrl(String FilePath) {
         //处理字符串,去掉  rootPATH
 //        String cosPath = oldFilePath.replace(rootPATH, "");
-        
+        if (CommonUtil.isEmpty(FilePath)) {
+            return "";
+        }
         String key = FilePath;
         GeneratePresignedUrlRequest req =
                 new GeneratePresignedUrlRequest(bucketName, key, HttpMethodName.GET);
@@ -127,5 +132,8 @@ public class FilesUtil {
         return downloadUrlStr;
     }
     
+    public static void main(String[] args) {
+        System.out.println(getUrl("student/e4fdc694-eb57-40a5-a363-1d63595d491a.jpg"));
+    }
     
 }

@@ -1,9 +1,11 @@
 package com.ptteng.polyFinance.lgd.controller;
 
-import com.alibaba.fastjson.*;
+import com.alibaba.fastjson.JSONObject;
 import com.gemantic.common.exception.ServiceDaoException;
 import com.gemantic.common.exception.ServiceException;
 import com.ptteng.polyFinance.lgd.model.User;
+import com.ptteng.polyFinance.lgd.model.UserBank;
+import com.ptteng.polyFinance.lgd.service.UserBankService;
 import com.ptteng.polyFinance.lgd.service.UserService;
 import com.ptteng.polyFinance.lgd.utils.*;
 import org.apache.commons.logging.Log;
@@ -14,11 +16,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * User  crud
@@ -32,6 +36,8 @@ public class UserController {
     
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserBankService userBankService;
     
     
     /**
@@ -54,6 +60,7 @@ public class UserController {
         try {
             User user = userService.getObjectByPhoneNum(phoneNum);
             if (user != null) {
+                //todo 用户状态校验
                 String pswdCheck = SecureUtil.messageDigest(user.getSalt() + pswd);
                 if (pswdCheck.equals(user.getPswd())) {
                     
@@ -118,12 +125,14 @@ public class UserController {
                         }
                         
                         String salt = SecureUtil.getSalt();
+                        user.setId(null);
                         user.setPhoneNum(phoneNum);
                         user.setPswd(SecureUtil.messageDigest(salt + pswd));
                         user.setSalt(salt);
                         user.setAccountsStatus(0);
                         user.setIncome(new BigDecimal(0.00));
                         user.setTotalProperty(new BigDecimal(0.00));
+                        user.setIdentityStatus(0);
                         
                         Long id = null;
                         Boolean flag = null;
@@ -173,6 +182,13 @@ public class UserController {
         return "/polyFinance-lgd-server/user/json/userDetailJson";
     }
     
+    @RequestMapping(value = "/test", method = RequestMethod.PUT)
+    public String test(HttpServletRequest request, String name) {
+        
+        System.out.println(name);
+        return name;
+    }
+    
     /**
      * 前台：用户忘记密码接口
      *
@@ -184,17 +200,17 @@ public class UserController {
      */
     @RequestMapping(value = "/a/user/forget", method = RequestMethod.PUT, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String fogetPswd(HttpServletRequest request,HttpSession session, String mobile, String verify, String pswd) {
-        Boolean flag = null;
+    public String fogetPswd(HttpSession session, String mobile, String verify, String pswd) {
+        
         JSONObject model = new JSONObject();
+        
         
         if (CommonUtil.isEmpty(mobile, verify, pswd)) {
             
             model.put("code", -200000);
-            model.put("message", "necessary param wrong 参数错误");
+            model.put("message", "necessary param wrong 参数错误1");
             return model.toString();
         }
-        
         
         String checkMobile = (String) session.getAttribute("phoneNum");
         String checkCode = (String) session.getAttribute("code");
@@ -204,6 +220,7 @@ public class UserController {
             return model.toString();
         }
         
+        Boolean flag;
         try {
             User user = userService.getObjectByPhoneNum(mobile);
             if (user != null) {
@@ -214,11 +231,11 @@ public class UserController {
                 if (flag) {
                     model.put("code", 0);
                     model.put("message", "success");
+                    //todo 清空session
                 } else {
                     model.put("code", -100000);
                     model.put("message", "Server has something wrong");
                 }
-                
             } else {
                 model.put("code", 4001);
                 model.put("message", "用户不存在");
@@ -233,14 +250,6 @@ public class UserController {
     }
     
     
-    
-    @RequestMapping(value = "/test",method = RequestMethod.PUT)
-    @ResponseBody
-    public String test( String name){
-        System.out.println(name);
-        return "test";
-    }
-    
     /**
      * 前台：用户修改密码
      *
@@ -250,14 +259,15 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "/a/u/user/pswd", method = RequestMethod.PUT, produces = "text/html;charset=UTF-8")
-    
-    public @ResponseBody
-    String modifyPswd(Long id, @RequestParam String oldPswd, String newPswd) {
-        //todo 非空校验
-        if (CommonUtil.isEmpty(id, oldPswd, newPswd)) {
-        
-        }
+    @ResponseBody
+    public String modifyPswd(Long id, String oldPswd, String newPswd) {
         JSONObject a = new JSONObject();
+        
+        if (CommonUtil.isEmpty(id, oldPswd, newPswd)) {
+            a.put("code", -200000);
+            a.put("message", "necessary param missing");
+            return a.toString();
+        }
         
         Boolean flag;
         log.info("update user pswd user id : " + id);
@@ -275,6 +285,7 @@ public class UserController {
                 if (flag) {
                     a.put("code", 0);
                     a.put("message", "success");
+                    //todo 清空session
                 }
             } else {
                 a.put("code", 4002);
@@ -289,11 +300,28 @@ public class UserController {
         return a.toString();
     }
     
-    @RequestMapping(value = "/a/u/user/identifyDetails/{id}", method = RequestMethod.PUT, produces = "text/html;charset=UTF-8")
-    public @ResponseBody
-    String updateUserVerifyDetail(ModelMap model, @PathVariable("id") Long id, String name, String idCard, @RequestParam MultipartFile idFront, @RequestParam MultipartFile idBack) {
-        //todo 参数校验
+    
+    /**
+     * 前台：用户实名申请
+     *
+     * @param id      用户id
+     * @param name    用户姓名
+     * @param idCard  用户身份证号码
+     * @param idFront 正面
+     * @param idBack  反面
+     * @return
+     */
+    @RequestMapping(value = "/a/u/user/identifyDetails/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public String updateUserVerifyDetail(@PathVariable("id") Long id, String name, String idCard, MultipartFile idFront, MultipartFile idBack) {
+        
         JSONObject a = new JSONObject();
+        if (CommonUtil.isEmpty(id, name, idCard)) {
+            a.put("code", -200000);
+            a.put("message", "necessary param missing");
+            return a.toString();
+        }
+        
         Boolean flag;
         log.info("update user identify user :" + name + ";" + idCard);
         try {
@@ -304,16 +332,17 @@ public class UserController {
                 return a.toString();
             }
             userGet.setName(name);
-            userGet.setName(idCard);
+            userGet.setIdCard(idCard);
             //todo 上传
             String idFrontUrl = FilesUtil.upLoadFile(idFront);
             String idBackUrl = FilesUtil.upLoadFile(idBack);
             if (idFrontUrl == null || idFrontUrl.equals("") || idBackUrl == null || idBackUrl.equals("")) {
-                log.error("uodate user idCard pic error");
+                log.error("pictrue error");
             }
             userGet.setIdCardFornt(idFrontUrl);
             userGet.setIdCardBack(idBackUrl);
             userGet.setUpdateBy(Long.valueOf("100" + id.toString()));
+            userGet.setIdentityTime(System.currentTimeMillis());
             flag = userService.update(userGet);
             if (flag) {
                 a.put("code", 0);
@@ -326,11 +355,85 @@ public class UserController {
             }
         } catch (Throwable e) {
             log.info(e);
-            log.error("uodate user idCard pic service  error");
+            log.error("update user idCard pic SCA service  error");
+            a.put("code", -100000);
+            a.put("message", "Server has something wrong");
             e.printStackTrace();
         }
         return a.toString();
     }
+    
+    
+    /**
+     * 前台：获取用户账户设置详情接口
+     *
+     * @param model
+     * @param id    用户id
+     * @return
+     */
+    @RequestMapping(value = "/a/u/user/set/{id}", method = RequestMethod.GET)
+    public String getUserDetailById(ModelMap model, @PathVariable("id") Long id) {
+        
+        log.info("get data : id= " + id);
+        try {
+            User user = userService.getObjectById(id);
+            log.info("get user data is " + user);
+            
+            UserBank detail = userBankService.getObjectById(user.getUserBankId());
+            String userBankFirst = CommonUtil.getUserBankInfo(detail);
+            model.addAttribute("code", 0);
+            model.addAttribute("user", user);
+            model.addAttribute("userBankFirst", userBankFirst);
+            
+        } catch (Throwable t) {
+            t.printStackTrace();
+            log.error(t.getMessage());
+            log.error("get user error,id is  " + id);
+            model.addAttribute("code", -100000);
+        }
+        return "/polyFinance-lgd-server/user/json/userDetailJson";
+    }
+    
+    
+    /**
+     * 前台：用户账户设置
+     *
+     * @param id
+     * @param email
+     * @param address
+     * @return
+     */
+    @RequestMapping(value = "/a/u/user/set/{id}", method = RequestMethod.PUT, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String updateUserSetByid(@PathVariable("id") Long id, String email, String address) {
+        JSONObject a = new JSONObject();
+        Boolean flag;
+        if (CommonUtil.isEmpty(id)) {
+            a.put("code", -200000);
+            a.put("message", "necessary param wrong");
+            return a.toString();
+        }
+        
+        try {
+            User userGet = userService.getObjectById(id);
+            userGet.setEmail(email);
+            userGet.setAddress(address);
+            flag = userService.update(userGet);
+            if (flag) {
+                a.put("code", 0);
+                a.put("message", "success");
+            }
+        } catch (Throwable e) {
+            log.error(e.getMessage());
+            e.printStackTrace();
+            a.put("code", -100000);
+            a.put("message", "Server has something wrong");
+            return a.toString();
+        }
+        
+        return a.toString();
+    }
+    
     
     /**
      * 前台：发送验证码
@@ -350,7 +453,6 @@ public class UserController {
             a.put("message", "necessary param wrong");
             return a.toString();
         }
-        
         
         log.info("/a/code/send " + phoneNum + ";" + type);
         if (type.equals("register")) {
@@ -373,13 +475,16 @@ public class UserController {
                 }
                 session.setAttribute("phoneNum", phoneNum);
                 session.setAttribute("code", code);
-                session.setMaxInactiveInterval(15 * 60);
+                //todo 测试用session时间15小时
+                session.setMaxInactiveInterval(15 * 60 * 60);
                 a.put("code", 0);
                 a.put("message", "success");
             } catch (Throwable e) {
                 log.error(e);
                 log.error("/a/code/send " + "get user error" + phoneNum);
                 e.printStackTrace();
+                a.put("code", -1000000);
+                a.put("message", "SMS OR RMI  service error");
             }
         } else if (type.equals("password")) {
             try {
@@ -401,13 +506,16 @@ public class UserController {
                 }
                 session.setAttribute("phoneNum", phoneNum);
                 session.setAttribute("code", code);
-                session.setMaxInactiveInterval(15 * 60);
+                //todo 测试用session时间15小时
+                session.setMaxInactiveInterval(15 * 60 * 60);
                 a.put("code", 0);
                 a.put("message", "success");
             } catch (Throwable e) {
                 log.error(e);
                 log.error("/a/code/send " + "get user error" + phoneNum);
                 e.printStackTrace();
+                a.put("code", -1000000);
+                a.put("message", "SMS OR RMI  service error");
             }
         } else {
             a.put("code", -2006);

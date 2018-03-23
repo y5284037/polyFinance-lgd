@@ -1,5 +1,7 @@
 package com.ptteng.polyFinance.lgd.utils;
 
+import com.ptteng.polyFinance.lgd.model.UserBank;
+
 /**
  * @author: Arike
  * @program: polyFinance-lgd
@@ -32,5 +34,24 @@ public class CommonUtil {
         return a;
     }
     
+    public static String getUserBankInfo(UserBank userBank) {
+        
+        StringBuilder builder = new StringBuilder();
+        builder.append(userBank.getBankName());
+        builder.append("（");
+        String cardNum = userBank.getCardNo();
+        int a = cardNum.length();
+        builder.append(cardNum.substring(a - 4));
+        builder.append("）");
+        return builder.toString();
+    }
     
+//    public static void main(String[] args) {
+//        UserBank a = new UserBank();
+//        a.setBankName("中国银行");
+//        a.setCardNo("123432135465");
+//        System.out.println(getUserBankInfo(a));
+//    }
+
+
 }
