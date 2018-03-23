@@ -383,6 +383,7 @@
     </dependencies>
 
     <build>
+        <finalName>polyFinance-service-business</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>

@@ -624,7 +624,7 @@
     </dependencies>
 
     <build>
-        <finalName>polyFinance-home-web</finalName>
+        <finalName>polyFinance-web-home</finalName>
 
         <plugins>
             <plugin>

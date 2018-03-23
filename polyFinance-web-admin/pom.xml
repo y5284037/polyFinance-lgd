@@ -586,7 +586,7 @@
 
 
     <build>
-        <finalName>polyFinance-admin-web</finalName>
+        <finalName>polyFinance-web-admin</finalName>
         <plugins>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>

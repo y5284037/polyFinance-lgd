@@ -382,6 +382,7 @@
 
     </dependencies>
     <build>
+        <finalName>polyFinance-service-common</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>

@@ -383,6 +383,7 @@
     </dependencies>
 
     <build>
+        <finalName>polyFinance-service-quartz</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
