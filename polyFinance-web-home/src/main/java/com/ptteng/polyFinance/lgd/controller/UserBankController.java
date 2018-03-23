@@ -46,7 +46,7 @@ public class UserBankController {
     
     
             List<UserBank> userBankList = new ArrayList<>();
-           
+           MyListUtil
             /*
             BankList bankList1 = bankListService.getObjectById(userBank1.getBankListId());
             
@@ -129,7 +129,6 @@ public class UserBankController {
             model.addAttribute("code", -6003);
             
         }
-        
         return "/data/json";
     }
     
