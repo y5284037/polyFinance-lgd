@@ -105,6 +105,113 @@ public class DynamicUtil {
         return param;
     }
     
+    /**
+     * 动态查询用户实名列表
+     *
+     * @param name              用户姓名
+     * @param phoneNum          用户编号
+     * @param identityStatus    用户实名状态
+     * @param identityTimeStart 实名时间起
+     * @param identityTimeEnd   实名时间止
+     * @param serialNum         用户编号
+     * @return
+     */
+    public static Map<String, Object> getUserIdentifyList(String name, String phoneNum, Integer identityStatus, Long identityTimeStart, Long identityTimeEnd, String serialNum) {
+        
+        Map<String, Object> param = new HashMap<>();
+        if (!CommonUtil.isEmpty(phoneNum)) {
+            param.put("phone_num & like", "'%" + phoneNum + "%'");
+        }
+        if (!CommonUtil.isEmpty(name)) {
+            param.put("name & like", "'%" + name + "%'");
+        }
+        if (!CommonUtil.isEmpty(identityStatus)) {
+            param.put("identity_status & like", "'%" + identityStatus + "%'");
+        }
+        if (!CommonUtil.isEmpty(serialNum)) {
+            param.put("serial_num & like", "'%" + serialNum + "%'");
+        }
+        if (!CommonUtil.isEmpty(identityTimeStart)) {
+            param.put("identity_time & >=", identityTimeStart);
+        }
+        if (!CommonUtil.isEmpty(identityTimeEnd)) {
+            param.put("identity_time & <=", identityTimeEnd);
+        }
+        
+        param.put("@table", "user");
+        param.put("@order", "identity_time desc");
+        return param;
+    }
+    
+    /**
+     * 动态SQL:动态查询用户的交易记录
+     *
+     * @param userId         用户id
+     * @param productName    产品名称
+     * @param tradingType    交易类型
+     * @param tradeDateStart 交易时间起
+     * @param tradeDateEnd   交易时间止
+     * @param tradingStatus  交易状态
+     * @return
+     */
+    public static Map<String, Object> getUserTradingRecord(Long userId, String productName, String tradingType, String tradeDateStart, String tradeDateEnd, String tradingStatus) {
+        Map<String, Object> param = new HashMap<>();
+        if (!CommonUtil.isEmpty(productName)) {
+            param.put("product_name & like", "'%" + productName + "%'");
+        }
+        if (!CommonUtil.isEmpty(tradingType)) {
+            param.put("trading_type & like", "'%" + tradingType + "%'");
+        }
+        if (!CommonUtil.isEmpty(tradingStatus)) {
+            param.put("trading_status & like", "'%" + tradingStatus + "%'");
+        }
+        if (!CommonUtil.isEmpty(tradeDateStart)) {
+            param.put("trading_time & >=", tradeDateStart);
+        }
+        if (!CommonUtil.isEmpty(tradeDateEnd)) {
+            param.put("trading_time & <=", tradeDateEnd);
+        }
+        
+        param.put("@table", "trading_record");
+        param.put("@order", "trading_time desc");
+        param.put("user_id & =", userId);
+        return param;
+    }
+    
+    public static Map<String, Object> getUserInvestRecord(Long userId, String productName, Long valueDayStart, Long valueDayEnd, Long valueEndDayStart, Long valueEndDayEnd, Integer investStatus, String comodatoNum, String intercreditorAgreement) {
+        
+        Map<String, Object> param = new HashMap<>();
+        if (!CommonUtil.isEmpty(productName)) {
+            param.put("product_name & like", "'%" + productName + "%'");
+        }
+        if (!CommonUtil.isEmpty(investStatus)) {
+            param.put("invest_status & like", "'%" + investStatus + "%'");
+        }
+        if (!CommonUtil.isEmpty(comodatoNum)) {
+            param.put("comodato_num & like", "'%" + comodatoNum + "%'");
+        }
+        if (!CommonUtil.isEmpty(intercreditorAgreement)) {
+            param.put("intercreditor_agreement & like", "'%" + intercreditorAgreement + "%'");
+        }
+        if (!CommonUtil.isEmpty(valueDayStart)) {
+            param.put("value_start_day & >=", "'%" + valueDayStart + "%'");
+        }
+        if (!CommonUtil.isEmpty(valueDayEnd)) {
+            param.put("value_start_day & <=", "'%" + valueDayEnd + "%'");
+        }
+        if (!CommonUtil.isEmpty(valueEndDayStart)) {
+            param.put("value_end_day & >=", valueEndDayStart);
+        }
+        if (!CommonUtil.isEmpty(valueEndDayEnd)) {
+            param.put("value_end_day & <=", valueEndDayEnd);
+        }
+        
+        param.put("@table", "invest_record");
+        param.put("@order", "value_start_day desc");
+        param.put("user_id & =", userId);
+        return param;
+        
+    }
 }
     
 

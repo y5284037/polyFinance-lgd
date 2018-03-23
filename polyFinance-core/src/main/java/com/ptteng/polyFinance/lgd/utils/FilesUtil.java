@@ -7,6 +7,7 @@ import com.qcloud.cos.auth.COSCredentials;
 import com.qcloud.cos.exception.CosServiceException;
 import com.qcloud.cos.http.HttpMethodName;
 import com.qcloud.cos.model.GeneratePresignedUrlRequest;
+import com.qcloud.cos.model.ObjectMetadata;
 import com.qcloud.cos.model.PutObjectRequest;
 import com.qcloud.cos.region.Region;
 import org.apache.log4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Date;
 import java.util.UUID;
@@ -45,33 +47,26 @@ public class FilesUtil {
      */
     public static String upLoadFile(MultipartFile picFile) throws IOException {
         
-        
         if (picFile != null) {
+            InputStream inputStream = picFile.getInputStream();
             //获得文件的原始名字
             String originalFileName = picFile.getOriginalFilename();
             //新的文件名称=uuid+原始名字的后缀.xxx
-            String newFlieName = UUID.randomUUID() + originalFileName.substring(originalFileName.indexOf("."));
-            
+            String newFlieName = UUID.randomUUID() + originalFileName.substring(originalFileName.lastIndexOf("."), originalFileName.length());
             //储存地址
             String key = "student/" + newFlieName;
             
-            //将MultipartFile转换为file.
-            
             try {
-                //创建一个临时文件
-                File temp = File.createTempFile("temp", null);
-                //将MultipartFile 写入临时文件
-                picFile.transferTo(temp);
                 
-                PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, temp);
+                ObjectMetadata metadata = new ObjectMetadata();
+                
+                PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, inputStream, metadata);
                 cosClient.putObject(putObjectRequest);
                 
                 logger.info("成功：上传地址：" + key);
-                temp.delete();
-                temp.deleteOnExit();
                 cosClient.shutdown();
                 return key;
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 logger.error("......图片上传失败");
             }
@@ -111,6 +106,9 @@ public class FilesUtil {
     public static void deleteObject(String FilePath) throws CosServiceException {
 //        //处理字符串,去掉  rootPATH
 //        String cosPath = oldFilePath.replace(rootPATH, "");
+        if (CommonUtil.isEmpty(FilePath)) {
+            return;
+        }
         cosClient.deleteObject(bucketName, FilePath);
         cosClient.shutdown();
     }
@@ -118,7 +116,9 @@ public class FilesUtil {
     public static String getUrl(String FilePath) {
         //处理字符串,去掉  rootPATH
 //        String cosPath = oldFilePath.replace(rootPATH, "");
-        
+        if (CommonUtil.isEmpty(FilePath)) {
+            return "";
+        }
         String key = FilePath;
         GeneratePresignedUrlRequest req =
                 new GeneratePresignedUrlRequest(bucketName, key, HttpMethodName.GET);
@@ -131,5 +131,8 @@ public class FilesUtil {
         return downloadUrlStr;
     }
     
+    public static void main(String[] args) {
+        System.out.println(getUrl("student/e4fdc694-eb57-40a5-a363-1d63595d491a.jpg"));
+    }
     
 }

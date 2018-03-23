@@ -4,6 +4,9 @@
 
 <json:object escapeXml="false">
 	<json:property name="code" value="${code}"></json:property>
+
+	<json:property name="userBankFirst" value="${userBankFirst}"></json:property>
+
 	<json:property name="message">
 		<spring:message code="${code}" />
 	</json:property>

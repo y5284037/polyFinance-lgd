@@ -1,5 +1,6 @@
 package com.ptteng.polyFinance.lgd.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.gemantic.common.exception.ServiceDaoException;
 import com.gemantic.common.exception.ServiceException;
 import com.ptteng.common.dao.util.SQLUtil;
@@ -7,24 +8,19 @@ import com.ptteng.polyFinance.lgd.model.User;
 import com.ptteng.polyFinance.lgd.model.UserBank;
 import com.ptteng.polyFinance.lgd.service.UserBankService;
 import com.ptteng.polyFinance.lgd.service.UserService;
+import com.ptteng.polyFinance.lgd.utils.CommonUtil;
 import com.ptteng.polyFinance.lgd.utils.DynamicUtil;
+import com.ptteng.polyFinance.lgd.utils.FilesUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -83,36 +79,47 @@ public class UserController {
     
     /**
      * 后台：用户冻结与解冻
+     * 已测
      *
-     * @param user 请求参数
-     * @param id   请求id。
+     * @param accountsStatus 用户状态
+     * @param id             请求id。
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/a/u/user/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/a/u/user/{id}", method = RequestMethod.PUT, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public Object updateUserJson(User user, @PathVariable("id") Long id) throws Exception {
+    public Object updateUserJson(Integer accountsStatus, @PathVariable("id") Long id) throws Exception {
         
-        log.info("update user : user id = " + id + " user  = " + user.getAccountsStatus());
+        log.info("update user : user id = " + id + " user accountsStatus  = " + accountsStatus);
         JSONObject a = new JSONObject();
-        
-        if (user.getAccountsStatus() != null) {
-            try {
-                user.setId(id);
-//            userService.update(user);
-                a.put("code", 0);
-                a.put("message", "success");
-            } catch (Throwable t) {
-                t.printStackTrace();
-                log.error(t.getMessage());
-                log.error("update user error,id is  " + user.getId());
-                a.put("code", -100000);
-                a.put("message", "Server has something wrong");
-            }
-        } else {
+        if (CommonUtil.isEmpty(accountsStatus)) {
+            
             a.put("code", -200000);
             a.put("message", "necessary param missing");
+            return a.toString();
         }
+        
+        try {
+            User userGet = userService.getObjectById(id);
+            if (userGet == null) {
+                log.error("update user with error id , id is  " + id);
+                a.put("code", -200000);
+                a.put("message", "necessary param missing");
+                return a.toString();
+            }
+            userGet.setAccountsStatus(accountsStatus);
+            userService.update(userGet);
+            a.put("code", 0);
+            a.put("message", "success");
+        } catch (Throwable t) {
+            t.printStackTrace();
+            log.error(t.getMessage());
+            log.error("update user error,id is  " + id);
+            a.put("code", -100000);
+            a.put("message", "Server has something wrong");
+            return a.toString();
+        }
+        
         return a.toString();
     }
     
@@ -148,7 +155,7 @@ public class UserController {
         
         Map<String, Object> param = DynamicUtil.getUserListSql(name, phoneNum, accountsStatus, createAtStart, createAtEnd, managerNum);
         
-        log.info("/a/u/user/list " + SQLUtil.convert2Sql(param, start, size));
+        log.info("DynamicCondition SQL : getUserListSql " + SQLUtil.convert2Sql(param, start, size));
         
         try {
             List<Long> ids = userService.getIdsByDynamicCondition(User.class, param, start, size);
@@ -171,6 +178,7 @@ public class UserController {
     
     /**
      * 后台：用户实名认证列表
+     * 已测
      *
      * @param model
      * @param name
@@ -197,20 +205,128 @@ public class UserController {
         }
         log.info("pageList : page= " + start + " , size=" + size);
         
-//        Map<String, Object> param = DynamicUtil.getUserIdentifyList(name, phoneNum, identityStatus, identityTimeStart, identityTimeEnd, serialNum);
+        Map<String, Object> param = DynamicUtil.getUserIdentifyList(name, phoneNum, identityStatus, identityTimeStart, identityTimeEnd, serialNum);
+        log.info("DynamicCondition SQL : getUserIdentifyList---->>> " + SQLUtil.convert2Sql(param, start, size));
         
         try {
-//            List<Long> ids = userService.getIdsByDynamicCondition(User.class, param, start, size);
-//            List<User> users = userService.getObjectsByIds(ids);
+            List<Long> ids = userService.getIdsByDynamicCondition(User.class, param, start, size);
+            List<Long> countIds = userService.getIdsByDynamicCondition(User.class, param, 0, userService.countUserIds());
+            Integer total = countIds.size();
+            
+            List<User> users = userService.getObjectsByIds(ids);
+            model.addAttribute("userList", users);
+            model.addAttribute("total", total);
+            model.addAttribute("code", 0);
             
         } catch (Throwable e) {
-            
+            log.info(e.getMessage());
+            log.info("get user list error");
+            e.printStackTrace();
+            model.addAttribute("code", -100000);
             e.printStackTrace();
         }
         
-//        log.info("/a/u/user/list " + SQLUtil.convert2Sql(param, start, size));
-        
         return "/polyFinance-lgd-server/user/json/userListJson";
     }
+    
+    /**
+     * 后台：操作用户实名状态
+     * 已测
+     *
+     * @param id             用户id
+     * @param identityStatus 用户实名状态
+     * @param refuseReason   拒绝理由
+     * @return
+     */
+    @RequestMapping(value = "/a/u/user/identify/{id}", method = RequestMethod.PUT)
+    @ResponseBody
+    public String updateUserIdentifyStatus(@PathVariable("id") Long id, Integer identityStatus, String refuseReason) {
+        log.info("updateUserIdentifyStatus : id = " + id + " ; " + " identityStatus= " + identityStatus);
+        JSONObject a = new JSONObject();
+        if (CommonUtil.isEmpty(identityStatus, id)) {
+            a.put("code", -200000);
+            a.put("message", "necessary param wrong");
+            return a.toString();
+        }
+        Boolean flag;
+        try {
+            User userGet = userService.getObjectById(id);
+            if (userGet == null) {
+                log.error("update user error , id is  " + id);
+                a.put("code", -200000);
+                a.put("message", "necessary param missing");
+                return a.toString();
+            }
+            //identityStatus 3:取消实名
+            userGet.setRefuseReason(refuseReason);
+            if (identityStatus.equals(3)) {
+                userGet.setName("");
+                userGet.setIdCard("");
+                userGet.setIdCardFornt("");
+                userGet.setIdCardBack("");
+                userGet.setRefuseReason("");
+            }
+            if (identityStatus.equals(2)) {
+                if (CommonUtil.isEmpty(refuseReason)) {
+                    a.put("code", -200000);
+                    a.put("message", "necessary param wrong");
+                    return a.toString();
+                }
+            }
+            if (!identityStatus.equals(1)) {
+                userGet.setRefuseStatus(1);
+            }
+            userGet.setIdentityStatus(identityStatus);
+            flag = userService.update(userGet);
+            if (flag) {
+                a.put("code", 0);
+                a.put("message", "success");
+            }
+            
+        } catch (Throwable e) {
+            log.error(e);
+            e.printStackTrace();
+            log.error("updateUserIdentifyStatus , id  is  " + id);
+            a.put("code", -100000);
+            a.put("message", "Server has something wrong");
+        }
+        return a.toString();
+    }
+    
+    /**
+     * 后台：查询用户实名详情
+     *
+     * @param model
+     * @param id    用户id
+     * @return
+     */
+    @RequestMapping(value = "/a/u/user/identify/{id}")
+    public String getUserIdentifyDetail(ModelMap model, @PathVariable("id") Long id) {
+        log.info("getUserIdentifyDetail : user id = " + id);
+        try {
+            User userGet = userService.getObjectById(id);
+            if (userGet == null) {
+                log.error("get user with error id , id is  " + id);
+                model.addAttribute("code", -200000);
+                return "/polyFinance-lgd-server/user/json/userDetailJson";
+            }
+            String idCardFrontUrl = FilesUtil.getUrl(userGet.getIdCardFornt());
+            String idCardBackUrl = FilesUtil.getUrl(userGet.getIdCardBack());
+            userGet.setIdCardFornt(idCardFrontUrl);
+            userGet.setIdCardBack(idCardBackUrl);
+            model.addAttribute("code", 0);
+            model.addAttribute("user", userGet);
+        } catch (Throwable e) {
+            log.error(e);
+            e.printStackTrace();
+            log.error("get user error");
+            model.addAttribute("code", -100000);
+            e.printStackTrace();
+        }
+        
+        return "/polyFinance-lgd-server/user/json/userDetailJson";
+    }
+    
+   
 }
 
