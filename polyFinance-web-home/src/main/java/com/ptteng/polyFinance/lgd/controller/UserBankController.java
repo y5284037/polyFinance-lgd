@@ -46,7 +46,6 @@ public class UserBankController {
     
     
             List<UserBank> userBankList = new ArrayList<>();
-           MyListUtil
             /*
             BankList bankList1 = bankListService.getObjectById(userBank1.getBankListId());
             

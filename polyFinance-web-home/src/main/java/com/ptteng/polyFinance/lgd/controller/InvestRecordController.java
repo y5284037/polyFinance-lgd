@@ -73,12 +73,13 @@ public class InvestRecordController {
     
     /**
      * 查询单条投资记录详情
-     * @param id 投资记录ID
+     *
+     * @param id       投资记录ID
      * @param modelMap
      * @return
      */
     @RequestMapping(value = "/a/u/investRecord/{id}", method = RequestMethod.GET)
-    public String getInvestRecord(@PathVariable Long id,ModelMap modelMap){
+    public String getInvestRecord(@PathVariable Long id, ModelMap modelMap) {
         try {
             InvestRecord investRecord = investRecordService.getObjectById(id);
             modelMap.addAttribute("investRecord", investRecord);
