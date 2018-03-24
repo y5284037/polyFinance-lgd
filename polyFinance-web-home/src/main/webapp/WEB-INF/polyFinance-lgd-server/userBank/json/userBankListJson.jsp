@@ -38,11 +38,11 @@
                 <json:property name="first" value="${userBank.first}"></json:property>
 
                 <json:property name="singleTransactionLimit"
-                               value="${userBank.bankList.singleTransactionLimit}"></json:property>
+                               value="${map.get(userBank.bankListId).singleTransactionLimit}"></json:property>
 
-                <json:property name="dailyLimit" value="${userBank.bankList.dailyLimit}"></json:property>
+                <json:property name="dailyLimit" value="${map.get(userBank.bankListId).dailyLimit}"></json:property>
 
-                <json:property name="logoPic" value="${userBank.bankList.logoPic}"></json:property>
+                <json:property name="logoPic" value="${map.get(userBank.bankListId).logoPic}"></json:property>
 
 
                 <json:property name="createAt" value="${userBank.createAt}"></json:property>

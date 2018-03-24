@@ -54,16 +54,6 @@ public class UserBank implements Serializable{
     private  Long updateBy;
 	
 	
-	public BankList getBankList() {
-		return bankList;
-	}
-	
-	public void setBankList(BankList bankList) {
-		this.bankList = bankList;
-	}
-	@OneToOne
-	@JoinColumn(name="bank_list_id",unique=true)
-	private BankList bankList;
 	
 		 	
          	 	   @Id

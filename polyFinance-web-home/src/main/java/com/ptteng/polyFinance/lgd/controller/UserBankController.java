@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * UserBank  crud
@@ -42,26 +43,22 @@ public class UserBankController {
         try {
             
             List<Long> ids = userBankService.getUserBankIdsByUserId(userId, 0, 10);
+            
             log.info("get countUserBankIdsByUserId size is " + ids.size());
-    
-    
-            List<UserBank> userBankList = new ArrayList<>();
-            /*
-            BankList bankList1 = bankListService.getObjectById(userBank1.getBankListId());
             
-            userBank1.setBankList(bankList1);
             
-             userBankList.add(userBank1);
+            List<UserBank> userBankList = userBankService.getObjectsByIds(ids);
+            List<Long> bankListIds = MyListUtil.getList(UserBank.class.getDeclaredField("bankListId"), userBankList);
             
-            UserBank userBank2;
-            if (ids.size() == 2) {
-                userBank2 = userBankService.getObjectById(ids.get(1));
-                BankList bankList2 = bankListService.getObjectById(userBank2.getBankListId());
-                userBank2.setBankList(bankList2);
-                userBankList.add(userBank2);
-            }
-             */
+            List<BankList> bankLists = bankListService.getObjectsByIds(bankListIds);
+            
+            Map<Long, BankList> map = MyListUtil.convert2Map(BankList.class.getDeclaredField("id"), bankLists);
+            
+            String sing = map.get(bankListIds.get(0)).getSingleTransactionLimit();
+            
+            
             UserBank userBank1 = userBankService.getObjectById(ids.get(0));
+            
             
             log.info("get userBank data is " + userBankList.size());
             
@@ -70,6 +67,7 @@ public class UserBankController {
             
             
             model.addAttribute("userBankList", userBankList);
+            model.addAttribute("map", map);
             
         } catch (Throwable t) {
             t.printStackTrace();

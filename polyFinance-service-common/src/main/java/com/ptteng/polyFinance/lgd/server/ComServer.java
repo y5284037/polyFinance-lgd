@@ -11,8 +11,8 @@ import org.apache.tuscany.sca.node.SCANodeFactory;
  *
  * @author 
  */
-public class Server {
-    private static Log log = LogFactory.getLog(Server.class);
+public class ComServer {
+    private static Log log = LogFactory.getLog(ComServer.class);
     private static SCANode node;
 
     /**
@@ -53,13 +53,13 @@ public class Server {
      * @throws Exception Exception
      */
     public static void main(String[] args) throws Exception {
-        Server server = new Server();
-        server.start();
+        ComServer comServer = new ComServer();
+        comServer.start();
         try {
-            server.run();
+            comServer.run();
             
         } catch (InterruptedException e) {
-            log.error("polyFinance-lgd-server server run error ", e);
+            log.error("polyFinance-lgd-comServer comServer run error ", e);
         }
     }
 }

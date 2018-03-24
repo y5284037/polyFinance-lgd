@@ -11,8 +11,8 @@ import org.apache.tuscany.sca.node.SCANodeFactory;
  *
  * @author 
  */
-public class Server {
-    private static Log log = LogFactory.getLog(Server.class);
+public class QuServer {
+    private static Log log = LogFactory.getLog(QuServer.class);
     private static SCANode node;
 
     /**
@@ -53,7 +53,7 @@ public class Server {
      * @throws Exception Exception
      */
     public static void main(String[] args) throws Exception {
-        Server server = new Server();
+        QuServer server = new QuServer();
         server.start();
         try {
             server.run();
