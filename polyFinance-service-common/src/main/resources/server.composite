@@ -4,7 +4,7 @@
     targetNamespace="http://PolyFinanceLgdComponent" xmlns:sample="http://PolyFinanceLgdComponent" name="PolyFinanceLgdComponent">
 
     <component name="PolyFinanceLgdComponent">
-        <implementation.spring location="applicationContext-server.xml"/>
+        <implementation.spring location="applicationContext-Server.xml"/>
     </component>
 
 	  <service name="contentService" promote="PolyFinanceLgdComponent/contentService">

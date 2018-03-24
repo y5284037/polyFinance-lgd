@@ -7,6 +7,7 @@ import com.ptteng.polyFinance.lgd.service.RepaymentService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -24,12 +25,12 @@ public class RepaymentServiceTest {
 	private RepaymentService repaymentService;
 	
 	
-	//@Before
+	@Before
 	    public void setUp() throws Exception{
 		
 		
 		    //dao
-	        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:META-INF/polyFinance-lgd-server/applicationContext-server.xml");
+	        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-server.xml");
 	        repaymentService = (RepaymentService) context.getBean("repaymentService");
 			//local server
 			/**
