@@ -6,7 +6,7 @@
 
 
     <component name="PolyFinanceLgdComponent">
-        <implementation.spring location="applicationContext-Server.xml"/>
+        <implementation.spring location="applicationContext-server.xml"/>
     </component>
 
     <service name="userService" promote="PolyFinanceLgdComponent/userService">
