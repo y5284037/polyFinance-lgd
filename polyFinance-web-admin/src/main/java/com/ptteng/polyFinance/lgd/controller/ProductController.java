@@ -91,7 +91,7 @@ public class ProductController {
             modelMap.addAttribute("code", 0);
             modelMap.addAttribute("size", size);
         } catch (ServiceException | ServiceDaoException e) {
-            modelMap.addAttribute("code", -100000);
+            modelMap.addAttribute("code", -100);
             e.printStackTrace();
         }
         return "polyFinance-lgd-server/product/json/productListJson";
@@ -106,6 +106,10 @@ public class ProductController {
      */
     @RequestMapping(value = "/a/u/product/{id}", method = RequestMethod.PUT)
     public String changeStatus(@PathVariable Long id, ModelMap modelMap) {
+        if(CommonUtil.isEmpty(id)){
+            modelMap.addAttribute("code", -200);
+            return "polyFinance-lgd-server/product/json/productChangeStatus";
+        }
         try {
             Product product = productService.getObjectById(id);
             if (product.getProductStatus() == 0) {
@@ -116,7 +120,7 @@ public class ProductController {
             productService.update(product);
             modelMap.addAttribute("code", 0);
         } catch (ServiceException | ServiceDaoException e) {
-            modelMap.addAttribute("code", -100000);
+            modelMap.addAttribute("code", -100);
             e.printStackTrace();
         }
         return "polyFinance-lgd-server/product/json/productChangeStatus";
@@ -139,14 +143,14 @@ public class ProductController {
         try {
             product.setDetailsPic(FilesUtil.upLoadFile(detailsPicFile));
         } catch (IOException e) {
-            modelMap.addAttribute("code", -100000);
+            modelMap.addAttribute("code", -100);
             e.printStackTrace();
         }
         try {
             productService.insert(product);
             modelMap.addAttribute("code", 0);
         } catch (ServiceException | ServiceDaoException e) {
-            modelMap.addAttribute("code", -100000);
+            modelMap.addAttribute("code", -100);
             e.printStackTrace();
         }
         return "polyFinance-lgd-server/product/json/productNewOne";
@@ -168,7 +172,7 @@ public class ProductController {
             modelMap.addAttribute("code", 0);
             modelMap.addAttribute("detailsPicUrl", FilesUtil.getUrl(product.getDetailsPic()));
         } catch (ServiceException | ServiceDaoException e) {
-            modelMap.addAttribute("code", -200000);
+            modelMap.addAttribute("code", -200);
             e.printStackTrace();
         }
         
@@ -191,7 +195,7 @@ public class ProductController {
             try {
                 product.setDetailsPic(FilesUtil.upLoadFile(detailsPicFile));
             } catch (IOException e) {
-                modelMap.addAttribute("code", -200000);
+                modelMap.addAttribute("code", -200);
                 e.printStackTrace();
             }
         }
@@ -199,7 +203,7 @@ public class ProductController {
             productService.update(product);
             modelMap.addAttribute("code", 0);
         } catch (ServiceException | ServiceDaoException e) {
-            modelMap.addAttribute("code", -200000);
+            modelMap.addAttribute("code", -200);
             e.printStackTrace();
         }
         

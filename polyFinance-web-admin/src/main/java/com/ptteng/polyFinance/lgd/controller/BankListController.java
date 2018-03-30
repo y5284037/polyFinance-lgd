@@ -97,7 +97,7 @@ public class BankListController {
 		    t.printStackTrace();
 			log.error(t.getMessage());
 			log.error("get bankList error,id is  " + id);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/bankList/json/bankListDetailJson";
@@ -200,7 +200,7 @@ public class BankListController {
 		} catch (Throwable t) {
 			log.error(t.getMessage());
 			log.error("get bankList error,id is  " + idList);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/bankList/json/bankListListJson";

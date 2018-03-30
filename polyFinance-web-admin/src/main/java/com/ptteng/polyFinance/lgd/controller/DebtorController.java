@@ -97,7 +97,7 @@ public class DebtorController {
 		    t.printStackTrace();
 			log.error(t.getMessage());
 			log.error("get debtor error,id is  " + id);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/debtor/json/debtorDetailJson";
@@ -200,7 +200,7 @@ public class DebtorController {
 		} catch (Throwable t) {
 			log.error(t.getMessage());
 			log.error("get debtor error,id is  " + idList);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/debtor/json/debtorListJson";

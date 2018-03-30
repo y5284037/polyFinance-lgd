@@ -67,7 +67,7 @@ public class BankListController {
         } catch (Throwable t) {
             log.error(t.getMessage());
             log.error("get bankList error,id is  " + ids);
-            model.addAttribute("code", -100000);
+            model.addAttribute("code", -100);
         }
         
         return "/polyFinance-lgd-server/bankList/json/bankListListJson";

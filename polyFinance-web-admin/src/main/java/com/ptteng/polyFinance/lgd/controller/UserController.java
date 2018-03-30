@@ -72,7 +72,7 @@ public class UserController {
             t.printStackTrace();
             log.error(t.getMessage());
             log.error("get user error,id is  " + id);
-            model.addAttribute("code", -100000);
+            model.addAttribute("code", -100);
         }
         
         return "/polyFinance-lgd-server/user/json/userDetailAndBankListJson";
@@ -95,7 +95,7 @@ public class UserController {
         JSONObject a = new JSONObject();
         if (CommonUtil.isEmpty(accountsStatus)) {
             
-            a.put("code", -200000);
+            a.put("code", -200);
             a.put("message", "necessary param missing");
             return a.toString();
         }
@@ -104,7 +104,7 @@ public class UserController {
             User userGet = userService.getObjectById(id);
             if (userGet == null) {
                 log.error("update user with error id , id is  " + id);
-                a.put("code", -200000);
+                a.put("code", -200);
                 a.put("message", "necessary param missing");
                 return a.toString();
             }
@@ -116,7 +116,7 @@ public class UserController {
             t.printStackTrace();
             log.error(t.getMessage());
             log.error("update user error,id is  " + id);
-            a.put("code", -100000);
+            a.put("code", -100);
             a.put("message", "Server has something wrong");
             return a.toString();
         }
@@ -171,7 +171,7 @@ public class UserController {
             log.info(e.getMessage());
             log.info("get user list error");
             e.printStackTrace();
-            model.addAttribute("code", -100000);
+            model.addAttribute("code", -100);
         }
         
         return "/polyFinance-lgd-server/user/json/userListJson";
@@ -223,7 +223,7 @@ public class UserController {
             log.info(e.getMessage());
             log.info("get user list error");
             e.printStackTrace();
-            model.addAttribute("code", -100000);
+            model.addAttribute("code", -100);
             e.printStackTrace();
         }
         
@@ -245,7 +245,7 @@ public class UserController {
         log.info("updateUserIdentifyStatus : id = " + id + " ; " + " identityStatus= " + identityStatus);
         JSONObject a = new JSONObject();
         if (CommonUtil.isEmpty(identityStatus, id)) {
-            a.put("code", -200000);
+            a.put("code", -200);
             a.put("message", "necessary param wrong");
             return a.toString();
         }
@@ -254,7 +254,7 @@ public class UserController {
             User userGet = userService.getObjectById(id);
             if (userGet == null) {
                 log.error("update user error , id is  " + id);
-                a.put("code", -200000);
+                a.put("code", -200);
                 a.put("message", "necessary param missing");
                 return a.toString();
             }
@@ -269,7 +269,7 @@ public class UserController {
             }
             if (identityStatus.equals(2)) {
                 if (CommonUtil.isEmpty(refuseReason)) {
-                    a.put("code", -200000);
+                    a.put("code", -200);
                     a.put("message", "necessary param wrong");
                     return a.toString();
                 }
@@ -288,7 +288,7 @@ public class UserController {
             log.error(e);
             e.printStackTrace();
             log.error("updateUserIdentifyStatus , id  is  " + id);
-            a.put("code", -100000);
+            a.put("code", -100);
             a.put("message", "Server has something wrong");
         }
         return a.toString();
@@ -308,7 +308,7 @@ public class UserController {
             User userGet = userService.getObjectById(id);
             if (userGet == null) {
                 log.error("get user with error id , id is  " + id);
-                model.addAttribute("code", -200000);
+                model.addAttribute("code", -200);
                 return "/polyFinance-lgd-server/user/json/userDetailJson";
             }
             String idCardFrontUrl = FilesUtil.getUrl(userGet.getIdCardFornt());
@@ -321,7 +321,7 @@ public class UserController {
             log.error(e);
             e.printStackTrace();
             log.error("get user error");
-            model.addAttribute("code", -100000);
+            model.addAttribute("code", -100);
             e.printStackTrace();
         }
         

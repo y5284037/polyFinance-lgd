@@ -4,6 +4,7 @@ import com.gemantic.common.exception.ServiceDaoException;
 import com.gemantic.common.exception.ServiceException;
 import com.ptteng.polyFinance.lgd.model.Product;
 import com.ptteng.polyFinance.lgd.service.ProductService;
+import com.ptteng.polyFinance.lgd.utils.CommonUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class ProductController {
      * @param modelMap
      * @return
      */
-    @RequestMapping(value = "/a/product/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/a/l/product/list", method = RequestMethod.GET)
     public String getProductList(Integer page, Integer size, Integer recommended, Integer productStatus, ModelMap modelMap) {
         
         if (page == null) {
@@ -55,6 +56,10 @@ public class ProductController {
         int start = (page - 1) * size;
         if (start < 0) {
             start = 0;
+        }
+        if(CommonUtil.isEmpty(recommended,productStatus)){
+            modelMap.addAttribute("code", -200);
+            return "polyFinance-lgd-server/product/json/productListJson";
         }
         try {
             if (recommended == 0) {
@@ -75,7 +80,7 @@ public class ProductController {
             }
             
         } catch (ServiceException | ServiceDaoException e) {
-            modelMap.addAttribute("code", -100000);
+            modelMap.addAttribute("code", -100);
             e.printStackTrace();
         }
         
@@ -96,7 +101,7 @@ public class ProductController {
             model.addAttribute("product", product);
             model.addAttribute("code", 0);
         } catch (ServiceException | ServiceDaoException e) {
-            model.addAttribute("code", -1000000);
+            model.addAttribute("code", -100);
             e.printStackTrace();
         }
         return "polyFinance-lgd-server/product/json/productDetailJson";
@@ -232,7 +237,7 @@ public class ProductController {
             log.error("get product list error,page is  " + start + " , size "
                     + size);
             // for test
-            model.addAttribute("code", -100000);
+            model.addAttribute("code", -100);
         }
         
         return "/polyFinance-lgd-server/product/json/productListJson";

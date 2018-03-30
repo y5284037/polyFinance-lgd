@@ -97,7 +97,7 @@ public class AdminController {
 		    t.printStackTrace();
 			log.error(t.getMessage());
 			log.error("get admin error,id is  " + id);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/admin/json/adminDetailJson";
@@ -200,7 +200,7 @@ public class AdminController {
 		} catch (Throwable t) {
 			log.error(t.getMessage());
 			log.error("get admin error,id is  " + idList);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/admin/json/adminListJson";

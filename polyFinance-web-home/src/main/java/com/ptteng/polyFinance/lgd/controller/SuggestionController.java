@@ -97,7 +97,7 @@ public class SuggestionController {
 		    t.printStackTrace();
 			log.error(t.getMessage());
 			log.error("get suggestion error,id is  " + id);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/suggestion/json/suggestionDetailJson";
@@ -200,7 +200,7 @@ public class SuggestionController {
 		} catch (Throwable t) {
 			log.error(t.getMessage());
 			log.error("get suggestion error,id is  " + idList);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/suggestion/json/suggestionListJson";

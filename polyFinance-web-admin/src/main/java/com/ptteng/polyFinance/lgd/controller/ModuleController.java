@@ -97,7 +97,7 @@ public class ModuleController {
 		    t.printStackTrace();
 			log.error(t.getMessage());
 			log.error("get module error,id is  " + id);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/module/json/moduleDetailJson";
@@ -200,7 +200,7 @@ public class ModuleController {
 		} catch (Throwable t) {
 			log.error(t.getMessage());
 			log.error("get module error,id is  " + idList);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/module/json/moduleListJson";

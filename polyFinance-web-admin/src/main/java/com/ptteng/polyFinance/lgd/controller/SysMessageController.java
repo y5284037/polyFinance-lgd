@@ -154,7 +154,7 @@ public class SysMessageController {
 			log.error("get sysMessage list error,page is  " + start + " , size "
 					+ size);
 			// for test
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/sysMessage/json/sysMessageListJson";
@@ -184,7 +184,7 @@ public class SysMessageController {
 		    t.printStackTrace();
 			log.error(t.getMessage());
 			log.error("get sysMessage error,id is  " + id);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/sysMessage/json/sysMessageDetailJson";
@@ -287,7 +287,7 @@ public class SysMessageController {
 		} catch (Throwable t) {
 			log.error(t.getMessage());
 			log.error("get sysMessage error,id is  " + idList);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/sysMessage/json/sysMessageListJson";

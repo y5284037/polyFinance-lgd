@@ -90,7 +90,7 @@ public class UserBankController {
             log.error(t.getMessage());
             log.error("get userBank list error, userId is " + userId);
             // for test
-            model.addAttribute("code", -100000);
+            model.addAttribute("code", -100);
         }
         
         return "/polyFinance-lgd-server/userBank/json/userBankListJson";
@@ -112,7 +112,7 @@ public class UserBankController {
         log.info("update userBank : userBankId= " + userBankId);
         JSONObject a = new JSONObject();
         if (CommonUtil.isEmpty(id, userBankId)) {
-            a.put("code", -200000);
+            a.put("code", -200);
             a.put("message", "necessary param missing");
             return a.toString();
         }
@@ -134,7 +134,7 @@ public class UserBankController {
             t.printStackTrace();
             log.error(t.getMessage());
             log.error("update userBank error,id is  " + userBankId);
-            a.put("code", -100000);
+            a.put("code", -100);
             a.put("message", "Server has something wrong");
         }
         return a.toString();
@@ -154,7 +154,7 @@ public class UserBankController {
         log.info("insert userBank : userId= " + id + " bankname= " + bankName + " cardNo= " + cardNo);
         UserBank userBank = new UserBank();
         if (CommonUtil.isEmpty(id, cardNo, city, bankName, bankPhone)) {
-            model.addAttribute("code", -200000);
+            model.addAttribute("code", -200);
             return "/polyFinance-lgd-server/userBank/json/userBankDetailJson";
         }
         try {
@@ -180,7 +180,7 @@ public class UserBankController {
             t.printStackTrace();
             log.error(t.getMessage());
             log.error("add userBank error ");
-            model.addAttribute("code", -100000);
+            model.addAttribute("code", -100);
         }
         
         return "/polyFinance-lgd-server/userBank/json/userBankDetailJson";

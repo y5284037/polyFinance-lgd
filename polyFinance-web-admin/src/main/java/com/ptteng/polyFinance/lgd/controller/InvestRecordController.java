@@ -78,7 +78,7 @@ public class InvestRecordController {
             log.error("get investRecord list error,page is  " + start + " , size "
                     + size);
             
-            model.addAttribute("code", -100000);
+            model.addAttribute("code", -100);
             e.printStackTrace();
         }
         
