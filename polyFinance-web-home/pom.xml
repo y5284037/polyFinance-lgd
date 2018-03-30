@@ -632,12 +632,12 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>8.1.16.v20140903</version>
                 <configuration>
-                    <stopPort>9987</stopPort>
+                    <stopPort>9988</stopPort>
                     <stopKey>foo</stopKey>
                     <scanIntervalSeconds>5</scanIntervalSeconds>
                     <connectors>
-                        <connector implementation="org.eclipse.jetty.Server.nio.SelectChannelConnector">
-                            <port>8081</port>
+                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+                            <port>8082</port>
                             <maxIdleTime>60000</maxIdleTime>
                         </connector>
                     </connectors>

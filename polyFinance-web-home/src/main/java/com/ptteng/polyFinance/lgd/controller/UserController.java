@@ -60,13 +60,18 @@ public class UserController {
         try {
             User user = userService.getObjectByPhoneNum(phoneNum);
             if (user != null) {
-                //todo 用户状态校验
+                // 用户状态校验
+                if(user.getAccountsStatus()==1){
+                    model.addAttribute("code",4003);
+                    return "/polyFinance-lgd-server/user/json/userDetailJson";
+                }
                 String pswdCheck = SecureUtil.messageDigest(user.getSalt() + pswd);
                 if (pswdCheck.equals(user.getPswd())) {
                     
                     model.addAttribute("code", 0);
                     //todo 设置cookie
-                    Cookie cookie = new Cookie("tendk", user.getId() + "");
+                    
+                    Cookie cookie = new Cookie("tendk.com", user.getId() + "");
                     response.addCookie(cookie);
                     
                     
@@ -232,6 +237,7 @@ public class UserController {
                     model.put("code", 0);
                     model.put("message", "success");
                     //todo 清空session
+//                    session.invalidate();
                 } else {
                     model.put("code", -100000);
                     model.put("message", "Server has something wrong");
@@ -260,7 +266,7 @@ public class UserController {
      */
     @RequestMapping(value = "/a/u/user/pswd", method = RequestMethod.PUT, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String modifyPswd(Long id, String oldPswd, String newPswd) {
+    public String modifyPswd(HttpSession session,Long id, String oldPswd, String newPswd) {
         JSONObject a = new JSONObject();
         
         if (CommonUtil.isEmpty(id, oldPswd, newPswd)) {
@@ -286,6 +292,7 @@ public class UserController {
                     a.put("code", 0);
                     a.put("message", "success");
                     //todo 清空session
+                    session.invalidate();
                 }
             } else {
                 a.put("code", 4002);
@@ -333,7 +340,7 @@ public class UserController {
             }
             userGet.setName(name);
             userGet.setIdCard(idCard);
-            //todo 上传
+           
             String idFrontUrl = FilesUtil.upLoadFile(idFront);
             String idBackUrl = FilesUtil.upLoadFile(idBack);
             if (idFrontUrl == null || idFrontUrl.equals("") || idBackUrl == null || idBackUrl.equals("")) {
@@ -366,24 +373,29 @@ public class UserController {
     
     /**
      * 前台：获取用户账户设置详情接口
-     *
+     *(user 的user_bank_id 废弃。)
      * @param model
      * @param id    用户id
      * @return
      */
     @RequestMapping(value = "/a/u/user/set/{id}", method = RequestMethod.GET)
-    public String getUserDetailById(ModelMap model, @PathVariable("id") Long id) {
+    public String getUserSettingDetailById(ModelMap model, @PathVariable("id") Long id) {
         
         log.info("get data : id= " + id);
         try {
             User user = userService.getObjectById(id);
             log.info("get user data is " + user);
+            Long firstUserBankId = userBankService.getUserBankIdByUserIdAndFirst(id, 1);
+            if (!CommonUtil.isEmpty(firstUserBankId)) {
+                UserBank detail = userBankService.getObjectById(firstUserBankId);
+                String userBankFirst = CommonUtil.getUserBankInfo(detail);
+                model.addAttribute("userBankFirst", userBankFirst);
+            }
             
-            UserBank detail = userBankService.getObjectById(user.getUserBankId());
-            String userBankFirst = CommonUtil.getUserBankInfo(detail);
+            
             model.addAttribute("code", 0);
             model.addAttribute("user", user);
-            model.addAttribute("userBankFirst", userBankFirst);
+            
             
         } catch (Throwable t) {
             t.printStackTrace();
@@ -434,6 +446,32 @@ public class UserController {
         return a.toString();
     }
     
+    /**
+     * 前台：查询用户账户详情
+     *
+     * @param id    用户详情
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/a/u/user/detail/{id}", method = RequestMethod.GET)
+    public String getUserDetail(@PathVariable("id") Long id, ModelMap model) {
+        log.info("get data : id= " + id);
+        try {
+            User user = userService.getObjectById(id);
+            log.info("get user data is " + user);
+            
+            model.addAttribute("code", 0);
+            model.addAttribute("user", user);
+            
+        } catch (Throwable t) {
+            t.printStackTrace();
+            log.error(t.getMessage());
+            log.error("get user error,id is  " + id);
+            model.addAttribute("code", -100000);
+        }
+        return "/polyFinance-lgd-server/user/json/userDetailJson";
+        
+    }
     
     /**
      * 前台：发送验证码
