@@ -19,196 +19,60 @@ import java.util.List;
 
 /**
  * BankList  crud
- * 
+ *
  * @author magenm
  * @Date 2014-4-16 13:43
- * 
  */
 @Controller
 public class BankListController {
-	private static final Log log = LogFactory.getLog(BankListController.class);
-
-	@Autowired
-	private BankListService bankListService;
-
-
-
-
-
-
+    private static final Log log = LogFactory.getLog(BankListController.class);
+    
+    @Autowired
+    private BankListService bankListService;
+    
+    
     /**
-	 * 
-	 * @param
-	 * @return
-	 * @throws ServiceException
-	 * @throws ServiceDaoException
-	 */
-
-	@RequestMapping(value = "/c/bankList", method = RequestMethod.GET)
-	public String getbankListList(HttpServletRequest request,
-			HttpServletResponse response, ModelMap model) throws Exception {
-
-		
-		
-		log.info("/bankList  to /bankList/view/bankListList");
-
-		return "/polyFinance-lgd-server/bankList/view/bankListList";
-	}
+     * 查询平台可用银行卡列表
+     *
+     * @param model
+     * @param page  页数
+     * @param size  每页个数
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/a/u/bankList/list", method = RequestMethod.GET)
+    public String getMultiBankListJson(ModelMap model, Integer page, Integer size)
+            throws Exception {
+        if (page == null) {
+            page = 1;
+        }
+        if (size == null) {
+            size = 10;
+        }
+        int start = (page - 1) * size;
+        if (start < 0) {
+            start = 0;
+        }
+        List<Long> ids = new ArrayList<>();
+        try {
+            ids = bankListService.getBankListIds(start, size);
+            List<BankList> bankListList = bankListService.getObjectsByIds(ids);
+            log.info("get  bankList data is " + bankListList);
+            
+            model.addAttribute("code", 0);
+            model.addAttribute("total", bankListList.size());
+            
+            model.addAttribute("bankListList", bankListList);
+            
+        } catch (Throwable t) {
+            log.error(t.getMessage());
+            log.error("get bankList error,id is  " + ids);
+            model.addAttribute("code", -100000);
+        }
+        
+        return "/polyFinance-lgd-server/bankList/json/bankListListJson";
+    }
     
     
-
-    
-	
-	@RequestMapping(value = "/c/bankList/{id}", method = RequestMethod.GET)
-	public String getBankList(HttpServletRequest request,
-			HttpServletResponse response, ModelMap model, @PathVariable Long id)
-			throws Exception {
-
-		log.info("/bankList/" + id + "  to /bankList/view/bankListDeail");
-		if(null != id){
-			model.addAttribute("id", id);
-		}else{
-			model.addAttribute("id", 0);
-		}
-
-		return "/polyFinance-lgd-server/bankList/view/bankListDetail";
-	}
-	
-	
-	
-	    
-	
-
-	@RequestMapping(value = "/a/bankList/{id}", method = RequestMethod.GET)
-	public String getBankListJson(HttpServletRequest request,
-			HttpServletResponse response, ModelMap model, @PathVariable Long id)
-			throws Exception {
-
-		log.info("get data : id= " + id);
-		try {
-			BankList bankList = bankListService.getObjectById(id);
-			log.info("get bankList data is " + bankList);
-
-			model.addAttribute("code", 0);
-
-			model.addAttribute("bankList", bankList);
-
-		} catch (Throwable t) {
-		    t.printStackTrace();
-			log.error(t.getMessage());
-			log.error("get bankList error,id is  " + id);
-			model.addAttribute("code", -100000);
-		}
-
-		return "/polyFinance-lgd-server/bankList/json/bankListDetailJson";
-	}
-
-	@RequestMapping(value = "/a/bankList/{id}", method = RequestMethod.PUT)
-	public String updateBankListJson(HttpServletRequest request,
-			HttpServletResponse response, ModelMap model, BankList bankList) throws Exception {
-		
-		log.info("update bankList : bankList= " + bankList);
-		
-		try {
-			
-			bankListService.update(bankList);
-
-			model.addAttribute("code", 0);
-
-			model.addAttribute("bankList", bankList);
-
-		} catch (Throwable t) {
-		    t.printStackTrace();
-			log.error(t.getMessage());
-			log.error("update bankList error,id is  " + bankList.getId());
-			model.addAttribute("code", -6003);
-
-		}
-
-		return "/data/json";
-	}
-
-	@RequestMapping(value = "/a/bankList", method = RequestMethod.POST)
-	public String addBankListJson(HttpServletRequest request,
-			HttpServletResponse response, ModelMap model, BankList bankList) throws Exception {
-		
-		log.info("update bankList : bankList= " + bankList);
-		
-		try { 
-			bankList.setId(null);
-
-			bankListService.insert(bankList);
-
-			model.addAttribute("code", 0);
-		} catch (Throwable t) {
-		    t.printStackTrace();
-			log.error(t.getMessage());
-			log.error("add bankList error ");
-			model.addAttribute("code", -6002);
-		}
-
-		return "/data/json";
-	}
-
-	@RequestMapping(value = "/a/bankList/{id}", method = RequestMethod.DELETE)
-	public String deleteBankListJson(HttpServletRequest request,
-			HttpServletResponse response, ModelMap model, @PathVariable Long id)
-			throws Exception {
-
-		log.info("delete bankList : id= " + id);
-		try {
-			bankListService.delete(id);
-
-			log.info("add bankList success");
-			model.addAttribute("code", 0);
-
-		} catch (Throwable t) {
-		    t.printStackTrace();
-			log.error(t.getMessage());
-			log.error("delete bankList error,id is  " + id);
-			model.addAttribute("code", -6004);
-
-		}
-
-		return "/data/json";
-	}
-	
-	
-	@RequestMapping(value = "/a/multi/bankList", method = RequestMethod.GET)
-	public String getMultiBankListJson(HttpServletRequest request,
-			HttpServletResponse response, ModelMap model, Long[] ids)
-			throws Exception {
-			
-		List<Long> idList = new ArrayList();	
-	   if (ids == null) {
-
-		} else {
-			idList = Arrays.asList(ids);
-		}
-		try {
-
-			
-
-			List<BankList> bankListList = bankListService.getObjectsByIds(idList);
-			log.info("get  bankList data is " + bankListList);
-
-			model.addAttribute("code", 0);			
-			model.addAttribute("total",bankListList.size());
-
-			model.addAttribute("bankListList", bankListList);
-
-		} catch (Throwable t) {
-			log.error(t.getMessage());
-			log.error("get bankList error,id is  " + idList);
-			model.addAttribute("code", -100000);
-		}
-
-		return "/polyFinance-lgd-server/bankList/json/bankListListJson";
-	}
-	
-	
-	
-	
-	
 }
 

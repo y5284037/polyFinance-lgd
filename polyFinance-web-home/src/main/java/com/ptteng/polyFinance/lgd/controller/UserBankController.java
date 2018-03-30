@@ -1,10 +1,15 @@
 package com.ptteng.polyFinance.lgd.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.gemantic.common.util.MyListUtil;
 import com.ptteng.polyFinance.lgd.model.BankList;
+import com.ptteng.polyFinance.lgd.model.User;
 import com.ptteng.polyFinance.lgd.model.UserBank;
 import com.ptteng.polyFinance.lgd.service.BankListService;
 import com.ptteng.polyFinance.lgd.service.UserBankService;
+import com.ptteng.polyFinance.lgd.service.UserService;
+import com.ptteng.polyFinance.lgd.utils.CommonUtil;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +18,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,7 +41,17 @@ public class UserBankController {
     private UserBankService userBankService;
     @Autowired
     private BankListService bankListService;
+    @Autowired
+    private UserService userService;
     
+    /**
+     * 前台：用户银行卡列表
+     *
+     * @param model
+     * @param id    用户id
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/a/u/userBank/list/{id}", method = RequestMethod.GET)
     public String getUserBankIdsByUserIdJsonList(ModelMap model, @PathVariable("id") Long id) throws Exception {
         
@@ -81,97 +97,93 @@ public class UserBankController {
     }
     
     
-    @RequestMapping(value = "/a/userBank/{id}", method = RequestMethod.GET)
-    public String getUserBankJson(HttpServletRequest request,
-                                  HttpServletResponse response, ModelMap model, @PathVariable Long id)
-            throws Exception {
-        
-        log.info("get data : id= " + id);
+    /**
+     * 前台：更换默认银行卡
+     *
+     * @param model
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/a/u/userBank/{id}", method = RequestMethod.PUT, produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    
+    public String updateUserBankJson(@PathVariable("id") Long id, ModelMap model, Long userBankId) throws Exception {
+        log.info("update userBank : userBankId= " + userBankId);
+        JSONObject a = new JSONObject();
+        if (CommonUtil.isEmpty(id, userBankId)) {
+            a.put("code", -200000);
+            a.put("message", "necessary param missing");
+            return a.toString();
+        }
         try {
-            UserBank userBank = userBankService.getObjectById(id);
-            log.info("get userBank data is " + userBank);
-            
-            model.addAttribute("code", 0);
-            
-            model.addAttribute("userBank", userBank);
-            
+            List<Long> userBankIds = userBankService.getUserBankIdsByUserId(id, 0, Integer.MAX_VALUE);
+            List<UserBank> userBanks = userBankService.getObjectsByIds(userBankIds);
+            for (UserBank bank : userBanks) {
+                bank.setFirst(0);
+                if (bank.getId().equals(userBankId)) {
+                    bank.setFirst(1);
+                }
+            }
+            Boolean flag = userBankService.updateList(userBanks);
+            if (flag) {
+                a.put("code", 0);
+                a.put("message", "success");
+            }
         } catch (Throwable t) {
             t.printStackTrace();
             log.error(t.getMessage());
-            log.error("get userBank error,id is  " + id);
-            model.addAttribute("code", -100000);
+            log.error("update userBank error,id is  " + userBankId);
+            a.put("code", -100000);
+            a.put("message", "Server has something wrong");
         }
-        
-        return "/polyFinance-lgd-server/userBank/json/userBankDetailJson";
+        return a.toString();
     }
     
-    @RequestMapping(value = "/a/userBank/{id}", method = RequestMethod.PUT)
-    public String updateUserBankJson(HttpServletRequest request,
-                                     HttpServletResponse response, ModelMap model, UserBank userBank) throws Exception {
+    /**
+     * 前台：用户添加银行卡
+     *（只能绑定两张）
+     * @param model
+     * @param id 用户id
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/a/u/userBank/{id}", method = RequestMethod.POST)
+    public String addUserBankJson(@PathVariable("id") Long id, ModelMap model, String city, String bankName, String cardNo, String bankPhone, Long bankListId) throws Exception {
         
-        log.info("update userBank : userBank= " + userBank);
-        
-        try {
-            
-            userBankService.update(userBank);
-            
-            model.addAttribute("code", 0);
-            
-            model.addAttribute("userBank", userBank);
-            
-        } catch (Throwable t) {
-            t.printStackTrace();
-            log.error(t.getMessage());
-            log.error("update userBank error,id is  " + userBank.getId());
-            model.addAttribute("code", -6003);
-            
+        log.info("insert userBank : userId= " + id + " bankname= " + bankName + " cardNo= " + cardNo);
+        UserBank userBank = new UserBank();
+        if (CommonUtil.isEmpty(id, cardNo, city, bankName, bankPhone)) {
+            model.addAttribute("code", -200000);
+            return "/polyFinance-lgd-server/userBank/json/userBankDetailJson";
         }
-        return "/data/json";
-    }
-    
-    @RequestMapping(value = "/a/userBank", method = RequestMethod.POST)
-    public String addUserBankJson(HttpServletRequest request,
-                                  HttpServletResponse response, ModelMap model, UserBank userBank) throws Exception {
-        
-        log.info("update userBank : userBank= " + userBank);
-        
         try {
             userBank.setId(null);
-            
+            userBank.setUserId(id);
+            userBank.setCardNo(cardNo);
+            userBank.setBankName(bankName);
+            userBank.setCity(city);
+            userBank.setBankPhone(bankPhone);
+            userBank.setCreateBy(id);
+            userBank.setBankListId(bankListId);
+            List<Long> ids = userBankService.getUserBankIdsByUserId(id, 0, Integer.MAX_VALUE);
+            if (ids.size() == 0) {
+                userBank.setFirst(1);
+            } else if (ids.size() == 2) {
+                model.addAttribute("code", -3001);
+                return "/polyFinance-lgd-server/userBank/json/userBankDetailJson";
+            }
             userBankService.insert(userBank);
-            
             model.addAttribute("code", 0);
+            
         } catch (Throwable t) {
             t.printStackTrace();
             log.error(t.getMessage());
             log.error("add userBank error ");
-            model.addAttribute("code", -6002);
+            model.addAttribute("code", -100000);
         }
         
-        return "/data/json";
-    }
-    
-    @RequestMapping(value = "/a/userBank/{id}", method = RequestMethod.DELETE)
-    public String deleteUserBankJson(HttpServletRequest request,
-                                     HttpServletResponse response, ModelMap model, @PathVariable Long id)
-            throws Exception {
-        
-        log.info("delete userBank : id= " + id);
-        try {
-            userBankService.delete(id);
-            
-            log.info("add userBank success");
-            model.addAttribute("code", 0);
-            
-        } catch (Throwable t) {
-            t.printStackTrace();
-            log.error(t.getMessage());
-            log.error("delete userBank error,id is  " + id);
-            model.addAttribute("code", -6004);
-            
-        }
-        
-        return "/data/json";
+        return "/polyFinance-lgd-server/userBank/json/userBankDetailJson";
     }
     
     

@@ -597,8 +597,8 @@
                     <stopKey>foo</stopKey>
                     <scanIntervalSeconds>5</scanIntervalSeconds>
                     <connectors>
-                        <connector implementation="org.eclipse.jetty.Server.nio.SelectChannelConnector">
-                            <port>8080</port>
+                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+                            <port>8082</port>
                             <maxIdleTime>60000</maxIdleTime>
                         </connector>
                     </connectors>
@@ -673,5 +673,6 @@
             <!--</plugin>-->
 
         </plugins>
+
     </build>
 </project>

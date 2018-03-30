@@ -7,7 +7,7 @@
 			
 			
 					<list name="getUserBankIdsByUserId"
-				sqlitem="select id from user_bank where user_id = ?"
+				sqlitem="select id from user_bank where user_id = ? order by first desc"
 				keyProperty="userId" valueProperty="id" keyColumn="user_id" />
 						
 			
