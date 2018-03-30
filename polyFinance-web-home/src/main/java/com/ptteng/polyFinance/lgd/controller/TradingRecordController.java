@@ -69,7 +69,7 @@ public class TradingRecordController {
         } catch (Throwable e) {
             log.error(e);
             log.error("getUserTradingRecord error , page is  " + start + " , size ");
-            model.addAttribute("code", -100000);
+            model.addAttribute("code", -100);
             e.printStackTrace();
         }
         return "/polyFinance-lgd-server/tradingRecord/json/tradingRecordListJson";
@@ -102,7 +102,7 @@ public class TradingRecordController {
             t.printStackTrace();
             log.error(t.getMessage());
             log.error("get tradingRecord error,id is  " + id);
-            model.addAttribute("code", -100000);
+            model.addAttribute("code", -100);
         }
         
         return "/polyFinance-lgd-server/tradingRecord/json/tradingRecordDetailJson";
