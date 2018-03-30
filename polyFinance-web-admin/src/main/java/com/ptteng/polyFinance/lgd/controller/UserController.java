@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 import java.util.Map;
@@ -327,6 +328,81 @@ public class UserController {
         return "/polyFinance-lgd-server/user/json/userDetailJson";
     }
     
-   
+    /**
+     * 后台：更新用户手机号接口
+     *
+     * @param id       用户id
+     * @param model
+     * @param phoneNum 用户手机号
+     * @return
+     */
+    @RequestMapping(value = "/a/u/user/phoneNum/{id}", method = RequestMethod.POST)
+    public String updateUserPhoneNum(@PathVariable("id") Long id, ModelMap model, String phoneNum) {
+        
+        if (CommonUtil.isEmpty(id, phoneNum)) {
+            model.addAttribute("code", -200000);
+            return "/polyFinance-lgd-server/user/json/userDetailJson";
+        }
+        Boolean flag;
+        try {
+            User userGet = userService.getObjectById(id);
+            if (userGet == null) {
+                model.addAttribute("code", -200000);
+                return "/polyFinance-lgd-server/user/json/userDetailJson";
+                
+            }
+            userGet.setPhoneNum(phoneNum);
+            flag = userService.update(userGet);
+            if (flag) {
+                model.addAttribute("code", 0);
+            }
+        } catch (Throwable e) {
+            
+            e.printStackTrace();
+            log.error("update user phoneNum error, user id = " + id);
+            model.addAttribute("code", -100000);
+            e.printStackTrace();
+        }
+        return "/polyFinance-lgd-server/user/json/userDetailJson";
+    }
+    
+    /**
+     * 后台：更改用户理财经理工号接口
+     *
+     * @param id         用户id
+     * @param model
+     * @param managerNum 用户理财经理工号
+     * @return
+     */
+    @RequestMapping(value = "/a/u/user/managerNum/{id}", method = RequestMethod.POST)
+    public String updateUserManageNum(@PathVariable("id") Long id, ModelMap model, String managerNum) {
+        if (CommonUtil.isEmpty(id, managerNum)) {
+            model.addAttribute("code", -200000);
+            return "/polyFinance-lgd-server/user/json/userDetailJson";
+        }
+        log.info("update user mannageNum , user id = " + id + " managerNum = " + managerNum);
+        Boolean flag;
+        try {
+            User userGet = userService.getObjectById(id);
+            if (userGet == null) {
+                model.addAttribute("code", -200000);
+                return "/polyFinance-lgd-server/user/json/userDetailJson";
+                
+            }
+            userGet.setManagerNum(managerNum);
+            flag = userService.update(userGet);
+            if (flag) {
+                model.addAttribute("code", 0);
+            }
+        } catch (Throwable e) {
+            
+            e.printStackTrace();
+            log.error("update user mannageNum error, user id = " + id);
+            model.addAttribute("code", -100000);
+            e.printStackTrace();
+        }
+        return "/polyFinance-lgd-server/user/json/userDetailJson";
+    }
+    
 }
 

@@ -56,13 +56,13 @@ public class UserController {
             return "/polyFinance-lgd-server/user/json/userDetailJson";
         }
         
-        log.info("/a/login" + phoneNum);
+        log.info("/a/login user login=》》》》 " + phoneNum);
         try {
             User user = userService.getObjectByPhoneNum(phoneNum);
             if (user != null) {
                 // 用户状态校验
-                if(user.getAccountsStatus()==1){
-                    model.addAttribute("code",4003);
+                if (user.getAccountsStatus() == 1) {
+                    model.addAttribute("code", 4003);
                     return "/polyFinance-lgd-server/user/json/userDetailJson";
                 }
                 String pswdCheck = SecureUtil.messageDigest(user.getSalt() + pswd);
@@ -266,7 +266,7 @@ public class UserController {
      */
     @RequestMapping(value = "/a/u/user/pswd", method = RequestMethod.PUT, produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String modifyPswd(HttpSession session,Long id, String oldPswd, String newPswd) {
+    public String modifyPswd(HttpSession session, Long id, String oldPswd, String newPswd) {
         JSONObject a = new JSONObject();
         
         if (CommonUtil.isEmpty(id, oldPswd, newPswd)) {
@@ -340,7 +340,7 @@ public class UserController {
             }
             userGet.setName(name);
             userGet.setIdCard(idCard);
-           
+            
             String idFrontUrl = FilesUtil.upLoadFile(idFront);
             String idBackUrl = FilesUtil.upLoadFile(idBack);
             if (idFrontUrl == null || idFrontUrl.equals("") || idBackUrl == null || idBackUrl.equals("")) {
@@ -373,7 +373,8 @@ public class UserController {
     
     /**
      * 前台：获取用户账户设置详情接口
-     *(user 的user_bank_id 废弃。)
+     * (user 的user_bank_id 废弃。)
+     *
      * @param model
      * @param id    用户id
      * @return
@@ -480,6 +481,7 @@ public class UserController {
      * @param phoneNum 手机号
      * @param type     发送类型
      * @return
+     *
      */
     @RequestMapping(value = "/a/code/send", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
     public @ResponseBody
