@@ -178,7 +178,7 @@ public class UserMessageController {
 			log.error("get userMessage list error,page is  " + start + " , size "
 					+ size);
 			// for test
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/userMessage/json/userMessageListJson";
@@ -241,7 +241,7 @@ public class UserMessageController {
 			log.error("get userMessage list error,page is  " + start + " , size "
 					+ size);
 			// for test
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/userMessage/json/userMessageListJson";
@@ -271,7 +271,7 @@ public class UserMessageController {
 		    t.printStackTrace();
 			log.error(t.getMessage());
 			log.error("get userMessage error,id is  " + id);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/userMessage/json/userMessageDetailJson";
@@ -374,7 +374,7 @@ public class UserMessageController {
 		} catch (Throwable t) {
 			log.error(t.getMessage());
 			log.error("get userMessage error,id is  " + idList);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/userMessage/json/userMessageListJson";

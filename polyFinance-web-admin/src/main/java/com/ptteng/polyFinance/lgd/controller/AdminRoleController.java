@@ -97,7 +97,7 @@ public class AdminRoleController {
 		    t.printStackTrace();
 			log.error(t.getMessage());
 			log.error("get adminRole error,id is  " + id);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/adminRole/json/adminRoleDetailJson";
@@ -200,7 +200,7 @@ public class AdminRoleController {
 		} catch (Throwable t) {
 			log.error(t.getMessage());
 			log.error("get adminRole error,id is  " + idList);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/adminRole/json/adminRoleListJson";

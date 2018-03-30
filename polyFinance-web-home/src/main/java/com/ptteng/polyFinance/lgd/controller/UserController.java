@@ -52,7 +52,7 @@ public class UserController {
     public String userLogin(HttpServletResponse response, ModelMap model, String phoneNum, String pswd) {
         
         if (phoneNum == null || phoneNum.equals("") || pswd == null || pswd.equals("")) {
-            model.addAttribute("code", -200000);
+            model.addAttribute("code", -200);
             return "/polyFinance-lgd-server/user/json/userDetailJson";
         }
         
@@ -164,7 +164,7 @@ public class UserController {
                         if (flag) {
                             model.addAttribute("code", 0);
                         } else {
-                            model.addAttribute("code", -100000);
+                            model.addAttribute("code", -100);
                         }
                         
                         
@@ -212,7 +212,7 @@ public class UserController {
         
         if (CommonUtil.isEmpty(mobile, verify, pswd)) {
             
-            model.put("code", -200000);
+            model.put("code", -200);
             model.put("message", "necessary param wrong 参数错误1");
             return model.toString();
         }
@@ -239,7 +239,7 @@ public class UserController {
                     //todo 清空session
 //                    session.invalidate();
                 } else {
-                    model.put("code", -100000);
+                    model.put("code", -100);
                     model.put("message", "Server has something wrong");
                 }
             } else {
@@ -270,7 +270,7 @@ public class UserController {
         JSONObject a = new JSONObject();
         
         if (CommonUtil.isEmpty(id, oldPswd, newPswd)) {
-            a.put("code", -200000);
+            a.put("code", -200);
             a.put("message", "necessary param missing");
             return a.toString();
         }
@@ -324,7 +324,7 @@ public class UserController {
         
         JSONObject a = new JSONObject();
         if (CommonUtil.isEmpty(id, name, idCard)) {
-            a.put("code", -200000);
+            a.put("code", -200);
             a.put("message", "necessary param missing");
             return a.toString();
         }
@@ -356,14 +356,14 @@ public class UserController {
                 a.put("message", "success");
                 log.info("uodate user idCard pic success");
             } else {
-                a.put("code", -100000);
+                a.put("code", -100);
                 a.put("message", "Server has something wrong");
                 
             }
         } catch (Throwable e) {
             log.info(e);
             log.error("update user idCard pic SCA service  error");
-            a.put("code", -100000);
+            a.put("code", -100);
             a.put("message", "Server has something wrong");
             e.printStackTrace();
         }
@@ -401,7 +401,7 @@ public class UserController {
             t.printStackTrace();
             log.error(t.getMessage());
             log.error("get user error,id is  " + id);
-            model.addAttribute("code", -100000);
+            model.addAttribute("code", -100);
         }
         return "/polyFinance-lgd-server/user/json/userDetailJson";
     }
@@ -421,7 +421,7 @@ public class UserController {
         JSONObject a = new JSONObject();
         Boolean flag;
         if (CommonUtil.isEmpty(id)) {
-            a.put("code", -200000);
+            a.put("code", -200);
             a.put("message", "necessary param wrong");
             return a.toString();
         }
@@ -438,7 +438,7 @@ public class UserController {
         } catch (Throwable e) {
             log.error(e.getMessage());
             e.printStackTrace();
-            a.put("code", -100000);
+            a.put("code", -100);
             a.put("message", "Server has something wrong");
             return a.toString();
         }
@@ -467,7 +467,7 @@ public class UserController {
             t.printStackTrace();
             log.error(t.getMessage());
             log.error("get user error,id is  " + id);
-            model.addAttribute("code", -100000);
+            model.addAttribute("code", -100);
         }
         return "/polyFinance-lgd-server/user/json/userDetailJson";
         
@@ -487,7 +487,7 @@ public class UserController {
         JSONObject a = new JSONObject();
         
         if (CommonUtil.isEmpty(phoneNum, type)) {
-            a.put("code", -2000000);
+            a.put("code", -200);
             a.put("message", "necessary param wrong");
             return a.toString();
         }
@@ -507,7 +507,7 @@ public class UserController {
                 } catch (Exception e) {
                     log.error(e);
                     log.error("SMS service error");
-                    a.put("code", -1000000);
+                    a.put("code", -100);
                     a.put("message", "SMS service error");
                     return a.toString();
                 }
@@ -521,7 +521,7 @@ public class UserController {
                 log.error(e);
                 log.error("/a/code/send " + "get user error" + phoneNum);
                 e.printStackTrace();
-                a.put("code", -1000000);
+                a.put("code", -100);
                 a.put("message", "SMS OR RMI  service error");
             }
         } else if (type.equals("password")) {
@@ -538,7 +538,7 @@ public class UserController {
                 } catch (Exception e) {
                     log.error(e);
                     log.error("SMS service error");
-                    a.put("code", -1000000);
+                    a.put("code", -100);
                     a.put("message", "SMS service error");
                     return a.toString();
                 }
@@ -552,7 +552,7 @@ public class UserController {
                 log.error(e);
                 log.error("/a/code/send " + "get user error" + phoneNum);
                 e.printStackTrace();
-                a.put("code", -1000000);
+                a.put("code", -100);
                 a.put("message", "SMS OR RMI  service error");
             }
         } else {

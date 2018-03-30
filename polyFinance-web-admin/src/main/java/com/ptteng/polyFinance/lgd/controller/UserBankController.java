@@ -45,7 +45,7 @@ public class UserBankController {
         log.info("delete userBank : id= " + id + " ;userBankId + " + userBankId);
         JSONObject a = new JSONObject();
         if (CommonUtil.isEmpty(id, userBankId)) {
-            a.put("code", -200000);
+            a.put("code", -200);
             a.put("message", "necessary param missing");
             return a.toString();
         }

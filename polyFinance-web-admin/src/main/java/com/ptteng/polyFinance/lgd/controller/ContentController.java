@@ -97,7 +97,7 @@ public class ContentController {
 		    t.printStackTrace();
 			log.error(t.getMessage());
 			log.error("get content error,id is  " + id);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/content/json/contentDetailJson";
@@ -200,7 +200,7 @@ public class ContentController {
 		} catch (Throwable t) {
 			log.error(t.getMessage());
 			log.error("get content error,id is  " + idList);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/content/json/contentListJson";

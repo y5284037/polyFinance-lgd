@@ -64,7 +64,7 @@ public class InvestRecordController {
             modelMap.addAttribute("total", investRecordService.countInvestRecordIdsByUserIdOrderByCreateAt(id));
             modelMap.addAttribute("size", size);
         } catch (Throwable e) {
-            modelMap.addAttribute("code", -100000);
+            modelMap.addAttribute("code", -100);
             e.printStackTrace();
         }
         return "polyFinance-lgd-server/investRecord/json/investRecordListJson";
@@ -85,7 +85,7 @@ public class InvestRecordController {
             modelMap.addAttribute("investRecord", investRecord);
             modelMap.addAttribute("code", 0);
         } catch (Throwable e) {
-            modelMap.addAttribute("code", -100000);
+            modelMap.addAttribute("code", -100);
             e.printStackTrace();
         }
         return "polyFinance-lgd-server/investRecord/json/investRecordDetailJson";

@@ -154,7 +154,7 @@ public class DebtorMatchController {
 			log.error("get debtorMatch list error,page is  " + start + " , size "
 					+ size);
 			// for test
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/debtorMatch/json/debtorMatchListJson";
@@ -184,7 +184,7 @@ public class DebtorMatchController {
 		    t.printStackTrace();
 			log.error(t.getMessage());
 			log.error("get debtorMatch error,id is  " + id);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/debtorMatch/json/debtorMatchDetailJson";
@@ -287,7 +287,7 @@ public class DebtorMatchController {
 		} catch (Throwable t) {
 			log.error(t.getMessage());
 			log.error("get debtorMatch error,id is  " + idList);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/debtorMatch/json/debtorMatchListJson";

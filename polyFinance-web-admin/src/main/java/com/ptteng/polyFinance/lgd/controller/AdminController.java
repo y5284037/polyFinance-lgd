@@ -45,8 +45,8 @@ public class AdminController {
     @RequestMapping(value = "/a/l/admin/login", method = RequestMethod.PUT)
     public String adminLogin(ModelMap modelMap, String loginName, String pswd) {
         Admin admin;
-        if (CommonUtil.isEmpty(loginName)) {
-            modelMap.addAttribute("code", -200000);
+        if (CommonUtil.isEmpty(loginName,pswd)) {
+            modelMap.addAttribute("code", -200);
         } else {
             try {
                 admin = adminService.getObjectByLoginName(loginName);
@@ -61,7 +61,7 @@ public class AdminController {
                     modelMap.addAttribute("code", 4001);
                 }
             } catch (Throwable e) {
-                modelMap.addAttribute("code", -100000);
+                modelMap.addAttribute("code", -100);
                 e.printStackTrace();
             }
         }
@@ -80,7 +80,7 @@ public class AdminController {
     @RequestMapping(value = "/a/u/admin", method = RequestMethod.POST)
     public String adminInsert(Admin admin, ModelMap modelMap) {
         if (CommonUtil.isEmpty(admin.getLoginName(), admin.getPswd(), admin.getAdminRoleId())) {
-            modelMap.addAttribute("code", -200000);
+            modelMap.addAttribute("code", -200);
         } else {
             try {
                 if (adminService.getObjectByLoginName(admin.getLoginName()) != null) {
@@ -97,7 +97,7 @@ public class AdminController {
                     modelMap.addAttribute("code", 0);
                 }
             } catch (Throwable e) {
-                modelMap.addAttribute("code", -100000);
+                modelMap.addAttribute("code", -100);
                 e.printStackTrace();
             }
             

@@ -154,7 +154,7 @@ public class TradingRecordController {
 			log.error("get tradingRecord list error,page is  " + start + " , size "
 					+ size);
 			// for test
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/tradingRecord/json/tradingRecordListJson";
@@ -184,7 +184,7 @@ public class TradingRecordController {
 		    t.printStackTrace();
 			log.error(t.getMessage());
 			log.error("get tradingRecord error,id is  " + id);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/tradingRecord/json/tradingRecordDetailJson";
@@ -287,7 +287,7 @@ public class TradingRecordController {
 		} catch (Throwable t) {
 			log.error(t.getMessage());
 			log.error("get tradingRecord error,id is  " + idList);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/tradingRecord/json/tradingRecordListJson";

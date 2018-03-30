@@ -154,7 +154,7 @@ public class SysMessageReadedController {
 			log.error("get sysMessageReaded list error,page is  " + start + " , size "
 					+ size);
 			// for test
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/sysMessageReaded/json/sysMessageReadedListJson";
@@ -184,7 +184,7 @@ public class SysMessageReadedController {
 		    t.printStackTrace();
 			log.error(t.getMessage());
 			log.error("get sysMessageReaded error,id is  " + id);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/sysMessageReaded/json/sysMessageReadedDetailJson";
@@ -287,7 +287,7 @@ public class SysMessageReadedController {
 		} catch (Throwable t) {
 			log.error(t.getMessage());
 			log.error("get sysMessageReaded error,id is  " + idList);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/sysMessageReaded/json/sysMessageReadedListJson";

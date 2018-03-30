@@ -154,7 +154,7 @@ public class CountController {
 			log.error("get count list error,page is  " + start + " , size "
 					+ size);
 			// for test
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/count/json/countListJson";
@@ -184,7 +184,7 @@ public class CountController {
 		    t.printStackTrace();
 			log.error(t.getMessage());
 			log.error("get count error,id is  " + id);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/count/json/countDetailJson";
@@ -287,7 +287,7 @@ public class CountController {
 		} catch (Throwable t) {
 			log.error(t.getMessage());
 			log.error("get count error,id is  " + idList);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/count/json/countListJson";

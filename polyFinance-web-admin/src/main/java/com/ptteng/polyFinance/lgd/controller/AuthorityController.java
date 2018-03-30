@@ -154,7 +154,7 @@ public class AuthorityController {
 			log.error("get authority list error,page is  " + start + " , size "
 					+ size);
 			// for test
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/authority/json/authorityListJson";
@@ -184,7 +184,7 @@ public class AuthorityController {
 		    t.printStackTrace();
 			log.error(t.getMessage());
 			log.error("get authority error,id is  " + id);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/authority/json/authorityDetailJson";
@@ -287,7 +287,7 @@ public class AuthorityController {
 		} catch (Throwable t) {
 			log.error(t.getMessage());
 			log.error("get authority error,id is  " + idList);
-			model.addAttribute("code", -100000);
+			model.addAttribute("code", -100);
 		}
 
 		return "/polyFinance-lgd-server/authority/json/authorityListJson";
