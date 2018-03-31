@@ -212,6 +212,42 @@ public class DynamicUtil {
         return param;
         
     }
+    
+    public static Map<String, Object> getBanklistList(String name, String updateBy, Long updateAtStart, Long updateAtEnd, String singleTransactionLimitStart, String singleTransactionLimitEnd, String dailyLimitStart, String dailyLimitEnd) {
+        
+        Map<String, Object> param = new HashMap<>();
+        if (!CommonUtil.isEmpty(name)) {
+            param.put("name & like", "'%" + name + "%'");
+        }
+        if (!CommonUtil.isEmpty(updateBy)) {
+            param.put("update_by & like", "'%" + updateBy + "%'");
+        }
+        if (!CommonUtil.isEmpty(updateAtStart)) {
+            param.put("update_at & >=", "'%" + updateAtStart + "%'");
+        }
+        if (!CommonUtil.isEmpty(updateAtEnd)) {
+            param.put("update_at & <=", "'%" + updateAtEnd + "%'");
+        }
+        if (!CommonUtil.isEmpty(singleTransactionLimitStart)) {
+            param.put("single_transaction_limit& >=", "'%" + singleTransactionLimitStart + "%'");
+        }
+        if (!CommonUtil.isEmpty(singleTransactionLimitEnd)) {
+            param.put("single_transaction_limit& <=", "'%" + singleTransactionLimitEnd + "%'");
+        }
+        
+        if (!CommonUtil.isEmpty(dailyLimitStart)) {
+            param.put("daily_limit& >=", "'%" + dailyLimitStart + "%'");
+        }
+        if (!CommonUtil.isEmpty(dailyLimitEnd)) {
+            param.put("daily_limit& <=", "'%" + dailyLimitEnd + "%'");
+        }
+        param.put("@table", "bank_list");
+        param.put("@order", "create_at desc");
+        
+        return param;
+        
+    }
+    
 }
     
 

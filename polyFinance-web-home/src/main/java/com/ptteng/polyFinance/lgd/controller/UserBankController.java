@@ -9,6 +9,7 @@ import com.ptteng.polyFinance.lgd.service.BankListService;
 import com.ptteng.polyFinance.lgd.service.UserBankService;
 import com.ptteng.polyFinance.lgd.service.UserService;
 import com.ptteng.polyFinance.lgd.utils.CommonUtil;
+import com.ptteng.polyFinance.lgd.utils.FilesUtil;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -67,6 +68,10 @@ public class UserBankController {
             List<Long> bankListIds = MyListUtil.getList(UserBank.class.getDeclaredField("bankListId"), userBankList);
             
             List<BankList> bankLists = bankListService.getObjectsByIds(bankListIds);
+            for (BankList bankList : bankLists) {
+                String url = FilesUtil.getUrl(bankList.getLogoPic());
+                bankList.setLogoPic(url);
+            }
             
             Map<Long, BankList> map = MyListUtil.convert2Map(BankList.class.getDeclaredField("id"), bankLists);
             
@@ -142,9 +147,10 @@ public class UserBankController {
     
     /**
      * 前台：用户添加银行卡
-     *（只能绑定两张）
+     * （只能绑定两张）
+     *
      * @param model
-     * @param id 用户id
+     * @param id    用户id
      * @return
      * @throws Exception
      */
