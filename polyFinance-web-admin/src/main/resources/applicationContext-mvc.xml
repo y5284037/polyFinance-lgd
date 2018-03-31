@@ -29,7 +29,7 @@
 
     <!--配置文件解析器-->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="#{100*1024}"/>
+        <property name="maxUploadSize" value="#{100*1024*1024}"/>
     </bean>
 
 <!--配置国际化-->
