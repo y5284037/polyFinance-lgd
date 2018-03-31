@@ -4,6 +4,7 @@ import com.gemantic.common.exception.ServiceDaoException;
 import com.gemantic.common.exception.ServiceException;
 import com.ptteng.polyFinance.lgd.model.InvestRecord;
 import com.ptteng.polyFinance.lgd.service.InvestRecordService;
+import com.ptteng.polyFinance.lgd.utils.CommonUtil;
 import com.sun.org.apache.bcel.internal.generic.MONITORENTER;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,12 +41,14 @@ public class InvestRecordController {
      * @param id       当前登录用户id
      * @param page     当前显示页数
      * @param size     每页数量
+     * @param investStatus 产品状态
      * @param modelMap
      * @return
      */
-    @RequestMapping(value = "/a/u/investRecord/list/{id}", method = RequestMethod.GET)
-    public String getUserInverstRecord(@PathVariable Long id, Integer page, Integer size, ModelMap modelMap) {
-        
+    @RequestMapping(value = "/a/u/investRecord/list", method = RequestMethod.GET)
+    public String getUserInverstRecord(Long id, Integer page, Integer size,
+            Integer investStatus, ModelMap modelMap) {
+        System.out.println(investStatus);
         if (page == null) {
             page = 1;
         }
@@ -56,12 +59,17 @@ public class InvestRecordController {
         if (start < 0) {
             start = 0;
         }
+        if(CommonUtil.isEmpty(id,investStatus)){
+            modelMap.addAttribute("code", -200);
+            return "polyFinance-lgd-server/investRecord/json/investRecordListJson";
+        }
+        
         try {
-            List<Long> ids = investRecordService.getInvestRecordIdsByUserIdOrderByCreateAt(id, start, size);
+            List<Long> ids = investRecordService.getInvestRecordIdsByUserIdAndInvestStatusOrderByCreateAt(id,investStatus, start, size);
             List<InvestRecord> investRecords = investRecordService.getObjectsByIds(ids);
             modelMap.addAttribute("investRecordList", investRecords);
             modelMap.addAttribute("code", 0);
-            modelMap.addAttribute("total", investRecordService.countInvestRecordIdsByUserIdOrderByCreateAt(id));
+            modelMap.addAttribute("total", investRecordService.countInvestRecordIdsByUserIdAndInvestStatusOrderByCreateAt(id,investStatus));
             modelMap.addAttribute("size", size);
         } catch (Throwable e) {
             modelMap.addAttribute("code", -100);
