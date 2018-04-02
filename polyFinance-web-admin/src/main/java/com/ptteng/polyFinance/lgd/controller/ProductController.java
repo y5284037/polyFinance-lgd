@@ -106,7 +106,7 @@ public class ProductController {
      */
     @RequestMapping(value = "/a/u/product/{id}", method = RequestMethod.PUT)
     public String changeStatus(@PathVariable Long id, ModelMap modelMap) {
-        if(CommonUtil.isEmpty(id)){
+        if (CommonUtil.isEmpty(id)) {
             modelMap.addAttribute("code", -200);
             return "polyFinance-lgd-server/product/json/productChangeStatus";
         }
@@ -194,7 +194,9 @@ public class ProductController {
         if (!CommonUtil.isEmpty(detailsPicFile) && detailsPicFile.getSize() > 0) {
             try {
                 product.setDetailsPic(FilesUtil.upLoadFile(detailsPicFile));
-            } catch (IOException e) {
+                FilesUtil.deleteObject(product.getDetailsPic());
+                
+            } catch (Throwable e) {
                 modelMap.addAttribute("code", -200);
                 e.printStackTrace();
             }
@@ -202,7 +204,7 @@ public class ProductController {
         try {
             productService.update(product);
             modelMap.addAttribute("code", 0);
-        } catch (ServiceException | ServiceDaoException e) {
+        } catch (Throwable e) {
             modelMap.addAttribute("code", -200);
             e.printStackTrace();
         }
