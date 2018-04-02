@@ -9,7 +9,9 @@ import com.ptteng.polyFinance.lgd.model.AdminRole;
 import com.gemantic.common.exception.ServiceDaoException;
 import com.gemantic.common.exception.ServiceException;
 import com.ptteng.common.dao.BaseDaoService;
+import org.springframework.stereotype.Component;
 
+@Component
 @Remotable
 public interface AdminRoleService extends BaseDaoService {
 
