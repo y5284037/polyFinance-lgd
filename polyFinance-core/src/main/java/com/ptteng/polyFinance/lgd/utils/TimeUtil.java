@@ -39,7 +39,7 @@ public class TimeUtil {
     }
     
     public static void main(String[] args) {
-        Date date = new Date();
+        Date date = new Date(1522892444050L);
         SimpleDateFormat sp = new SimpleDateFormat("yyyy/MM/dd/HH/mm/ss");
         System.out.println(sp.format(date));
         System.out.println(sp.format(new Date(getZeroTimeStamp(date.getTime()))));

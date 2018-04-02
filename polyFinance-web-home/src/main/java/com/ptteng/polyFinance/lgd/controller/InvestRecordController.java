@@ -171,7 +171,7 @@ public class InvestRecordController {
             Settings settings = settingsService.getObjectById(1L);
             int days = settings.getInvsetExpireWarn();
             for (InvestRecord record : matchRecords) {
-                if ((record.getValueEndDay() - TimeUtil.getDaysTimeStamp(days)) <= TimeUtil.getZeroTimeStamp(new Date().getTime()) && record.getValueEndDay() > System.currentTimeMillis() && record.getValueDay() > noobInvestRecord.getValueDay()) {
+                if ((record.getValueEndDay() - TimeUtil.getDaysTimeStamp(days)) <= TimeUtil.getZeroTimeStamp(new Date().getTime()) && record.getValueEndDay() > System.currentTimeMillis() && record.getId() > noobInvestRecord.getId()) {
                     match1Records.add(record);
                 }
             }
