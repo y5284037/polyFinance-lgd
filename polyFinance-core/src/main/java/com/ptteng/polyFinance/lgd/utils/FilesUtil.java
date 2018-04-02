@@ -132,8 +132,8 @@ public class FilesUtil {
         return downloadUrlStr;
     }
     
-    public static void main(String[] args) {
-        System.out.println(getUrl("student/e4fdc694-eb57-40a5-a363-1d63595d491a.jpg"));
-    }
+//    public static void main(String[] args) {
+//        System.out.println(getUrl("student/e4fdc694-eb57-40a5-a363-1d63595d491a.jpg"));
+//    }
     
 }

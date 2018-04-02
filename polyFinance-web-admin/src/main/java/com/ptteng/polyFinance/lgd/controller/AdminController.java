@@ -170,9 +170,10 @@ public class AdminController {
     
     /**
      * 查询所有管理列表接口
+     *
      * @param modelMap
-     * @param page 当前显示页数
-     * @param size 每页数量
+     * @param page     当前显示页数
+     * @param size     每页数量
      * @return
      */
     @RequestMapping(value = "/a/u/admin/list", method = RequestMethod.GET)
@@ -184,6 +185,9 @@ public class AdminController {
             size = 10;
         }
         int start = (page - 1) * size;
+        if (start < 0) {
+            start = 0;
+        }
         try {
             List<Long> ids = adminService.getAdminIds(start, size);
             List<Admin> admins = adminService.getObjectsByIds(ids);
