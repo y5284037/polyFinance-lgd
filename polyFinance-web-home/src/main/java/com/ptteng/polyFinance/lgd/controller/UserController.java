@@ -70,7 +70,7 @@ public class UserController {
                     
                     model.addAttribute("code", 0);
                     //todo 设置cookie
-                    
+                    model.addAttribute("user",user);
                     Cookie cookie = new Cookie("tendk.com", user.getId() + "");
                     response.addCookie(cookie);
                     
@@ -187,12 +187,7 @@ public class UserController {
         return "/polyFinance-lgd-server/user/json/userDetailJson";
     }
     
-    @RequestMapping(value = "/test", method = RequestMethod.PUT)
-    public String test(HttpServletRequest request, String name) {
-        
-        System.out.println(name);
-        return name;
-    }
+   
     
     /**
      * 前台：用户忘记密码接口

@@ -43,6 +43,6 @@ public class TimeUtil {
         SimpleDateFormat sp = new SimpleDateFormat("yyyy/MM/dd/HH/mm/ss");
         System.out.println(sp.format(date));
         System.out.println(sp.format(new Date(getZeroTimeStamp(date.getTime()))));
-        System.out.println(new Date().getTime()+ getDaysTimeStamp(6));
+        System.out.println(new Date().getTime()+ getDaysTimeStamp(3));
     }
 }

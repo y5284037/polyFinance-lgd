@@ -61,13 +61,7 @@ public class SuggestionController {
         return "polyFinance-lgd-server/suggestion/json/suggestionDetailJson";
     }
     
-    @RequestMapping(value = "/test", method = RequestMethod.PUT)
-    @ResponseBody
-    public String updateaaa() {
-        JSONObject a = new JSONObject();
-        a.put("message", "成功");
-        return a.toString();
-    }
+  
     
 }
 

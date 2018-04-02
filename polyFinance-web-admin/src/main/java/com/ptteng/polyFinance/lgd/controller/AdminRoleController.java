@@ -96,21 +96,22 @@ public class AdminRoleController {
             
             JSONArray jsonArray = jsonObject.getJSONArray("authority");
             
-            Long roleId = adminRoleService.insert(adminRole);
+            adminRoleService.update(adminRole);
             
             List<Authority> authorityList = new ArrayList<>();
             
             if (jsonArray.size() > 0) {
+                List<Long> authotityIds = authorityService.getAuthorityIdsByAdminRoleId(id, 0, Integer.MAX_VALUE);
+                authorityService.deleteList(Authority.class, authotityIds);
                 for (Object idget : jsonArray) {
                     Authority authority1 = new Authority();
-                    authority1.setAdminRoleId(roleId);
+                    authority1.setAdminRoleId(id);
                     authority1.setModuleId(Long.valueOf(idget.toString()));
                     authorityList.add(authority1);
                 }
                 log.info("role authorty is " + authorityList);
                 authorityService.insertList(authorityList);
             }
-            adminRoleService.update(adminRole);
             
             
             a.put("code", 0);

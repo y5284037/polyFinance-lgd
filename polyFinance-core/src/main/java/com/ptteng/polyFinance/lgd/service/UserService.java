@@ -9,6 +9,8 @@ import com.ptteng.polyFinance.lgd.model.User;
 import com.gemantic.common.exception.ServiceDaoException;
 import com.gemantic.common.exception.ServiceException;
 import com.ptteng.common.dao.BaseDaoService;
+import org.springframework.stereotype.Component;
+
 
 @Remotable
 public interface UserService extends BaseDaoService {

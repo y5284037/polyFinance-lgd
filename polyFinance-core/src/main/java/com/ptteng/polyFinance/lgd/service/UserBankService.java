@@ -5,6 +5,7 @@ import com.gemantic.common.exception.ServiceException;
 import com.ptteng.common.dao.BaseDaoService;
 import com.ptteng.polyFinance.lgd.model.UserBank;
 import org.osoa.sca.annotations.Remotable;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
