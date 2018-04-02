@@ -9,8 +9,10 @@ import com.ptteng.polyFinance.lgd.model.Authority;
 import com.gemantic.common.exception.ServiceDaoException;
 import com.gemantic.common.exception.ServiceException;
 import com.ptteng.common.dao.BaseDaoService;
+import org.springframework.stereotype.Component;
 
 @Remotable
+@Component
 public interface AuthorityService extends BaseDaoService {
 
 	

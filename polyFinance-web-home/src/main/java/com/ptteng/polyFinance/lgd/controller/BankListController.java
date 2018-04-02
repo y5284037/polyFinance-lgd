@@ -2,6 +2,7 @@ package com.ptteng.polyFinance.lgd.controller;
 
 import com.ptteng.polyFinance.lgd.model.BankList;
 import com.ptteng.polyFinance.lgd.service.BankListService;
+import com.ptteng.polyFinance.lgd.utils.FilesUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,9 +59,12 @@ public class BankListController {
             ids = bankListService.getBankListIds(start, size);
             List<BankList> bankListList = bankListService.getObjectsByIds(ids);
             log.info("get  bankList data is " + bankListList);
-            
+            for (BankList bankList : bankListList) {
+                String url = FilesUtil.getUrl(bankList.getLogoPic());
+                bankList.setLogoPic(url);
+            }
             model.addAttribute("code", 0);
-            model.addAttribute("total", bankListList.size());
+            model.addAttribute("total", bankListService.countBankListIds());
             
             model.addAttribute("bankListList", bankListList);
             

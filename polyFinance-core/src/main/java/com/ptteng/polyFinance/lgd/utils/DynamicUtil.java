@@ -213,6 +213,19 @@ public class DynamicUtil {
         
     }
     
+    /**
+     * 后台银行列表
+     *
+     * @param name                        银行名称
+     * @param updateBy                    编辑者
+     * @param updateAtStart               更新时间起
+     * @param updateAtEnd                 更新时间止
+     * @param singleTransactionLimitStart 单笔限额起
+     * @param singleTransactionLimitEnd   单笔限额止
+     * @param dailyLimitStart             每日限额起
+     * @param dailyLimitEnd               每日限额止
+     * @return
+     */
     public static Map<String, Object> getBanklistList(String name, String updateBy, Long updateAtStart, Long updateAtEnd, String singleTransactionLimitStart, String singleTransactionLimitEnd, String dailyLimitStart, String dailyLimitEnd) {
         
         Map<String, Object> param = new HashMap<>();
@@ -247,6 +260,115 @@ public class DynamicUtil {
         return param;
         
     }
+    
+    /**
+     * 查询意见接口
+     *
+     * @param phone
+     * @param name
+     * @param submitTimestart
+     * @param submitTimeEnd
+     * @param email
+     * @return
+     */
+    public static Map<String, Object> getSuggestionList(String phone, String name, Long submitTimestart, Long submitTimeEnd, String email) {
+        
+        Map<String, Object> param = new HashMap<>();
+        
+        if (!CommonUtil.isEmpty(name)) {
+            param.put("name & like", "'%" + name + "%'");
+        }
+        if (!CommonUtil.isEmpty(email)) {
+            param.put("email & like", "'%" + email + "%'");
+        }
+        if (!CommonUtil.isEmpty(phone)) {
+            param.put("phone & like", "'%" + phone + "%'");
+        }
+        if (!CommonUtil.isEmpty(submitTimestart)) {
+            param.put("create_at & >=", "'%" + submitTimestart + "%'");
+        }
+        if (!CommonUtil.isEmpty(submitTimeEnd)) {
+            param.put("create_at & <=", "'%" + submitTimeEnd + "%'");
+        }
+        
+        param.put("@table", "suggestion");
+        param.put("@order", "create_at desc");
+        
+        return param;
+    }
+    
+    /**
+     * 后台：债权列表
+     * @param debtorMark 债权代号
+     * @param debtorName 姓名
+     * @param debtorPhone 手机
+     * @param debtorIDcard 身份证
+     * @param expiresStart 期限起
+     * @param expiresEnd 期限止
+     * @param debtStartTimeStart 起息日起
+     * @param debtStartTimeEnd 起息日止
+     * @param debtEndTimeStart 到息日起
+     * @param debtEndTimeEnd 到息日止
+     * @param amountStart 总额起
+     * @param amountEnd 总额止
+     * @param status 状态
+     * @return
+     */
+    public static Map<String, Object> getDebtorList(String debtorMark, String debtorName, String debtorPhone, String debtorIDcard, Integer expiresStart, Integer expiresEnd, Long debtStartTimeStart, Long debtStartTimeEnd, Long debtEndTimeStart, Long debtEndTimeEnd, BigDecimal amountStart, BigDecimal amountEnd, Integer status) {
+        
+        Map<String, Object> param = new HashMap<>();
+        
+        if (!CommonUtil.isEmpty(debtorMark)) {
+            param.put("debtor_mark & like", "'%" + debtorMark + "%'");
+        }
+        if (!CommonUtil.isEmpty(debtorName)) {
+            param.put("debtor_name & like", "'%" + debtorName + "%'");
+        }
+        if (!CommonUtil.isEmpty(debtorPhone)) {
+            param.put("debtor_phone & like", "'%" + debtorPhone + "%'");
+        }
+        if (!CommonUtil.isEmpty(debtorIDcard)) {
+            param.put("debtor_IDcard & like", "'%" + debtorIDcard + "%'");
+        }
+        
+        if (!CommonUtil.isEmpty(expiresStart)) {
+            param.put("expires & >=", "'%" + expiresStart + "%'");
+        }
+        if (!CommonUtil.isEmpty(expiresEnd)) {
+            param.put("expires & <=", "'%" + expiresEnd + "%'");
+        }
+        
+        if (!CommonUtil.isEmpty(debtStartTimeStart)) {
+            param.put("debt_start_time & >=", "'%" + debtStartTimeStart + "%'");
+        }
+        if (!CommonUtil.isEmpty(debtStartTimeEnd)) {
+            param.put("debt_start_time & <=", "'%" + debtStartTimeEnd + "%'");
+        }
+        
+        if (!CommonUtil.isEmpty(debtEndTimeStart)) {
+            param.put("debt_end_time & >=", "'%" + debtEndTimeStart + "%'");
+        }
+        if (!CommonUtil.isEmpty(debtEndTimeEnd)) {
+            param.put("debt_end_time & <=", "'%" + debtEndTimeEnd + "%'");
+        }
+        
+        if (!CommonUtil.isEmpty(amountStart)) {
+            param.put("amount & >=", "'%" + amountStart + "%'");
+        }
+        if (!CommonUtil.isEmpty(amountEnd)) {
+            param.put("amount & <=", "'%" + amountEnd + "%'");
+        }
+        
+        if (!CommonUtil.isEmpty(status)) {
+            param.put("status & like", "'%" + status + "%'");
+        }
+        
+        param.put("@table", "debtor");
+        param.put("@order", "create_at desc");
+        
+        return param;
+    }
+    
     
 }
     

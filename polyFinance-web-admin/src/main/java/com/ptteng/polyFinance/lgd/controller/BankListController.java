@@ -80,9 +80,10 @@ public class BankListController {
         
         try {
             List<Long> ids = bankListService.getIdsByDynamicCondition(BankList.class, param, start, size);
+            
             List<BankList> bankLists = bankListService.getObjectsByIds(ids);
             
-            Integer total = bankListService.countBankListIds();
+            Integer total = bankListService.getIdsByDynamicCondition(BankList.class, param, 0, Integer.MAX_VALUE).size();
             
             
             model.addAttribute("code", 0);
@@ -170,7 +171,9 @@ public class BankListController {
             }
             if (logoPic != null && logoPic.getSize() > 0) {
                 String url = FilesUtil.upLoadFile(logoPic);
+                FilesUtil.deleteObject(bankList.getLogoPic());
                 bankList.setLogoPic(url);
+                
             }
             bankList.setName(name);
             bankList.setId(id);
