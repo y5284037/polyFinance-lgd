@@ -9,8 +9,10 @@ import com.ptteng.polyFinance.lgd.model.SysMessageReaded;
 import com.gemantic.common.exception.ServiceDaoException;
 import com.gemantic.common.exception.ServiceException;
 import com.ptteng.common.dao.BaseDaoService;
+import org.springframework.stereotype.Service;
 
 @Remotable
+@Service
 public interface SysMessageReadedService extends BaseDaoService {
 
 	

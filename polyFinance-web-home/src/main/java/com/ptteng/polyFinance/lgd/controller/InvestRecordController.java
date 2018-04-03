@@ -132,23 +132,25 @@ public class InvestRecordController {
             start = 0;
         }
         try {
-            List<Long> ids = investRecordService.getInvestRecordIdsByUserIdOrderByCreateAt(id, start, size);
-            List<InvestRecord> investRecords = investRecordService.getObjectsByIds(ids);
-            Set<Long> productIds = new HashSet<>();//set是为了给ID去重
+            List<Long> ids = investRecordService.getInvestRecordIdsByUserIdOrderByCreateAt(id, start, size);//获取到指定用户id的所有投资记录id
+            List<InvestRecord> investRecords = investRecordService.getObjectsByIds(ids);//获取到所有投资记录对应的产品ID
+            Set<Long> productIds = new HashSet<>();//set是为了给产品ID去重
             for (InvestRecord investRecord : investRecords) {
                 productIds.add(investRecord.getProductId());
-            }
+            }//将未去重的产品ID放入set集合.
             List<Product> products = productService.getObjectsByIds(new ArrayList<>(productIds));
+            //将产品ID set集合转换为List并查出产品
             Map<Long, Integer> map = new HashMap<>();
             for (Product product : products) {
-                map.put(product.getId(), product.getProductStatus());
-            }
+                map.put(product.getId(), product.getProductStatus()+product.getLimited());
+            }//将产品ID:产品状态+产品是否限购放入map.
+            
             List<InvestRecord> matchRecords = new ArrayList<>();
             for (InvestRecord investRecord : investRecords) {
                 if (map.get(investRecord.getProductId()) == 0) {
                     matchRecords.add(investRecord);
                 }
-            }
+            }//因为产品状态和是否限购的初始值都为0才符合.所以可以相加,只要不是0,就不符合.
             
            /* Set<InvestRecord> set = new TreeSet<>(new Comparator<InvestRecord>() {
                 @Override
@@ -165,16 +167,15 @@ public class InvestRecordController {
             
             Object[] arr = set.toArray();
             InvestRecord noobInvestRecord = (InvestRecord) arr[0];*/
-            InvestRecord noobInvestRecord = Collections.min(matchRecords);
-            System.out.println(noobInvestRecord);
+            InvestRecord noobInvestRecord = Collections.min(matchRecords);//根据InvestRecord类里的compareTo方法,获取到ID最少的那条记录.
             List<InvestRecord> match1Records = new ArrayList<>();
-            Settings settings = settingsService.getObjectById(1L);
-            int days = settings.getInvsetExpireWarn();
+            Settings settings = settingsService.getObjectById(1L);//获取到后台设置.
+            int days = settings.getInvsetExpireWarn();//获取到续投提醒时间.
             for (InvestRecord record : matchRecords) {
                 if ((record.getValueEndDay() - TimeUtil.getDaysTimeStamp(days)) <= TimeUtil.getZeroTimeStamp(new Date().getTime()) && record.getValueEndDay() > System.currentTimeMillis() && record.getId() > noobInvestRecord.getId()) {
                     match1Records.add(record);
                 }
-            }
+            }//做最后的筛选.end-days < now()<end && id>noobID
             modelMap.addAttribute("againRecords", match1Records);
             modelMap.addAttribute("code", 0);
 //            modelMap.addAttribute("total",)

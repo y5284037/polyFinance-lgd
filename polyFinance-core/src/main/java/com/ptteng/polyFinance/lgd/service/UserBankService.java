@@ -6,10 +6,12 @@ import com.ptteng.common.dao.BaseDaoService;
 import com.ptteng.polyFinance.lgd.model.UserBank;
 import org.osoa.sca.annotations.Remotable;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Remotable
+@Service
 public interface UserBankService extends BaseDaoService {
 
 	

@@ -44,7 +44,7 @@ public class ProductController {
      * @param modelMap
      * @return
      */
-    @RequestMapping(value = "/a/l/product/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/a/product/list", method = RequestMethod.GET)
     public String getProductList(Integer page, Integer size, Integer recommended, Integer productStatus, ModelMap modelMap) {
         
         if (page == null) {
