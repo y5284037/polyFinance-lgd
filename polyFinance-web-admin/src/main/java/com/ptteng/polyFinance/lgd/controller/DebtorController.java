@@ -6,6 +6,7 @@ import com.ptteng.polyFinance.lgd.service.DebtorService;
 import com.ptteng.polyFinance.lgd.utils.DynamicUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -70,18 +71,20 @@ public class DebtorController {
      * 后台：修改债权接口
      *
      * @param id     债权id
-     * @param debtor 债权对象
+     * @param debtorD 债权对象
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "/a/u/debtor/{id}", method = RequestMethod.PUT)
     @ResponseBody
-    public String updateDebtorJson(@PathVariable Long id, Debtor debtor) throws Exception {
+    public String updateDebtorJson(@PathVariable Long id, Debtor debtorD) throws Exception {
         JSONObject a = new JSONObject();
-        log.info("update debtor : debtor= " + debtor);
-        
+        log.info("update debtor : debtor= " + debtorD);
+        Debtor debtor = new Debtor();
         try {
             
+            BeanUtils.copyProperties(debtorD,debtor);
+            debtor.setId(id);
             debtorService.update(debtor);
             
             

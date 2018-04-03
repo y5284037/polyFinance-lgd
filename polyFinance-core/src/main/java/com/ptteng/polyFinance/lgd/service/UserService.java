@@ -12,7 +12,7 @@ import com.ptteng.common.dao.BaseDaoService;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-
+@Component
 @Remotable
 @Service
 public interface UserService extends BaseDaoService {

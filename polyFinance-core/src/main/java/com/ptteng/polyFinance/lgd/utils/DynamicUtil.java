@@ -299,19 +299,20 @@ public class DynamicUtil {
     
     /**
      * 后台：债权列表
-     * @param debtorMark 债权代号
-     * @param debtorName 姓名
-     * @param debtorPhone 手机
-     * @param debtorIDcard 身份证
-     * @param expiresStart 期限起
-     * @param expiresEnd 期限止
+     *
+     * @param debtorMark         债权代号
+     * @param debtorName         姓名
+     * @param debtorPhone        手机
+     * @param debtorIDcard       身份证
+     * @param expiresStart       期限起
+     * @param expiresEnd         期限止
      * @param debtStartTimeStart 起息日起
-     * @param debtStartTimeEnd 起息日止
-     * @param debtEndTimeStart 到息日起
-     * @param debtEndTimeEnd 到息日止
-     * @param amountStart 总额起
-     * @param amountEnd 总额止
-     * @param status 状态
+     * @param debtStartTimeEnd   起息日止
+     * @param debtEndTimeStart   到息日起
+     * @param debtEndTimeEnd     到息日止
+     * @param amountStart        总额起
+     * @param amountEnd          总额止
+     * @param status             状态
      * @return
      */
     public static Map<String, Object> getDebtorList(String debtorMark, String debtorName, String debtorPhone, String debtorIDcard, Integer expiresStart, Integer expiresEnd, Long debtStartTimeStart, Long debtStartTimeEnd, Long debtEndTimeStart, Long debtEndTimeEnd, BigDecimal amountStart, BigDecimal amountEnd, Integer status) {
@@ -365,6 +366,52 @@ public class DynamicUtil {
         
         param.put("@table", "debtor");
         param.put("@order", "create_at desc");
+        
+        return param;
+    }
+    
+    /**
+     * 查询债权人匹配详情
+     *
+     * @param id               债权人id
+     * @param productName      产品名称
+     * @param name             用户名
+     * @param valueDayStart    起息日起
+     * @param valueDayEnd      起息日止
+     * @param valueEndDayStart 到息日起
+     * @param valueEndDayEnd   到息日止
+     * @return
+     */
+    public static Map<String, Object> getDebtorMatch(Long id, String productName, String name, Long valueDayStart, Long valueDayEnd, Long valueEndDayStart, Long valueEndDayEnd) {
+        
+        Map<String, Object> param = new HashMap<>();
+        
+        if (!CommonUtil.isEmpty(productName)) {
+            param.put("product_name & like", "'%" + productName + "%'");
+        }
+        if (!CommonUtil.isEmpty(name)) {
+            param.put("name & like", "'%" + name + "%'");
+        }
+        
+        
+        if (!CommonUtil.isEmpty(valueDayStart)) {
+            param.put("value_start_day & >=", "'%" + valueDayStart + "%'");
+        }
+        if (!CommonUtil.isEmpty(valueDayEnd)) {
+            param.put("value_start_day & <=", "'%" + valueDayEnd + "%'");
+        }
+        
+        if (!CommonUtil.isEmpty(valueEndDayStart)) {
+            param.put("value_end_day & >=", "'%" + valueEndDayStart + "%'");
+        }
+        if (!CommonUtil.isEmpty(valueEndDayEnd)) {
+            param.put("value_end_day & <=", "'%" + valueEndDayEnd + "%'");
+        }
+        
+        
+        param.put("@table", "debtor_match");
+        param.put("@order", "create_at desc");
+        param.put("debtor_id & =", id);
         
         return param;
     }

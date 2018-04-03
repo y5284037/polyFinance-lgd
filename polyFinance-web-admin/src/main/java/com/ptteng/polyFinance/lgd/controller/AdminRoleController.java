@@ -37,11 +37,9 @@ public class AdminRoleController {
     private AuthorityService authorityService;
     
     /**
-     * 后台：查询角色详情...
-     *
      * @param model
      * @param id    角色id
-     * @return
+     * @return 角色详情，角色权限对应的模块id
      * @throws Exception
      */
     @RequestMapping(value = "/a/u/adminRole/{id}", method = RequestMethod.GET)
@@ -82,14 +80,18 @@ public class AdminRoleController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/a/adminRole/{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/a/u/adminRole/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public String updateAdminRoleJson(@PathVariable Long id, @RequestBody JSONObject jsonObject) throws Exception {
         JSONObject a = new JSONObject();
         log.info("update adminRole : adminRole= " + jsonObject.get("roleName"));
-        AdminRole adminRole = new AdminRole();
         
         try {
+            AdminRole adminRole = adminRoleService.getObjectById(id);
+            if (adminRole == null) {
+                a.put("code", -200);
+                a.put("message", "necessery parameter error  , id is wrong ");
+            }
             adminRole.setRoleName(jsonObject.getString("roleName"));
             adminRole.setCreateBy(jsonObject.getString("createBy"));
             adminRole.setId(id);
@@ -208,14 +210,6 @@ public class AdminRoleController {
             a.put("message", "success");
             
         } catch (Throwable t) {
-            AdminRole adminRole = adminRoleService.getObjectById(id);
-            if (adminRole == null) {
-                adminRoleService.insert(adminRoleSave);
-            }
-            List<Authority> authorities1 = authorityService.getObjectsByIds(authorityIds);
-            if (authorities1 == null) {
-                authorityService.insertList(authorities);
-            }
             
             t.printStackTrace();
             log.error(t.getMessage());

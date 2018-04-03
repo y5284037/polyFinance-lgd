@@ -94,6 +94,19 @@ public class InvestRecord implements Serializable, Comparable<InvestRecord> {
     private Long updateBy;
     
     
+    private Integer matched;
+    
+    
+    
+    @Column(name = "matched")
+    public Integer getMatched() {
+        return matched;
+    }
+    
+    public void setMatched(Integer matched) {
+        this.matched = matched;
+    }
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
