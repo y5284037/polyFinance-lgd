@@ -1,11 +1,14 @@
 package com.ptteng.polyFinance.lgd.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.gemantic.common.exception.ServiceDaoException;
 import com.gemantic.common.exception.ServiceException;
 import com.ptteng.polyFinance.lgd.model.SysMessage;
 import com.ptteng.polyFinance.lgd.service.SysMessageService;
 import com.ptteng.polyFinance.lgd.utils.CommonUtil;
 import com.ptteng.polyFinance.lgd.utils.DynamicUtil;
+import com.ptteng.polyFinance.lgd.utils.JUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +38,7 @@ public class SysMessageController {
     
     @RequestMapping(value = "/a/u/sysMessage/list", method = RequestMethod.GET)
     public @ResponseBody
-    Map<String, Object> getsysList(String title, String updateBy, Long updateAtStart, Long updateAtEnd, Integer status, Integer sendTo, Integer page, Integer size) {
+    JSON getsysList(String title, String updateBy, Long updateAtStart, Long updateAtEnd, Integer status, Integer sendTo, Integer page, Integer size) {
         if (CommonUtil.isEmpty(page)) {
             page = 1;
         }
@@ -46,17 +49,16 @@ public class SysMessageController {
         if (start < 0) {
             start = 0;
         }
-        Map<String, Object> json = new HashMap<>();
+        JSONObject json ;
         Map<String, Object> map = DynamicUtil.getSysMessageSql(title, updateBy, updateAtStart, updateAtEnd, status, sendTo);
         try {
             List<Long> ids = sysMessageService.getIdsByDynamicCondition(SysMessage.class, map, start, size);
             List<SysMessage> list = sysMessageService.getObjectsByIds(ids);
-            json.put("sysMessageList", list);
-            json.put("code", 0);
-            json.put("total", sysMessageService.getIdsByDynamicCondition(SysMessage.class, map, 0, Integer.MAX_VALUE));
-            json.put("size", size);
+            int total = sysMessageService.getIdsByDynamicCondition(SysMessage.class, map, start, size).size();
+            json = JUtils.getJSON(0,size,total,"data",list);
+            
         } catch (Throwable e) {
-            json.put("code", -100);
+            json = JUtils.getJSON(-100);
             e.printStackTrace();
         }
         return json;
