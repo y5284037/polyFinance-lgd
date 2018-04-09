@@ -235,15 +235,38 @@ return result;
 		log.info(" get data success : " + (tradingRecord == null ? "null" : tradingRecord.size()));
     
 		return tradingRecord;	
-		}	
-		  
-    	
+		}
+	
+	@Override
+	public TradingRecord getObjectByTradingNum(String TradingNum) throws ServiceException, ServiceDaoException {
+		log.info("get user by TradingNum" + TradingNum);
 		
+		Long id =null;
+		TradingRecord tradingRecord = null;
+		if(TradingNum == null){
+			TradingNum = "";
+		}
+		try {
+			id = (Long) dao.getMapping("getTradingRecordIdsByTradingNum",TradingNum);
+			tradingRecord = getObjectById(id);
+		} catch (DaoException e) {
+			log.error(" get id wrong by phoneNum  : " + TradingNum );
+			log.error(e);
+			e.printStackTrace();
+		}
+		if(log.isInfoEnabled()){
+			log.info(" get id success : " + id);
+		}
+		
+		
+		
+		return tradingRecord;
+		
+		
+	}
 	
 	
-			
-			
-		/**
+	/**
 	 * 
 	 * @param 
 	 * @return 

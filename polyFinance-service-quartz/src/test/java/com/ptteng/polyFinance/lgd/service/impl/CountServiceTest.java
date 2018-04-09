@@ -37,7 +37,7 @@ public class CountServiceTest {
          countService = (CountService)  Naming.lookup("//localhost:20311/CountRMIService");
          **/
         
-        /** test client
+        /** TestDemo client
          ApplicationContext context = new ClassPathXmlApplicationContext("classpath:META-INF/spring/applicationContext-sca.xml");
          countService = (CountService) context.getBean("countService");
          

@@ -45,7 +45,7 @@ public interface TradingRecordService extends BaseDaoService {
 		public List<TradingRecord> getObjectsByIds(List<Long> ids)throws ServiceException, ServiceDaoException;
 		  
     	
-	
+	   public TradingRecord getObjectByTradingNum(String TradingNum)throws ServiceException, ServiceDaoException;
 
 
 			
