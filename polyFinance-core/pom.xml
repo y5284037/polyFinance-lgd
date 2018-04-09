@@ -32,6 +32,19 @@
     <!--****************************copy依赖*************************-->
     <dependencies>
 
+        <!--fastJson-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.6.2</version>
+            <scope>compile</scope>
+        </dependency>
+
         <dependency>
             <groupId>com.github.qcloudsms</groupId>
             <artifactId>sms</artifactId>

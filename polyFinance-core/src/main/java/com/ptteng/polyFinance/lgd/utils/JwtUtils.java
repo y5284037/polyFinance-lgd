@@ -23,7 +23,7 @@ public class JwtUtils {
      * @return
      */
     public static String generateJwt(String id, String secret) {
-    
+        
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 //        SecretKey secretKey = ;
         Map<String, Object> map = new HashMap<>();
