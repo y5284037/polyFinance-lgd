@@ -86,16 +86,15 @@ public class TradingRecordSCAClient implements TradingRecordService {
 		return tradingRecordService.getObjectsByIds(ids);
 		          
 		
-		}	
-		  
-    	
+		}
+	
+	@Override
+	public TradingRecord getObjectByTradingNum(String TradingNum) throws ServiceException, ServiceDaoException {
+		return tradingRecordService.getObjectByTradingNum(TradingNum);
+	}
 	
 	
-	
-	
-			
-			
-		/**
+	/**
 	 * 
 	 * @param 
 	 * @return 

@@ -7,6 +7,7 @@ import com.ptteng.polyFinance.lgd.service.TradingRecordService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -24,12 +25,12 @@ public class TradingRecordServiceTest {
 	private TradingRecordService tradingRecordService;
 	
 	
-	//@Before
+	@Before
 	    public void setUp() throws Exception{
 		
 		
 		    //dao
-	        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:META-INF/polyFinance-lgd-server/applicationContext-server.xml");
+	        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext-server.xml");
 	        tradingRecordService = (TradingRecordService) context.getBean("tradingRecordService");
 			//local server
 			/**
@@ -46,7 +47,12 @@ public class TradingRecordServiceTest {
 			
 	    }
 	
-	
+	@Test
+	public void getObjectByTradingNum() throws ServiceException, ServiceDaoException {
+		
+		
+		System.out.println(tradingRecordService.getObjectByTradingNum("12345"));
+	}
 		
 		
 		

@@ -37,7 +37,7 @@ public class RepaymentServiceTest {
 			repaymentService = (RepaymentService)  Naming.lookup("//localhost:20311/RepaymentRMIService");
 			**/
 			
-			/** test client
+			/** TestDemo client
 			ApplicationContext context = new ClassPathXmlApplicationContext("classpath:META-INF/spring/applicationContext-sca.xml");
 	    	 repaymentService = (RepaymentService) context.getBean("repaymentService");
 			
