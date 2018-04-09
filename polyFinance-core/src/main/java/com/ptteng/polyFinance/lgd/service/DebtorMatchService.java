@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 @Remotable
+@Service
 public interface DebtorMatchService extends BaseDaoService {
 
 	

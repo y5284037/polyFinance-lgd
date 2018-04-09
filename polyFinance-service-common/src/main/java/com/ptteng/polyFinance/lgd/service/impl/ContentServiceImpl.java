@@ -235,19 +235,32 @@ return result;
 		log.info(" get data success : " + (content == null ? "null" : content.size()));
     
 		return content;	
-		}	
-		  
-    	
+		}
+	
+	@Override
+	public List<Long> getContentIdsByTypeAndStatus(Integer type, Integer status) throws ServiceException, ServiceDaoException {
 		
-	
-	
+		log.info(" get ids   by type,status  ================== " + type + " , " + status);
+		List<Long> idList = null;
 		
-	
 		
-	
-	
-	
 		
+		
+		try {
+			idList = dao.getIdList("getContentIdsByTypeAndStatus",new Object[] {type,status},0, Integer.MAX_VALUE, false);
+		} catch (DaoException e) {
+			log.error(" get ids  wrong by type,status)  : " + type + " , " + status);
+			log.error(e);
+			e.printStackTrace();
+			throw new ServiceDaoException(e);
+		}
+		if (log.isInfoEnabled()) {
+			log.info(" get ids success == : " + (idList == null ? "null" : idList.size()));
+		}
+		return idList;
+	}
+	
+	
 	@Override
 	public List<Long> getContentIds(Integer start, Integer limit)
 			throws ServiceException, ServiceDaoException {

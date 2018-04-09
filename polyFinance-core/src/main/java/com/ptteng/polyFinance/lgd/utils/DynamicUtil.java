@@ -106,6 +106,82 @@ public class DynamicUtil {
     }
     
     /**
+     * 获取内容列表的动态SQL
+     * @param title 标题
+     * @param type 类型
+     * @param status 状态
+     * @param updateBy 编辑者
+     * @param updateAtStart 编辑时间起限
+     * @param updateAtEnd 编辑时间终限
+     * @return
+     */
+    public static Map<String, Object> getContentSql(String title, String type, String status, String updateBy, String updateAtStart, String updateAtEnd) {
+        Map<String, Object> map = new HashMap<>();
+        
+        if (!CommonUtil.isEmpty(title)) {
+            map.put("title & like", "'%" + title + "%'");
+        }
+        if(!CommonUtil.isEmpty(type)){
+            map.put("type & = ", type);
+        }
+        if(!CommonUtil.isEmpty(status)){
+            map.put("status & =", status);
+        }
+        if(!CommonUtil.isEmpty(updateBy)){
+            map.put("update_by & like", "'%" + updateBy + "%'");
+        }
+        if(!CommonUtil.isEmpty(updateAtStart)){
+            map.put("update_by & >=", updateAtStart);
+        }
+        if(!CommonUtil.isEmpty(updateAtEnd)){
+            map.put("update_by & <=", updateAtEnd);
+        }
+        
+        map.put("@table", "content");
+        map.put("@order", "create_at desc");
+    
+        return map;
+    }
+    
+    /**
+     * 系统消息动态SQL
+     * @param title 标题
+     * @param updateBy 编辑者
+     * @param updateAtStart 编辑时间起
+     * @param updateAtEnd 编辑时间终
+     * @param status    状态
+     * @param sendTo    发送给谁
+     * @return
+     */
+    public  static Map<String,Object> getSysMessageSql(String title,String updateBy,Long updateAtStart,Long updateAtEnd,Integer status,Integer sendTo){
+        Map<String, Object> map = new HashMap<>();
+        
+        if(!CommonUtil.isEmpty(title)){
+            map.put("title & like", "'%" + title + "%'");
+        }
+        if(!CommonUtil.isEmpty(updateBy)){
+            map.put("update_by & like", "'%" + updateBy + "%'");
+        }
+        if(!CommonUtil.isEmpty(updateAtStart)){
+            map.put("update_at & >=", updateAtStart);
+        }
+        if(!CommonUtil.isEmpty(updateAtEnd)){
+            map.put("update_at & <=", updateAtEnd);
+        }
+        if(!CommonUtil.isEmpty(status)){
+            map.put("status & =", status);
+        }
+        if(!CommonUtil.isEmpty(sendTo)){
+            map.put("sendTo & =", sendTo);
+        }
+        
+        map.put("@table", "sys_message");
+        map.put("@order", "create_at desc");
+        return map;
+        
+    }
+    
+    /**
      * 动态查询用户实名列表
      *
      * @param name              用户姓名

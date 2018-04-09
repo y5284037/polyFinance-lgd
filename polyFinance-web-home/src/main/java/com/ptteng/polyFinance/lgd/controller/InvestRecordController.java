@@ -1,7 +1,5 @@
 package com.ptteng.polyFinance.lgd.controller;
 
-import com.gemantic.common.exception.ServiceDaoException;
-import com.gemantic.common.exception.ServiceException;
 import com.ptteng.polyFinance.lgd.model.InvestRecord;
 import com.ptteng.polyFinance.lgd.model.Product;
 import com.ptteng.polyFinance.lgd.model.Settings;
@@ -10,7 +8,6 @@ import com.ptteng.polyFinance.lgd.service.ProductService;
 import com.ptteng.polyFinance.lgd.service.SettingsService;
 import com.ptteng.polyFinance.lgd.utils.CommonUtil;
 import com.ptteng.polyFinance.lgd.utils.TimeUtil;
-import com.sun.org.apache.bcel.internal.generic.MONITORENTER;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
@@ -107,7 +102,7 @@ public class InvestRecordController {
     }
     
     
-    /**
+    /**查询用户产品续投列表
      * @param modelMap
      * @param id       用户ID
      * @param page     页数
@@ -167,12 +162,13 @@ public class InvestRecordController {
             
             Object[] arr = set.toArray();
             InvestRecord noobInvestRecord = (InvestRecord) arr[0];*/
-            InvestRecord noobInvestRecord = Collections.min(matchRecords);//根据InvestRecord类里的compareTo方法,获取到ID最少的那条记录.
+            System.out.println(matchRecords);
+            InvestRecord min = Collections.min(matchRecords);//根据InvestRecord类里的compareTo方法,获取到ID最少的那条记录.
             List<InvestRecord> match1Records = new ArrayList<>();
             Settings settings = settingsService.getObjectById(1L);//获取到后台设置.
             int days = settings.getInvsetExpireWarn();//获取到续投提醒时间.
             for (InvestRecord record : matchRecords) {
-                if ((record.getValueEndDay() - TimeUtil.getDaysTimeStamp(days)) <= TimeUtil.getZeroTimeStamp(new Date().getTime()) && record.getValueEndDay() > System.currentTimeMillis() && record.getId() > noobInvestRecord.getId()) {
+                if ((record.getValueEndDay() - TimeUtil.getDaysTimeStamp(days)) <= TimeUtil.getZeroTimeStamp(new Date().getTime()) && record.getValueEndDay() > System.currentTimeMillis() && record.getId() > min.getId()) {
                     match1Records.add(record);
                 }
             }//做最后的筛选.end-days < now()<end && id>noobID

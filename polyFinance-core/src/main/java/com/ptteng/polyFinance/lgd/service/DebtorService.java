@@ -1,18 +1,17 @@
 package com.ptteng.polyFinance.lgd.service;
 
-import java.util.List;
-import java.util.Map;
-
-import org.osoa.sca.annotations.Remotable;
-
-import com.ptteng.polyFinance.lgd.model.Debtor;
 import com.gemantic.common.exception.ServiceDaoException;
 import com.gemantic.common.exception.ServiceException;
 import com.ptteng.common.dao.BaseDaoService;
+import com.ptteng.polyFinance.lgd.model.Debtor;
+import org.osoa.sca.annotations.Remotable;
 import org.springframework.stereotype.Service;
 
-@Service
+import java.util.List;
+
+
 @Remotable
+@Service
 public interface DebtorService extends BaseDaoService {
 
 	

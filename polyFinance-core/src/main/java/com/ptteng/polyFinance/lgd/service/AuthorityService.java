@@ -1,18 +1,17 @@
 package com.ptteng.polyFinance.lgd.service;
 
-import java.util.List;
-import java.util.Map;
-
-import org.osoa.sca.annotations.Remotable;
-
-import com.ptteng.polyFinance.lgd.model.Authority;
 import com.gemantic.common.exception.ServiceDaoException;
 import com.gemantic.common.exception.ServiceException;
 import com.ptteng.common.dao.BaseDaoService;
+import com.ptteng.polyFinance.lgd.model.Authority;
+import org.osoa.sca.annotations.Remotable;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Remotable
-@Component
+@Service
 public interface AuthorityService extends BaseDaoService {
 
 	

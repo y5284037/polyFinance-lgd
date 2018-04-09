@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dal>
-	<route>
-		<object name="com.ptteng.polyFinance.lgd.model.Content"
-			listenerClass="" strategyProperty="">
-			
-			
-			
-						
-			
-						
-			
-					<list name="getContentIdsAll" sqlitem="select id from content where 1 = 1 order by create_at desc"
-				keyProperty="version" valueProperty="id" keyColumn="version" />
-			
-			<dbStrategy name="mutiDS"
-                clasz="com.gemantic.dal.route.strategy.DefaultStrategy">  <pattern value="[0-9]$" group="polyFinance_lgd" />
+    <route>
+        <object name="com.ptteng.polyFinance.lgd.model.Content"
+                listenerClass="" strategyProperty="">
+
+
+            <list name="getContentIdsAll" sqlitem="select id from content where 1 = 1 order by create_at desc"
+                  keyProperty="version" valueProperty="id" keyColumn="version"/>
+
+
+            <list name="getContentIdsByTypeAndStatus" sqlitem="select id from content where type = ? and status = ? "
+                  keyProperty="type,status" valueProperty="id" keyColumn="type,status"/>
+
+
+            <dbStrategy name="mutiDS"
+                        clasz="com.gemantic.dal.route.strategy.DefaultStrategy">
+                <pattern value="[0-9]$" group="polyFinance_lgd"/>
             </dbStrategy>
-			
-		</object>
-	</route>
+
+        </object>
+    </route>
 </dal>

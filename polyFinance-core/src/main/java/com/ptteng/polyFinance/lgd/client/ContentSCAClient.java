@@ -86,19 +86,15 @@ public class ContentSCAClient implements ContentService {
 		return contentService.getObjectsByIds(ids);
 		          
 		
-		}	
-		  
-    	
+		}
+	
+	@Override
+	public List<Long> getContentIdsByTypeAndStatus(Integer type, Integer status) throws ServiceException, ServiceDaoException {
+		return contentService.getContentIdsByTypeAndStatus(type,status);
+	}
 	
 	
-	
-	
-		
-	
-	
-    		
-	
-		@Override
+	@Override
 	public List<Long> getContentIds(Integer start, Integer limit)
 			throws ServiceException, ServiceDaoException {
 		// TODO Auto-generated method stub

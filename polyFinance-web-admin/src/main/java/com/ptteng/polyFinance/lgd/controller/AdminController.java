@@ -55,7 +55,7 @@ public class AdminController {
                     String salt = admin.getSalt();
                     if (SecureUtil.messageDigest(pswd + salt).equals(admin.getPswd())) {
                         modelMap.addAttribute("code", 0);
-                        modelMap.addAttribute("id", admin.getId());
+                        modelMap.addAttribute("admin", admin);
                     } else {
                         modelMap.addAttribute("code", 4002);
                     }

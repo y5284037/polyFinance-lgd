@@ -7,8 +7,6 @@
 	<json:property name="message">
 		<spring:message code="${code}" />
 	</json:property>
-	<json:property name="size" value="${size}"></json:property>
-	<json:property name="total" value="${total}"></json:property>
 	<json:array name="data">
 		<c:forEach items="${contentList}" var="content">
 			<json:object>

@@ -1,17 +1,16 @@
 package com.ptteng.polyFinance.lgd.service;
 
-import java.util.List;
-import java.util.Map;
-
-import com.ptteng.polyFinance.lgd.model.User;
-import org.osoa.sca.annotations.Remotable;
-
-import com.ptteng.polyFinance.lgd.model.Admin;
 import com.gemantic.common.exception.ServiceDaoException;
 import com.gemantic.common.exception.ServiceException;
 import com.ptteng.common.dao.BaseDaoService;
+import com.ptteng.polyFinance.lgd.model.Admin;
+import org.osoa.sca.annotations.Remotable;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Remotable
+@Service
 public interface AdminService extends BaseDaoService {
 		
 		public Long insert(Admin admin)throws ServiceException, ServiceDaoException;

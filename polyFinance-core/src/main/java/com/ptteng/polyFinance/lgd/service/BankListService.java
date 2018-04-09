@@ -5,10 +5,12 @@ import com.gemantic.common.exception.ServiceException;
 import com.ptteng.common.dao.BaseDaoService;
 import com.ptteng.polyFinance.lgd.model.BankList;
 import org.osoa.sca.annotations.Remotable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Remotable
+@Service
 public interface BankListService extends BaseDaoService {
 
 	

@@ -44,7 +44,8 @@ public interface ContentService extends BaseDaoService {
     	   
 		
 		public List<Content> getObjectsByIds(List<Long> ids)throws ServiceException, ServiceDaoException;
-		  
+	
+	public List<Long> getContentIdsByTypeAndStatus(Integer type,Integer status)throws ServiceException, ServiceDaoException;
     	
 	
 

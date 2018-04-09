@@ -34,7 +34,7 @@
       </snapshots>
       <id>nexus</id>
       <name>releases</name>
-      <url>http://nexus.ptteng.com/nexus/content/repositories/releases</url>
+      <url>http://nexus.jnshu.com/nexus/content/repositories/releases</url>
       <layout>default</layout>
     </repository>
 
@@ -51,12 +51,12 @@
       </snapshots>
       <id>3rd party</id>
       <name>thirdparty</name>
-      <url>http://nexus.ptteng.com/nexus/content/repositories/thirdparty</url>
+      <url>http://nexus.jnshu.com/nexus/content/repositories/thirdparty</url>
     </repository>
     <repository>
       <id>snapshots</id>
 
-      <url>http://nexus.ptteng.com/nexus/content/repositories/snapshots</url>
+      <url>http://nexus.jnshu.com/nexus/content/repositories/snapshots</url>
 
       <releases>
         <enabled>false</enabled>
@@ -126,7 +126,7 @@
           <artifactId>maven-release-plugin</artifactId>
           <version>2.0-beta-7</version>
           <configuration>
-            <tagBase>svn://wx.ptteng.com/ptteng/academy/tags/</tagBase>
+            <tagBase>svn://wx.jnshu.com/ptteng/academy/tags/</tagBase>
           </configuration>
         </plugin>
 
@@ -167,14 +167,14 @@
     <repository>
       <id>nexus</id>
       <name>releases</name>
-      <url>http://nexus.ptteng.com/nexus/content/repositories/releases</url>
+      <url>http://nexus.jnshu.com/nexus/content/repositories/releases</url>
       <uniqueVersion>true</uniqueVersion>
     </repository>
 
     <snapshotRepository>
       <id>nexus</id>
       <name>snapshots</name>
-      <url>http://nexus.ptteng.com/nexus/content/repositories/snapshots</url>
+      <url>http://nexus.jnshu.com/nexus/content/repositories/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
   <!--**************************copy依赖**************************-->

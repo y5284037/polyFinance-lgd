@@ -7,23 +7,6 @@
 	<json:property name="message">
 		<spring:message code="${code}" />
 	</json:property>
-
-	<json:object name="data">
-
-
-
-		<json:property name="id" value="${admin.id}"></json:property>
-
-
-		<json:property name="loginName" value="${admin.loginName}"></json:property>
-
-
-		<json:property name="adminRoleId" value="${admin.adminRoleId}"></json:property>
-
-
-
-	</json:object>
-
 </json:object>
 
 

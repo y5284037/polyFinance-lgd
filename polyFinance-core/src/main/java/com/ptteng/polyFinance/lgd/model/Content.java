@@ -52,10 +52,10 @@ public class Content implements Serializable{
     private  Long updateAt;
 	
   	 
-    private  Long createBy;
+    private  String createBy;
 	
   	 
-    private  Long updateBy;
+    private  String updateBy;
 	
   
 	
@@ -135,21 +135,21 @@ public class Content implements Serializable{
 		this.updateAt = updateAt;
 	}
 		 	@Column(name = "create_by")
-	public Long getCreateBy() {
+	public String getCreateBy() {
 		return createBy;
 	}
 	
 	
-	public void setCreateBy(Long createBy) {
+	public void setCreateBy(String createBy) {
 		this.createBy = createBy;
 	}
 		 	@Column(name = "update_by")
-	public Long getUpdateBy() {
+	public String getUpdateBy() {
 		return updateBy;
 	}
 	
 	
-	public void setUpdateBy(Long updateBy) {
+	public void setUpdateBy(String updateBy) {
 		this.updateBy = updateBy;
 	}
 		
