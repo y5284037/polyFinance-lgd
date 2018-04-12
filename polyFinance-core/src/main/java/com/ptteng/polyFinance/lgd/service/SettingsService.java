@@ -40,7 +40,9 @@ public interface SettingsService extends BaseDaoService {
     	   
 		
 		public Settings getObjectById(Long id)throws ServiceException, ServiceDaoException;
-		  
+		
+		public Settings getSettingsByStatus(Integer status)throws ServiceException, ServiceDaoException;
+		
     	   
 		
 		public List<Settings> getObjectsByIds(List<Long> ids)throws ServiceException, ServiceDaoException;

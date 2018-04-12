@@ -15,7 +15,6 @@ import java.util.Properties;
 public class JUtils {
     
     /**
-     *
      * @param args 不定参数.
      *             如果仅有一个参数,必须为code状态码.
      *             另外最少有3个参数.从第2个参数开始数据总是成对出现. 数据名(String),数据
@@ -38,12 +37,12 @@ public class JUtils {
             if (args[1] instanceof Integer && args[2] instanceof Integer) {
                 json.put("size", args[1]);
                 json.put("total", args[2]);
-                for (int i = 3; i < args.length - 1; i++) {
+                for (int i = 3; i < args.length - 1; i += 2) {
                     json.put((String) args[i], args[i + 1]);
                     return json;
                 }
             } else {
-                for (int i = 1; i < args.length - 1; i++) {
+                for (int i = 1; i < args.length - 1; i += 2) {
                     json.put((String) args[i], args[i + 1]);
                 }
                 return json;

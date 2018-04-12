@@ -207,10 +207,33 @@ return result;
 		log.info(" get data success : " + id);
       
 		return settings;		
-		}	
-		  
-    	   
-		@Override
+		}
+	
+	@Override
+	public Settings getSettingsByStatus(Integer status) throws ServiceException, ServiceDaoException {
+		
+		log.info("get user by status" + status);
+		Long id=null;
+		Settings settings =null;
+		if(status==null){
+		    status=0;
+		}
+		
+		try {
+			id = (Long)dao.getMapping("getSettingsIdByStatus", status);
+			settings = getObjectById(id);
+		} catch (DaoException e) {
+			log.error(" get id wrong by status  : " + status );
+			log.error(e);
+			e.printStackTrace();
+		}
+		log.info(" get id success : " + id);
+		
+		return settings;
+	}
+	
+	
+	@Override
 		public List<Settings> getObjectsByIds(List<Long> ids)throws ServiceException, ServiceDaoException{
 		
 	

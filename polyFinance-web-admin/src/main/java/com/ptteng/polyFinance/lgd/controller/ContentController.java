@@ -7,6 +7,7 @@ import com.ptteng.polyFinance.lgd.utils.DynamicUtil;
 import com.ptteng.polyFinance.lgd.utils.FilesUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -88,7 +89,10 @@ public class ContentController {
         }
         
         try {
-            modelMap.addAttribute("content", contentService.getObjectById(id));
+            Content content = contentService.getObjectById(id);
+            modelMap.addAttribute("content", content);
+            modelMap.addAttribute("contentPicUrl", FilesUtil.getUrl(content.getContentPic()));
+            modelMap.addAttribute("contentCoverPicUrl", FilesUtil.getUrl(content.getContentCoverPic()));
             modelMap.addAttribute("code", 0);
         } catch (Throwable e) {
             modelMap.addAttribute("code", -100);
@@ -182,46 +186,30 @@ public class ContentController {
             return "polyFinance-lgd-server/content/json/ContentJson";
         }
         
-        if (type == 0) {
-            if (CommonUtil.isEmpty(coverPic)) {
-                modelMap.addAttribute("code", -200);
-                return "polyFinance-lgd-server/content/json/ContentJson";
-            }
             try {
                 Content content = contentService.getObjectById(id);
                 Long time = System.currentTimeMillis();
-                content.setContentCoverPic(FilesUtil.upLoadFile(coverPic));
-                content.setContentPic(FilesUtil.upLoadFile(pic));
+                if(!CommonUtil.isEmpty(coverPic)){
+                    FilesUtil.deleteObject(content.getContentCoverPic());
+                    content.setContentCoverPic(FilesUtil.upLoadFile(coverPic));
+                }
+                if(!CommonUtil.isEmpty(pic)){
+                    FilesUtil.deleteObject(content.getContentPic());
+                    content.setContentPic(FilesUtil.upLoadFile(pic));
+                }
+               
                 content.setTitle(title);
                 content.setUpdateBy(updateBy);
                 content.setType(type);
                 content.setStatus(status);
                 content.setUpdateAt(time);
-                content.setId(id);
                 contentService.update(content);
                 modelMap.addAttribute("code", 0);
             } catch (Throwable e) {
                 modelMap.addAttribute("code", -100);
                 e.printStackTrace();
             }
-        } else {
-            try {
-                Content content = contentService.getObjectById(id);
-                Long time = System.currentTimeMillis();
-                content.setContentPic(FilesUtil.upLoadFile(pic));
-                content.setTitle(title);
-                content.setUpdateBy(updateBy);
-                content.setType(type);
-                content.setStatus(status);
-                content.setUpdateAt(time);
-                content.setId(id);
-                contentService.update(content);
-                modelMap.addAttribute("code", 0);
-            } catch (Throwable e) {
-                modelMap.addAttribute("code", -100);
-                e.printStackTrace();
-            }
-        }
+        
         return "polyFinance-lgd-server/content/json/ContentJson";
     }
     
@@ -266,6 +254,8 @@ public class ContentController {
             return "polyFinance-lgd-server/content/json/ContentJson";
         }
         try {
+            FilesUtil.deleteObject(contentService.getObjectById(id).getContentCoverPic());
+            FilesUtil.deleteObject(contentService.getObjectById(id).getContentPic());
             contentService.delete(id);
             modelMap.addAttribute("code", 0);
         } catch (Throwable e) {
@@ -278,4 +268,3 @@ public class ContentController {
     }
     
 }
-

@@ -7,6 +7,10 @@
 	<json:property name="message">
 		<spring:message code="${code}" />
 	</json:property>
+    <json:property name="contentCoverPicUrl" value="${contentCoverPicUrl}"/>
+    <json:property name="contentPicUrl" value="${contentPicUrl}"/>
+
+
 
 			<json:object name="data">
 		
