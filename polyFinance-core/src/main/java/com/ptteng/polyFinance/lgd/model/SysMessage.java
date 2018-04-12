@@ -41,13 +41,7 @@ public class SysMessage implements Serializable{
 	
   	 
     private  String messagePic;
-	
-  	 
-    private  String messageType;
-	
-  	 
-    private  Integer sendType;
-	
+    
   	 
     private  Long sendTime;
 	
@@ -116,24 +110,7 @@ public class SysMessage implements Serializable{
 	public void setMessagePic(String messagePic) {
 		this.messagePic = messagePic;
 	}
-		 	@Column(name = "message_type")
-	public String getMessageType() {
-		return messageType;
-	}
 	
-	
-	public void setMessageType(String messageType) {
-		this.messageType = messageType;
-	}
-		 	@Column(name = "send_type")
-	public Integer getSendType() {
-		return sendType;
-	}
-	
-	
-	public void setSendType(Integer sendType) {
-		this.sendType = sendType;
-	}
 		 	@Column(name = "send_time")
 	public Long getSendTime() {
 		return sendTime;

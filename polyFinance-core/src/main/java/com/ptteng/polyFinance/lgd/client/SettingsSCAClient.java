@@ -77,10 +77,15 @@ public class SettingsSCAClient implements SettingsService {
 		return settingsService.getObjectById(id);
 		          
 		
-		}	
-		  
-    	   
-		@Override
+		}
+	
+	@Override
+	public Settings getSettingsByStatus(Integer status) throws ServiceException, ServiceDaoException {
+		return settingsService.getSettingsByStatus(status);
+	}
+	
+	
+	@Override
 		public List<Settings> getObjectsByIds(List<Long> ids)throws ServiceException, ServiceDaoException{
 		
 		return settingsService.getObjectsByIds(ids);
