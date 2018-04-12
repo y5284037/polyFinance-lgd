@@ -30,13 +30,13 @@ public class DynamicUtil {
             param.put("phone_num & like", "'%" + phoneNum + "%'");
         }
         
-        if (accountsStatus != null && !accountsStatus.equals("")) {
+        if (accountsStatus != null && !accountsStatus.equals(null)) {
             param.put("accounts_status & like", "'%" + accountsStatus + "%'");
         }
-        if (createAtStart != null && !createAtStart.equals("")) {
+        if (createAtStart != null && !createAtStart.equals(null)) {
             param.put("create_at & >=", createAtStart);
         }
-        if (createAtEnd != null && !createAtEnd.equals("")) {
+        if (createAtEnd != null && !createAtEnd.equals(null)) {
             param.put("create_at & <=", createAtEnd);
         }
         if (managerNum != null && !managerNum.equals("")) {
@@ -272,10 +272,10 @@ public class DynamicUtil {
             param.put("intercreditor_agreement & like", "'%" + intercreditorAgreement + "%'");
         }
         if (!CommonUtil.isEmpty(valueDayStart)) {
-            param.put("value_start_day & >=", "'%" + valueDayStart + "%'");
+            param.put("value_start_day & >=", valueDayStart);
         }
         if (!CommonUtil.isEmpty(valueDayEnd)) {
-            param.put("value_start_day & <=", "'%" + valueDayEnd + "%'");
+            param.put("value_start_day & <=", valueDayEnd);
         }
         if (!CommonUtil.isEmpty(valueEndDayStart)) {
             param.put("value_end_day & >=", valueEndDayStart);
@@ -314,23 +314,23 @@ public class DynamicUtil {
             param.put("update_by & like", "'%" + updateBy + "%'");
         }
         if (!CommonUtil.isEmpty(updateAtStart)) {
-            param.put("update_at & >=", "'%" + updateAtStart + "%'");
+            param.put("update_at & >=", updateAtStart);
         }
         if (!CommonUtil.isEmpty(updateAtEnd)) {
-            param.put("update_at & <=", "'%" + updateAtEnd + "%'");
+            param.put("update_at & <=", updateAtEnd);
         }
         if (!CommonUtil.isEmpty(singleTransactionLimitStart)) {
-            param.put("single_transaction_limit& >=", "'%" + singleTransactionLimitStart + "%'");
+            param.put("single_transaction_limit& >=", singleTransactionLimitStart);
         }
         if (!CommonUtil.isEmpty(singleTransactionLimitEnd)) {
-            param.put("single_transaction_limit& <=", "'%" + singleTransactionLimitEnd + "%'");
+            param.put("single_transaction_limit& <=", singleTransactionLimitEnd);
         }
         
         if (!CommonUtil.isEmpty(dailyLimitStart)) {
-            param.put("daily_limit& >=", "'%" + dailyLimitStart + "%'");
+            param.put("daily_limit& >=", dailyLimitStart);
         }
         if (!CommonUtil.isEmpty(dailyLimitEnd)) {
-            param.put("daily_limit& <=", "'%" + dailyLimitEnd + "%'");
+            param.put("daily_limit& <=", dailyLimitEnd);
         }
         param.put("@table", "bank_list");
         param.put("@order", "create_at desc");
@@ -363,10 +363,10 @@ public class DynamicUtil {
             param.put("phone & like", "'%" + phone + "%'");
         }
         if (!CommonUtil.isEmpty(submitTimestart)) {
-            param.put("create_at & >=", "'%" + submitTimestart + "%'");
+            param.put("create_at & >=", submitTimestart);
         }
         if (!CommonUtil.isEmpty(submitTimeEnd)) {
-            param.put("create_at & <=", "'%" + submitTimeEnd + "%'");
+            param.put("create_at & <=", submitTimeEnd);
         }
         
         param.put("@table", "suggestion");
@@ -411,31 +411,31 @@ public class DynamicUtil {
         }
         
         if (!CommonUtil.isEmpty(expiresStart)) {
-            param.put("expires & >=", "'%" + expiresStart + "%'");
+            param.put("expires & >=", expiresStart);
         }
         if (!CommonUtil.isEmpty(expiresEnd)) {
-            param.put("expires & <=", "'%" + expiresEnd + "%'");
+            param.put("expires & <=", expiresEnd);
         }
         
         if (!CommonUtil.isEmpty(debtStartTimeStart)) {
-            param.put("debt_start_time & >=", "'%" + debtStartTimeStart + "%'");
+            param.put("debt_start_time & >=", debtStartTimeStart);
         }
         if (!CommonUtil.isEmpty(debtStartTimeEnd)) {
-            param.put("debt_start_time & <=", "'%" + debtStartTimeEnd + "%'");
+            param.put("debt_start_time & <=", debtStartTimeEnd);
         }
         
         if (!CommonUtil.isEmpty(debtEndTimeStart)) {
-            param.put("debt_end_time & >=", "'%" + debtEndTimeStart + "%'");
+            param.put("debt_end_time & >=", debtEndTimeStart);
         }
         if (!CommonUtil.isEmpty(debtEndTimeEnd)) {
-            param.put("debt_end_time & <=", "'%" + debtEndTimeEnd + "%'");
+            param.put("debt_end_time & <=", debtEndTimeEnd);
         }
         
         if (!CommonUtil.isEmpty(amountStart)) {
-            param.put("amount & >=", "'%" + amountStart + "%'");
+            param.put("amount & >=", amountStart);
         }
         if (!CommonUtil.isEmpty(amountEnd)) {
-            param.put("amount & <=", "'%" + amountEnd + "%'");
+            param.put("amount & <=", amountEnd);
         }
         
         if (!CommonUtil.isEmpty(status)) {
@@ -473,17 +473,17 @@ public class DynamicUtil {
         
         
         if (!CommonUtil.isEmpty(valueDayStart)) {
-            param.put("value_start_day & >=", "'%" + valueDayStart + "%'");
+            param.put("value_start_day & >=", valueDayStart);
         }
         if (!CommonUtil.isEmpty(valueDayEnd)) {
-            param.put("value_start_day & <=", "'%" + valueDayEnd + "%'");
+            param.put("value_start_day & <=", valueDayEnd);
         }
         
         if (!CommonUtil.isEmpty(valueEndDayStart)) {
-            param.put("value_end_day & >=", "'%" + valueEndDayStart + "%'");
+            param.put("value_end_day & >=", valueEndDayStart);
         }
         if (!CommonUtil.isEmpty(valueEndDayEnd)) {
-            param.put("value_end_day & <=", "'%" + valueEndDayEnd + "%'");
+            param.put("value_end_day & <=", valueEndDayEnd);
         }
         
         
@@ -500,15 +500,15 @@ public class DynamicUtil {
         Map<String, Object> param = new HashMap<>();
         
         if (!CommonUtil.isEmpty(createAtStart)) {
-            param.put(" createAt & >=", "'%" + createAtStart + "%'");
+            param.put(" create_at & >=", createAtStart);
         }
         if (!CommonUtil.isEmpty(createAtEnd)) {
-            param.put(" createAt & <=", "'%" + createAtEnd + "%'");
+            param.put(" create_at & <=", createAtEnd);
         }
         
         
         param.put("@table", "invest_record");
-        param.put("@order", "createAt desc");
+        param.put("@order", "create_at desc");
 //        param.put("user_id & =", userId);
         return param;
         

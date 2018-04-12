@@ -64,7 +64,7 @@ public class InvestRecordController {
         try {
             List<Long> ids = investRecordService.getIdsByDynamicCondition(InvestRecord.class, param, start, size);
             List<InvestRecord> investRecordList = investRecordService.getObjectsByIds(ids);
-            List<Long> countIds = investRecordService.getIdsByDynamicCondition(InvestRecord.class, param, start, size);
+            
             Integer total = ids.size();
             
             model.addAttribute("code", 0);

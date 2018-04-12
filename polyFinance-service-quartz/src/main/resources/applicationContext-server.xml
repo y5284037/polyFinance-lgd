@@ -72,7 +72,7 @@
     <!--3. Trigger的配置-->
     <bean id="countProductServiceTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
         <property name="jobDetail" ref="countProductService"/>
-        <property name="cronExpression" value="*/5 * * * * ?"/>
+        <property name="cronExpression" value="0 58 23 * * ? *"/>
     </bean>
 
     <bean id="sendMessageTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">

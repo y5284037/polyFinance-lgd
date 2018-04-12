@@ -194,14 +194,12 @@ public class AdminRoleController {
         JSONObject a = new JSONObject();
         
         log.info("delete adminRole : id= " + id);
-        List<Long> authorityIds = new ArrayList<>();
-        AdminRole adminRoleSave = new AdminRole();
-        List<Authority> authorities = new ArrayList<>();
+        List<Long> authorityIds;
+        
         try {
-            adminRoleSave = adminRoleService.getObjectById(id);
+         
             adminRoleService.delete(id);
             authorityIds = authorityService.getAuthorityIdsByAdminRoleId(id, 0, Integer.MAX_VALUE);
-            authorities = authorityService.getObjectsByIds(authorityIds);
             authorityService.deleteList(Authority.class, authorityIds);
             
             
